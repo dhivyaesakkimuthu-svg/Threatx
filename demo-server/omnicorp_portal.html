@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OmniCorp Staff Portal</title>
+    <style>
+      :root {
+        --primary: #1d5fbf;
+        --primary-dark: #0f3d86;
+        --bg: #f4f7fb;
+        --panel: #ffffff;
+        --card: #eef4ff;
+        --text: #1c2433;
+        --muted: #6c7890;
+        --success: #1f9d61;
+        --warning: #d58a1a;
+        --danger: #d64545;
+        --shadow: 0 10px 25px rgba(17, 36, 84, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      .header {
+        background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+        color: white;
+        padding: 18px 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 6px 18px rgba(19, 73, 156, 0.18);
+      }
+
+      .brand {
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+
+      .sub-brand {
+        color: rgba(255,255,255,0.8);
+        font-size: 0.88rem;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 28px auto 40px;
+        padding: 0 20px;
+      }
+
+      .section-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin: 0 0 18px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+      }
+
+      .card {
+        background: var(--panel);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        padding: 18px;
+        border: 1px solid #e8edf8;
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+        font-size: 1.05rem;
+      }
+
+      .card p {
+        margin: 0 0 16px;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.5;
+      }
+
+      button {
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+      }
+
+      button:hover {
+        background: var(--primary-dark);
+      }
+
+      button.warning {
+        background: var(--warning);
+      }
+
+      button.warning:hover {
+        background: #b56e0c;
+      }
+
+      button.danger {
+        background: var(--danger);
+      }
+
+      button.danger:hover {
+        background: #b72d2d;
+      }
+
+      .terminal {
+        margin-top: 28px;
+        background: #111827;
+        color: #d7ebff;
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        border: 1px solid #1f2d3d;
+      }
+
+      .terminal-header {
+        background: #0d1420;
+        padding: 12px 16px;
+        border-bottom: 1px solid #1f2d3d;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+
+      .terminal-body {
+        max-height: 260px;
+        overflow-y: auto;
+        padding: 14px 16px;
+        font-family: Consolas, monospace;
+        font-size: 0.82rem;
+        line-height: 1.6;
+      }
+
+      .terminal-line {
+        margin: 0 0 4px;
+        white-space: pre-wrap;
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        background: #eaf8f0;
+        color: var(--success);
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+
+      @media (max-width: 640px) {
+        .header {
+          padding: 14px 20px;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div>
+        <div class="brand">OmniCorp Staff Portal</div>
+        <div class="sub-brand">Internal access and activity monitoring</div>
+      </div>
+      <div class="status-pill">System Status: Active</div>
+    </header>
+
+    <main class="container">
+      <h2 class="section-title">Generate Employee Activity</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>User Login (Success)</h3>
+          <p>Create a standard successful login event from a trusted office workstation.</p>
+          <button id="loginSuccessBtn">Trigger Login</button>
+        </div>
+
+        <div class="card">
+          <h3>User Login (Failed / Brute Force)</h3>
+          <p>Simulate five rapid failed login attempts against an account to test suspicious behavior detection.</p>
+          <button id="loginFailedBtn" class="warning">Trigger Brute Force</button>
+        </div>
+
+        <div class="card">
+          <h3>Download Standard Report</h3>
+          <p>Generate routine employee report access for a legitimate business document.</p>
+          <button id="downloadStandardBtn">Simulate Download</button>
+        </div>
+
+        <div class="card">
+          <h3>Download Confidential Database (High Risk)</h3>
+          <p>Simulate access to a sensitive system or database export with elevated risk indicators.</p>
+          <button id="downloadRiskBtn" class="danger">Trigger Risk Event</button>
+        </div>
+
+        <div class="card">
+          <h3>Simulate Suspicious Location Login</h3>
+          <p>Generate a login from a distant country to emulate impossible travel behavior.</p>
+          <button id="suspiciousLoginBtn">Trigger Location Event</button>
+        </div>
+      </div>
+
+      <div class="terminal">
+        <div class="terminal-header">Live Activity Feed</div>
+        <div id="terminalOutput" class="terminal-body"></div>
+      </div>
+    </main>
+
+    <script>
+      const demoServerUrl = 'http://localhost:5001';
+      const terminalOutput = document.getElementById('terminalOutput');
+
+      function logLine(message) {
+        const line = document.createElement('div');
+        line.className = 'terminal-line';
+        line.textContent = message;
+        terminalOutput.appendChild(line);
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      }
+
+      function addTimestampPrefix(label) {
+        const now = new Date();
+        return `[${now.toLocaleTimeString()}] ${label}`;
+      }
+
+      async function sendRequest(url, payload) {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(`HTTP ${res.status}: ${text}`);
+        }
+
+        return res.json();
+      }
+
+      async function actionLoginSuccess() {
+        const payload = {
+          timestamp: new Date().toISOString(),
+          user: 'alice',
+          status: 'success',
+          event_type: 'USER_LOGIN',
+          ip_address: '192.168.1.42',
+          location: 'New York, US',
+          device: 'Windows Chrome',
+          details: 'Successful login to corporate portal.'
+        };
+
+        try {
+          const result = await sendRequest(`${demoServerUrl}/api/simulate/login`, payload);
+          logLine(addTimestampPrefix(`LOGIN_SUCCESS :: ${result.status} :: ${payload.user} :: ${payload.location}`));
+        } catch (err) {
+          logLine(addTimestampPrefix(`LOGIN_SUCCESS :: ERROR :: ${err.message}`));
+        }
+      }
+
+      async function actionLoginFailed() {
+        const invalidUsers = ['alice', 'bob', 'charlie', 'diana', 'admin'];
+
+        for (let i = 0; i < 5; i++) {
+          const user = invalidUsers[i % invalidUsers.length];
+          const payload = {
+            timestamp: new Date().toISOString(),
+            user,
+            status: 'failed',
+            event_type: 'FAILED_LOGIN',
+            ip_address: '198.51.100.14',
+            location: 'Unknown',
+            device: 'Browser Automation',
+            details: 'Failed password attempt; invalid credentials.'
+          };
+
+          try {
+            await sendRequest(`${demoServerUrl}/api/simulate/login`, payload);
+            logLine(addTimestampPrefix(`FAILED_LOGIN :: ${user} :: invalid credentials :: attempt ${i + 1}`));
+          } catch (err) {
+            logLine(addTimestampPrefix(`FAILED_LOGIN :: ERROR :: ${err.message}`));
+          }
+        }
+      }
+
+      async function actionDownloadStandard() {
+        const payload = {
+          timestamp: new Date().toISOString(),
+          username: 'alice',
+          event_type: 'FILE_ACCESS',
+          ip_address: '192.168.1.42',
+          location: 'New York, US',
+          device: 'Windows Chrome',
+          details: 'Downloaded standard HR report /reports/employee-summary.pdf',
+          status: 'success'
+        };
+
+        try {
+          const result = await sendRequest(`${demoServerUrl}/api/simulate/action`, payload);
+          logLine(addTimestampPrefix(`REPORT_DOWNLOAD :: ${result.event.username} :: standard report access`));
+        } catch (err) {
+          logLine(addTimestampPrefix(`REPORT_DOWNLOAD :: ERROR :: ${err.message}`));
+        }
+      }
+
+      async function actionDownloadRisk() {
+        const payload = {
+          timestamp: new Date().toISOString(),
+          username: 'alice',
+          event_type: 'CONFIDENTIAL_FILE_ACCESS',
+          ip_address: '192.168.1.42',
+          location: 'New York, US',
+          device: 'Windows Chrome',
+          details: 'Downloaded confidential database export /db/finance_backup.sql (high risk)',
+          status: 'warning'
+        };
+
+        try {
+          const result = await sendRequest(`${demoServerUrl}/api/simulate/action`, payload);
+          logLine(addTimestampPrefix(`CONFIDENTIAL_DOWNLOAD :: ${result.event.username} :: HIGH RISK :: ${result.event.details}`));
+        } catch (err) {
+          logLine(addTimestampPrefix(`CONFIDENTIAL_DOWNLOAD :: ERROR :: ${err.message}`));
+        }
+      }
+
+      async function actionSuspiciousLocation() {
+        const payload = {
+          timestamp: new Date().toISOString(),
+          user: 'alice',
+          status: 'success',
+          event_type: 'IMPOSSIBLE_TRAVEL',
+          ip_address: '41.215.52.99',
+          location: 'Singapore',
+          device: 'MacOS Safari',
+          details: 'User appears to have logged in from a distant location outside expected travel pattern.'
+        };
+
+        try {
+          const result = await sendRequest(`${demoServerUrl}/api/simulate/login`, payload);
+          logLine(addTimestampPrefix(`IMPOSSIBLE_TRAVEL :: ${payload.user} :: ${payload.location} :: suspicious geolocation`));
+        } catch (err) {
+          logLine(addTimestampPrefix(`IMPOSSIBLE_TRAVEL :: ERROR :: ${err.message}`));
+        }
+      }
+
+      document.getElementById('loginSuccessBtn').addEventListener('click', actionLoginSuccess);
+      document.getElementById('loginFailedBtn').addEventListener('click', actionLoginFailed);
+      document.getElementById('downloadStandardBtn').addEventListener('click', actionDownloadStandard);
+      document.getElementById('downloadRiskBtn').addEventListener('click', actionDownloadRisk);
+      document.getElementById('suspiciousLoginBtn').addEventListener('click', actionSuspiciousLocation);
+
+      logLine(addTimestampPrefix('PORTAL_READY :: OmniCorp Staff Portal loaded successfully'));
+      logLine(addTimestampPrefix('TARGET_ENDPOINT :: http://localhost:5001'));
+    </script>
+  </body>
+</html>

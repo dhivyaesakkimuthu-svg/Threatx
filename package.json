@@ -1,0 +1,31 @@
+{
+  "name": "threatx",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ThreatX - Next-Gen AI-Powered SOC & Threat Intelligence Platform",
+  "scripts": {
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"bgBlue.bold,bgCyan.bold\" \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:all": "concurrently -n \"SERVER,CLIENT,DEMO\" -c \"bgBlue.bold,bgCyan.bold,bgYellow.bold\" \"npm run dev:server\" \"npm run dev:client\" \"npm run demo-server\"",
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "dev:demo": "python demo-server/demo_server.py",
+    "demo-server": "python demo-server/demo_server.py",
+    "demo": "npm run dev:all",
+    "setup:env": "node scripts/setup-env.js",
+    "health": "node scripts/health-check.js",
+    "verify": "node scripts/verify-release.js",
+    "seed": "npm run seed --prefix server",
+    "reset:demo": "npm run reset:demo --prefix server",
+    "test": "npm run test --prefix server",
+    "test:ai": "npm run test:ai --prefix server",
+    "test:auth": "npm run test:auth --prefix server",
+    "build": "npm run build --prefix client && npm run build --prefix server",
+    "build:client": "npm run build --prefix client",
+    "build:server": "npm run build --prefix server",
+    "start": "npm run start --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
