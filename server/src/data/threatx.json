@@ -77,7 +77,7 @@
       "name": "SOC Administrator",
       "username": "admin",
       "email": "admin@threatx.io",
-      "passwordHash": "$2b$10$PSEtit5D5HuK5zVzB8Gq/.2b7Dz9xkWG2kGbrd0kBAUNSKnq0cyZ6",
+      "passwordHash": "$2b$10$8T/qYBKdO1v6AyQ8BNFbv.U2.M47LYGll4b6jw00BK3lGM8kquZpu",
       "role": "admin",
       "status": "active",
       "riskScore": 0,
@@ -88,7 +88,7 @@
       "name": "Lead SOC Analyst",
       "username": "analyst",
       "email": "analyst@threatx.io",
-      "passwordHash": "$2b$10$TcG7X5WKhBKjDroQ9V6p7uy06/DyDVketGVxTRZjzQD.tRqCec.jG",
+      "passwordHash": "$2b$10$1W3Nt97dIGkATq.IOzkFLuM/8q5cD.GPT6RhiApmb2GfWVUiBcSx2",
       "role": "analyst",
       "status": "active",
       "riskScore": 5,
@@ -99,7 +99,7 @@
       "name": "Security Executive Viewer",
       "username": "viewer",
       "email": "viewer@threatx.io",
-      "passwordHash": "$2b$10$Y5xSHmNALxEDhXCZMhqz5eLjlr24SK/aPSCv0zQrxO9XioTtacXXG",
+      "passwordHash": "$2b$10$t/NfPUd8FzEani6mi3LshOpPtBF09dNZC1rhhmEZI..hTmSDGx.jC",
       "role": "viewer",
       "status": "active",
       "riskScore": 0,
@@ -5870,6 +5870,24 @@
       },
       "success": true,
       "timestamp": "2026-09-28T15:49:25.616Z"
+    },
+    {
+      "id": "b0570c42-eb19-47d6-8a1e-88a40db0d5a4",
+      "serverId": "SRV-002",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-28T15:52:19.237Z"
     }
   ],
   "behaviorProfiles": [
@@ -6072,9 +6090,13 @@
       ],
       "restrictedAccessCount": 7,
       "lastLogin": {
-        "ip": "45.33.32.156",
+        "ip": "192.168.2.80",
         "device": "ThinkPad",
-        "timestamp": "2026-09-28T15:47:40.591Z"
+        "timestamp": "2026-09-28T15:52:19.237Z",
+        "location": {
+          "lat": 47.6062,
+          "lng": -122.3321
+        }
       }
     },
     {
