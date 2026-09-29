@@ -26,10 +26,10 @@ export default function App() {
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            {/* Public Login Route */}
+            {/* Authentication Route */}
             <Route path="/login" element={<Login />} />
 
-            {/* Protected SOC Application Routes */}
+            {/* Core Professional SOC Command Center Console */}
             <Route
               element={
                 <ProtectedRoute>
@@ -37,13 +37,13 @@ export default function App() {
                 </ProtectedRoute>
               }
             >
-              <Route index element={<Dashboard />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="intelligence" element={<Intelligence />} />
-              <Route path="threats" element={<Threats />} />
-              <Route path="servers" element={<Servers />} />
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/intelligence" element={<Intelligence />} />
+              <Route path="/threats" element={<Threats />} />
+              <Route path="/servers" element={<Servers />} />
               <Route
-                path="servers/add"
+                path="/servers/add"
                 element={
                   <ProtectedRoute allowedRoles={['admin']}>
                     <AddServer />
@@ -51,16 +51,16 @@ export default function App() {
                 }
               />
               <Route
-                path="sessions"
+                path="/sessions"
                 element={
                   <ProtectedRoute allowedRoles={['admin', 'analyst']}>
                     <Sessions />
                   </ProtectedRoute>
                 }
               />
-              <Route path="analytics" element={<Analytics />} />
+              <Route path="/analytics" element={<Analytics />} />
               <Route
-                path="reports"
+                path="/reports"
                 element={
                   <ProtectedRoute allowedRoles={['admin', 'analyst']}>
                     <Reports />
@@ -68,7 +68,7 @@ export default function App() {
                 }
               />
               <Route
-                path="users"
+                path="/users"
                 element={
                   <ProtectedRoute allowedRoles={['admin']}>
                     <UsersPage />
@@ -76,20 +76,20 @@ export default function App() {
                 }
               />
               <Route
-                path="audit-logs"
+                path="/audit-logs"
                 element={
                   <ProtectedRoute allowedRoles={['admin']}>
                     <AuditLogsPage />
                   </ProtectedRoute>
                 }
               />
-              <Route path="settings" element={<Settings />} />
-              <Route path="alerts" element={<Alerts />} />
-              <Route path="incidents" element={<Incidents />} />
-              <Route path="profile" element={<Profile />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/alerts" element={<Alerts />} />
+              <Route path="/incidents" element={<Incidents />} />
+              <Route path="/profile" element={<Profile />} />
             </Route>
 
-            {/* Catch-all redirect */}
+            {/* Catch-all redirect to Dashboard */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AuthProvider>
@@ -97,3 +97,4 @@ export default function App() {
     </ErrorBoundary>
   );
 }
+

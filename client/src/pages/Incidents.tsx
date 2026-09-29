@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react';
-import { AlertTriangle, Clock, User, ChevronRight, CheckCircle2, UserCheck } from 'lucide-react';
+import { AlertTriangle, Clock, User, ChevronRight, CheckCircle2 } from 'lucide-react';
 import Topbar from '../components/Topbar';
 import RiskBadge from '../components/ui/RiskBadge';
 import ThreatTypeIcon from '../components/ui/ThreatTypeIcon';
 import Button from '../components/ui/Button';
-import { api } from '../api/client';
-import type { Incident } from '../types';
-import { motion, AnimatePresence } from 'framer-motion';
+import { api } from '../services/api';
+import type { Incident, InvestigationEntry } from '../types';
 
 const statusBadgeClasses: Record<string, string> = {
-  open: 'bg-[#FEF2F2] text-[#DC2626] border-[#FEE2E2]',
-  investigating: 'bg-[#FFFBEB] text-[#D97706] border-[#FEF3C7]',
-  resolved: 'bg-[#ECFDF5] text-[#059669] border-[#A7F3D0]',
-  closed: 'bg-[#F8FAFC] text-[#667085] border-[#E4E7EC]',
+  open: 'bg-rose-50 text-rose-500 border-rose-500/40',
+  investigating: 'bg-amber-500/20 text-amber-500 border-amber-500/40',
+  resolved: 'bg-emerald-50 text-emerald-500 border-emerald-500/40',
+  closed: 'bg-gray-100 text-gray-500 border-gray-300',
 };
 
 const ANALYSTS = ['Security Team', 'Admin User', 'Alice Johnson', 'Bob Smith'];
@@ -24,7 +23,7 @@ export default function Incidents() {
   const [filter, setFilter] = useState<string>('');
 
   const fetchIncidents = () => {
-    api.getIncidents(filter || undefined).then(setIncidents).catch(console.error);
+    api.getIncidents(filter || undefined).then((data: Incident[]) => setIncidents(data)).catch(console.error);
   };
 
   useEffect(() => {
@@ -74,226 +73,181 @@ export default function Incidents() {
   const totalResolved = incidents.filter((i) => i.status === 'resolved').length;
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in pb-12">
       <Topbar
         title="Incidents & Investigations"
         subtitle="Track high-risk threat event resolution status and security incident lifecycles"
       />
 
-      {/* Mini summary stats strip */}
+      {/* Mini summary stats strip - Dark Theme */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-4 rounded-xl bg-white border border-[#E4E7EC] shadow-sm flex items-center justify-between border-l-4 border-l-[#DC2626]">
+        <div className="p-5 rounded-2xl bg-white border border-gray-200  shadow-xl flex items-center justify-between border-l-4 border-l-rose-500">
           <div>
-            <p className="text-[11px] font-semibold text-[#667085] uppercase tracking-wider">Open Incidents</p>
-            <p className="text-2xl font-bold text-[#DC2626] mt-1">{totalOpen}</p>
+            <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Open Incidents</p>
+            <p className="text-3xl font-black text-rose-600 font-mono mt-2">{totalOpen}</p>
           </div>
-          <div className="p-2 rounded-lg bg-[#FEF2F2] text-[#DC2626]">
-            <AlertTriangle size={20} />
+          <div className="p-3 rounded-xl bg-rose-50 border border-rose-500/40 text-rose-600">
+            <AlertTriangle size={22} />
           </div>
         </div>
-        <div className="p-4 rounded-xl bg-white border border-[#E4E7EC] shadow-sm flex items-center justify-between border-l-4 border-l-[#D97706]">
+        <div className="p-5 rounded-2xl bg-white border border-gray-200  shadow-xl flex items-center justify-between border-l-4 border-l-amber-500">
           <div>
-            <p className="text-[11px] font-semibold text-[#667085] uppercase tracking-wider">Investigating</p>
-            <p className="text-2xl font-bold text-[#D97706] mt-1">{totalInvestigating}</p>
+            <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Investigating</p>
+            <p className="text-3xl font-black text-amber-600 font-mono mt-2">{totalInvestigating}</p>
           </div>
-          <div className="p-2 rounded-lg bg-[#FFFBEB] text-[#D97706]">
-            <Clock size={20} />
+          <div className="p-3 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-600">
+            <Clock size={22} />
           </div>
         </div>
-        <div className="p-4 rounded-xl bg-white border border-[#E4E7EC] shadow-sm flex items-center justify-between border-l-4 border-l-[#059669]">
+        <div className="p-5 rounded-2xl bg-white border border-gray-200  shadow-xl flex items-center justify-between border-l-4 border-l-emerald-500">
           <div>
-            <p className="text-[11px] font-semibold text-[#667085] uppercase tracking-wider">Resolved Cases</p>
-            <p className="text-2xl font-bold text-[#059669] mt-1">{totalResolved}</p>
+            <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Resolved Cases</p>
+            <p className="text-3xl font-black text-emerald-600 font-mono mt-2">{totalResolved}</p>
           </div>
-          <div className="p-2 rounded-lg bg-[#ECFDF5] text-[#059669]">
-            <CheckCircle2 size={20} />
+          <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-500/40 text-emerald-600">
+            <CheckCircle2 size={22} />
           </div>
         </div>
       </div>
 
-      <div className="flex gap-2">
-        {['', 'open', 'investigating', 'resolved', 'closed'].map((s) => (
-          <button
-            key={s || 'all'}
-            onClick={() => setFilter(s)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all ${
-              filter === s
-                ? 'bg-[#2563EB] text-white shadow-sm'
-                : 'text-[#667085] hover:text-[#172033] bg-white border border-[#E4E7EC]'
-            }`}
-          >
-            {s || 'All Incidents'}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         {/* Incident List */}
         <div className="lg:col-span-2 space-y-3">
-          <AnimatePresence>
-            {incidents.map((inc) => (
-              <motion.div
-                key={inc.id}
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div
-                  className={`bg-white border rounded-xl p-4 cursor-pointer transition-all hover:border-[#2563EB]/40 shadow-sm ${
-                    selected?.id === inc.id ? 'border-[#2563EB] ring-2 ring-[#2563EB]/10' : 'border-[#E4E7EC]'
+          <div className="flex items-center justify-between p-4 bg-white rounded-2xl border border-gray-200  shadow-xl">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-gray-900">Active Case Queue</h3>
+            <div className="flex gap-1.5 bg-gray-50/70 p-1 rounded-xl border border-gray-200">
+              {['', 'open', 'investigating', 'resolved'].map((st) => (
+                <button
+                  key={st}
+                  onClick={() => setFilter(st)}
+                  className={`px-3 py-1 rounded-lg text-xs font-bold capitalize transition-all cursor-pointer ${
+                    filter === st
+                      ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-gray-900 shadow-sm'
+                      : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
                   }`}
-                  onClick={() => openDetail(inc.id)}
                 >
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                      <AlertTriangle size={15} className="text-[#DC2626] shrink-0" />
-                      <RiskBadge level={inc.riskLevel} />
-                    </div>
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold border uppercase ${statusBadgeClasses[inc.status] || ''}`}>
+                  {st || 'All Cases'}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {incidents.map((inc) => (
+            <div
+              key={inc.id}
+              onClick={() => openDetail(inc.id)}
+              className={`p-5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-4 bg-white  shadow-xl hover:border-cyan-500/50 ${
+                selected?.id === inc.id ? 'border-cyan-500 bg-slate-850 shadow-sm' : 'border-gray-200'
+              }`}
+            >
+              <div className="flex items-start gap-3.5">
+                <ThreatTypeIcon type="Security Anomaly" size={20} />
+                <div>
+                  <div className="flex items-center gap-2.5 mb-1 flex-wrap">
+                    <span className="font-bold text-sm text-gray-900">{inc.title}</span>
+                    <span className={`text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full border ${statusBadgeClasses[inc.status] || ''}`}>
                       {inc.status}
                     </span>
+                    <RiskBadge level={inc.riskLevel} />
                   </div>
-                  <h3 className="font-semibold text-sm text-[#172033] truncate">{inc.title}</h3>
-                  <p className="text-xs text-[#667085] line-clamp-2 mt-1 leading-relaxed">{inc.description}</p>
-                  <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-[#F1F4F9] text-[11px] text-[#667085] font-medium">
-                    <span className="flex items-center gap-1"><User size={12} className="text-[#98A2B3]" /> {inc.assignedTo}</span>
-                    <span className="flex items-center gap-1 font-mono"><Clock size={12} className="text-[#98A2B3]" /> {new Date(inc.createdAt).toLocaleDateString()}</span>
+                  <p className="text-xs text-gray-600 mt-1">{inc.description}</p>
+                  <div className="flex items-center gap-4 mt-2 text-xs text-gray-500 font-mono">
+                    <span className="flex items-center gap-1.5"><User size={13} className="text-blue-600" /> {inc.assignedTo}</span>
+                    <span className="flex items-center gap-1.5"><Clock size={13} className="text-blue-600" /> {new Date(inc.createdAt).toLocaleDateString()}</span>
                   </div>
                 </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+              </div>
+              <ChevronRight size={18} className="text-gray-400 shrink-0" />
+            </div>
+          ))}
+
           {incidents.length === 0 && (
-            <div className="bg-white rounded-xl border border-[#E4E7EC] text-center py-12 shadow-sm">
-              <p className="text-[#667085] text-xs font-medium">No incidents found in this filter state</p>
+            <div className="p-16 rounded-2xl bg-white border border-gray-200 text-center text-gray-500 text-xs font-bold">
+              No active security incidents in queue.
             </div>
           )}
         </div>
 
-        {/* Incident Detail Pane */}
-        <div className="lg:col-span-3">
+        {/* Selected Incident Drawer */}
+        <div className="rounded-2xl bg-white border border-gray-200  p-5 shadow-xl space-y-4">
           {selected ? (
-            <div className="bg-white rounded-xl border border-[#E4E7EC] p-5 shadow-sm space-y-5">
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-[#E4E7EC]">
-                <div>
-                  <h3 className="text-base font-bold text-[#172033]">{selected.title}</h3>
-                  <div className="flex items-center gap-2 mt-2">
-                    <RiskBadge level={selected.riskLevel} />
-                    <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold border uppercase ${statusBadgeClasses[selected.status] || ''}`}>
-                      {selected.status}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Analyst assignment selection */}
-                <div className="flex items-center gap-2">
-                  <UserCheck size={14} className="text-[#667085]" />
-                  <select
-                    value={selected.assignedTo}
-                    onChange={(e) => updateAssignment(e.target.value)}
-                    className="px-2.5 py-1.5 rounded-lg bg-white border border-[#E4E7EC] text-xs text-[#172033] font-medium focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                  >
-                    {ANALYSTS.map((a) => (
-                      <option key={a} value={a}>{a}</option>
-                    ))}
-                  </select>
+            <div className="space-y-4">
+              <div className="pb-3 border-b border-gray-200">
+                <span className="text-[10px] text-gray-500 uppercase font-bold font-mono tracking-wider block mb-1">
+                  Incident Case #{selected.id.slice(-6)}
+                </span>
+                <h3 className="font-bold text-base text-gray-900">{selected.title}</h3>
+                <div className="flex gap-2 mt-2">
+                  <span className={`text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full border ${statusBadgeClasses[selected.status] || ''}`}>
+                    {selected.status}
+                  </span>
+                  <RiskBadge level={selected.riskLevel} />
                 </div>
               </div>
 
-              <div className="text-xs text-[#475467] leading-relaxed bg-[#F8FAFC] p-3.5 rounded-lg border border-[#E4E7EC]">
-                {selected.description}
-              </div>
-
-              {/* Status Action Buttons */}
               <div>
-                <h4 className="text-[11px] font-semibold text-[#667085] uppercase tracking-wider mb-2.5">Update Incident Status</h4>
-                <div className="flex flex-wrap gap-2">
-                  {(['open', 'investigating', 'resolved', 'closed'] as const).map((st) => (
-                    <Button
-                      key={st}
-                      variant={selected.status === st ? 'primary' : 'outline'}
-                      size="sm"
-                      onClick={() => updateStatus(st)}
-                      disabled={selected.status === st}
-                    >
-                      {st.toUpperCase()}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Related Threat Events */}
-              {selected.threats && selected.threats.length > 0 && (
-                <div>
-                  <h4 className="text-[11px] font-semibold text-[#667085] uppercase tracking-wider mb-2.5">Associated Threat Payload</h4>
-                  {selected.threats.map((t) => (
-                    <div key={t.id} className="p-3 rounded-lg bg-[#F8FAFC] border border-[#E4E7EC] mb-2 text-xs flex gap-2.5 items-start">
-                      <ThreatTypeIcon type={t.threatType} size={15} />
-                      <div className="flex-1 min-w-0">
-                        <div className="flex justify-between font-mono text-[10px] text-[#667085] mb-1">
-                          <span>IP: {t.ipAddress}</span>
-                          <span>Device: {t.device}</span>
-                        </div>
-                        <p className="text-xs text-[#475467] leading-relaxed">{t.explanation}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Timeline Connector style */}
-              <div>
-                <h4 className="text-[11px] font-semibold text-[#667085] uppercase tracking-wider mb-3">Analyst Case Timeline</h4>
-                <div className="space-y-3 max-h-60 overflow-y-auto pr-2">
-                  {selected.investigationHistory.map((entry) => (
-                    <div key={entry.id} className="flex gap-3">
-                      <div className="flex flex-col items-center shrink-0">
-                        <div className="w-2.5 h-2.5 rounded-full bg-[#2563EB]" />
-                        <div className="w-0.5 flex-1 bg-[#E4E7EC] min-h-[24px]" />
-                      </div>
-                      <div className="flex-1 pb-2">
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="text-xs font-semibold text-[#172033]">{entry.action}</span>
-                          <ChevronRight size={10} className="text-[#98A2B3]" />
-                          <span className="text-[10px] text-[#667085] font-medium bg-[#F1F4F9] px-2 py-0.5 rounded">
-                            {entry.analyst}
-                          </span>
-                        </div>
-                        {entry.notes && (
-                          <p className="text-xs text-[#475467] mt-1 leading-relaxed bg-[#F8FAFC] p-2 rounded border border-[#E4E7EC]">
-                            {entry.notes}
-                          </p>
-                        )}
-                        <p className="text-[10px] text-[#98A2B3] font-mono mt-1">
-                          {new Date(entry.timestamp).toLocaleString()}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Note addition */}
-              <div className="flex gap-2 pt-3 border-t border-[#E4E7EC]">
-                <input
-                  value={note}
-                  onChange={(e) => setNote(e.target.value)}
-                  placeholder="Enter detailed investigation notes..."
-                  className="flex-1 px-3 py-2 rounded-lg bg-white border border-[#E4E7EC] text-xs text-[#172033] placeholder-[#98A2B3] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                />
-                <Button
-                  variant="primary"
-                  size="sm"
-                  onClick={addNote}
+                <label className="text-xs font-bold text-gray-600 uppercase tracking-wider block mb-1.5">Assign Lead Analyst</label>
+                <select
+                  value={selected.assignedTo}
+                  onChange={(e) => updateAssignment(e.target.value)}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs text-gray-900 focus:outline-none focus:border-cyan-500 cursor-pointer"
                 >
-                  Commit Note
-                </Button>
+                  {ANALYSTS.map((a) => (
+                    <option key={a} value={a}>{a}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-gray-600 uppercase tracking-wider block mb-1.5">Lifecycle Status</label>
+                <div className="grid grid-cols-3 gap-1.5">
+                  {(['open', 'investigating', 'resolved'] as const).map((st) => (
+                    <button
+                      key={st}
+                      onClick={() => updateStatus(st)}
+                      className={`py-2 rounded-xl text-xs font-bold capitalize transition-all border cursor-pointer ${
+                        selected.status === st
+                          ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-gray-900 border-cyan-400 shadow-md'
+                          : 'bg-gray-50 text-gray-500 border-gray-200 hover:text-gray-900'
+                      }`}
+                    >
+                      {st}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-bold text-gray-600 uppercase tracking-wider block mb-1.5">Timeline Notes &amp; Findings</label>
+                <div className="space-y-2 max-h-48 overflow-y-auto mb-3 pr-1">
+                  {(selected.investigationHistory || []).map((tl: InvestigationEntry, i: number) => (
+                    <div key={i} className="p-3 bg-gray-50 rounded-xl border border-gray-200 text-xs">
+                      <div className="flex justify-between text-[10px] text-gray-500 font-mono mb-1">
+                        <span className="font-bold text-blue-600">{tl.analyst}</span>
+                        <span>{new Date(tl.timestamp).toLocaleTimeString()}</span>
+                      </div>
+                      <p className="text-gray-700">{tl.notes || tl.action}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex gap-2">
+                  <input
+                    value={note}
+                    onChange={(e) => setNote(e.target.value)}
+                    placeholder="Log analyst observation..."
+                    className="flex-1 px-3.5 py-2 rounded-xl bg-gray-50 border border-gray-200 text-xs text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-cyan-500"
+                    onKeyDown={(e) => e.key === 'Enter' && addNote()}
+                  />
+                  <Button variant="primary" size="sm" onClick={addNote}>
+                    Log
+                  </Button>
+                </div>
               </div>
             </div>
           ) : (
-            <div className="bg-white rounded-xl border border-[#E4E7EC] flex items-center justify-center py-24 shadow-sm">
-              <p className="text-[#667085] text-xs font-medium">Select an incident from the list to view the investigation panel</p>
+            <div className="text-center py-16 text-gray-400 text-xs font-bold">
+              Select an incident from the queue to inspect lifecycle telemetry and log investigation notes.
             </div>
           )}
         </div>

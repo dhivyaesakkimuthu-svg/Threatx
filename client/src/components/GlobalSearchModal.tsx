@@ -85,23 +85,23 @@ export default function GlobalSearchModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-slate-900/40 backdrop-blur-xs animate-fade-in">
-      <div className="w-full max-w-2xl rounded-2xl bg-white border border-[#E4E7EC] shadow-2xl overflow-hidden flex flex-col max-h-[80vh]">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-white/40 backdrop-blur-xs animate-fade-in">
+      <div className="w-full max-w-2xl rounded-2xl bg-white border border-[#E4E7EC] shadow-lg overflow-hidden flex flex-col max-h-[80vh]">
         {/* Search Input Bar */}
         <div className="p-3.5 border-b border-slate-100 flex items-center gap-3 bg-white">
-          <Search size={18} className="text-slate-400 shrink-0" />
+          <Search size={18} className="text-gray-500 shrink-0" />
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search across threats, alerts, servers, sessions, or IP addresses..."
-            className="w-full bg-transparent border-none text-slate-900 placeholder:text-slate-400 text-sm focus:outline-none"
+            className="w-full bg-transparent border-none text-slate-900 placeholder:text-gray-500 text-sm focus:outline-none"
           />
           {loading && <Loader2 size={16} className="animate-spin text-blue-600 shrink-0" />}
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer"
+            className="p-1 rounded-lg text-gray-500 hover:text-slate-700 hover:bg-slate-100 cursor-pointer"
             aria-label="Close search"
           >
             <X size={18} />
@@ -111,15 +111,15 @@ export default function GlobalSearchModal({
         {/* Results Container */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4 text-xs">
           {query.trim() === '' ? (
-            <div className="text-center py-10 text-slate-400">
-              <Terminal size={24} className="mx-auto mb-2 text-slate-400" />
+            <div className="text-center py-10 text-gray-500">
+              <Terminal size={24} className="mx-auto mb-2 text-gray-500" />
               <p className="font-semibold text-slate-700">Global ThreatX SOC Search</p>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-gray-500 mt-0.5">
                 Type an IP (e.g. 192.168.1.20), Threat ID (THR-001), Alert, or Server name
               </p>
             </div>
           ) : results.total === 0 && !loading ? (
-            <div className="text-center py-10 text-slate-500">
+            <div className="text-center py-10 text-gray-400">
               No matching records found for "{query}"
             </div>
           ) : (
@@ -144,9 +144,9 @@ export default function GlobalSearchModal({
                         <div className="flex items-center gap-2.5">
                           <span className="font-mono text-slate-900 font-bold text-xs">{t.threatId || t.id}</span>
                           <span className="text-slate-800 font-semibold">{t.type || t.threatType}</span>
-                          <span className="text-slate-400 font-mono text-[11px]">• {t.source || t.ipAddress}</span>
+                          <span className="text-gray-500 font-mono text-[11px]">• {t.source || t.ipAddress}</span>
                         </div>
-                        <ExternalLink size={13} className="text-slate-400 group-hover:text-blue-600" />
+                        <ExternalLink size={13} className="text-gray-500 group-hover:text-blue-600" />
                       </div>
                     ))}
                   </div>
@@ -172,7 +172,7 @@ export default function GlobalSearchModal({
                         <div className="flex items-center gap-2.5">
                           <span className="font-mono text-slate-900 font-bold text-xs">{a.alertId || a.id}</span>
                           <span className="text-slate-800 font-semibold">{a.title}</span>
-                          <span className="text-slate-400 font-mono text-[11px]">• {a.source}</span>
+                          <span className="text-gray-500 font-mono text-[11px]">• {a.source}</span>
                         </div>
                         <StatusBadge status={a.status || 'open'} size="sm" />
                       </div>
@@ -201,7 +201,7 @@ export default function GlobalSearchModal({
                         <div className="flex items-center gap-2.5">
                           <span className="font-mono text-slate-900 font-bold text-xs">{s.serverId || s.id}</span>
                           <span className="text-slate-800 font-semibold">{s.name}</span>
-                          <span className="text-slate-400 font-mono text-[11px]">• {s.ipAddress}</span>
+                          <span className="text-gray-500 font-mono text-[11px]">• {s.ipAddress}</span>
                         </div>
                         <StatusBadge status={s.status || 'online'} size="sm" />
                       </div>
@@ -229,7 +229,7 @@ export default function GlobalSearchModal({
                         <div className="flex items-center gap-2.5">
                           <span className="font-mono text-slate-900 font-bold text-xs">{sess.sessionId}</span>
                           <span className="text-slate-800 font-semibold">{sess.username}</span>
-                          <span className="text-slate-400 font-mono text-[11px]">• {sess.sourceIp || sess.ipAddress}</span>
+                          <span className="text-gray-500 font-mono text-[11px]">• {sess.sourceIp || sess.ipAddress}</span>
                         </div>
                         <StatusBadge status={sess.status || 'active'} size="sm" />
                       </div>
@@ -242,7 +242,7 @@ export default function GlobalSearchModal({
         </div>
 
         {/* Footer */}
-        <div className="p-2.5 border-t border-slate-100 bg-slate-50 flex items-center justify-between text-[11px] text-slate-400">
+        <div className="p-2.5 border-t border-slate-100 bg-slate-50 flex items-center justify-between text-[11px] text-gray-500">
           <span>Press <kbd className="px-1 py-0.5 rounded bg-white border border-slate-200 text-slate-600 font-mono text-[10px]">Esc</kbd> to close</span>
           <span>ThreatX Search Engine</span>
         </div>

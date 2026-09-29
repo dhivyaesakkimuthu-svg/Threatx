@@ -77,7 +77,7 @@
       "name": "SOC Administrator",
       "username": "admin",
       "email": "admin@threatx.io",
-      "passwordHash": "$2b$10$8T/qYBKdO1v6AyQ8BNFbv.U2.M47LYGll4b6jw00BK3lGM8kquZpu",
+      "passwordHash": "$2b$10$qEKdZPaLHqxpe5chaaV6SO.Pa4cIcFQjw/rRDwWo1GMXsS/TyS1ai",
       "role": "admin",
       "status": "active",
       "riskScore": 0,
@@ -88,7 +88,7 @@
       "name": "Lead SOC Analyst",
       "username": "analyst",
       "email": "analyst@threatx.io",
-      "passwordHash": "$2b$10$1W3Nt97dIGkATq.IOzkFLuM/8q5cD.GPT6RhiApmb2GfWVUiBcSx2",
+      "passwordHash": "$2b$10$ypWsPA5LfHtSmRAKCMATbOk3.vylesW02lulgLNRvoWGLl2RjTiZ2",
       "role": "analyst",
       "status": "active",
       "riskScore": 5,
@@ -99,7 +99,7 @@
       "name": "Security Executive Viewer",
       "username": "viewer",
       "email": "viewer@threatx.io",
-      "passwordHash": "$2b$10$t/NfPUd8FzEani6mi3LshOpPtBF09dNZC1rhhmEZI..hTmSDGx.jC",
+      "passwordHash": "$2b$10$d4v8Y0zeqURty/KJwEYBk.vrNxgi13jd4xPkt5QIDbAE30XQFhX4i",
       "role": "viewer",
       "status": "active",
       "riskScore": 0,
@@ -164,6 +164,276 @@
     }
   ],
   "threats": [
+    {
+      "id": "92fd2208-8a88-44a2-b3b8-c5556f596c1e",
+      "threatId": "THR-92FD22",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "192.168.1.10",
+      "ipAddress": "192.168.1.10",
+      "target": "SRV-003",
+      "serverId": "SRV-003",
+      "serverName": "Database Primary Replica",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "device": "MacBook Pro",
+      "status": "investigating",
+      "description": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 5 restricted access attempts recorded.",
+      "explanation": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 5 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T10:25:55.130Z",
+      "timestamp": "2026-09-29T10:25:55.130Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/hr/private/investigation.pdf",
+      "acknowledged": false
+    },
+    {
+      "id": "5e6b048a-6179-449a-84ce-eb7e785aed2a",
+      "threatId": "THR-5E6B04",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "10.0.0.45",
+      "ipAddress": "10.0.0.45",
+      "target": "SRV-002",
+      "serverId": "SRV-002",
+      "serverName": "Production Edge Gateway",
+      "userId": "u2",
+      "username": "bob.smith",
+      "device": "Windows Desktop",
+      "status": "investigating",
+      "description": "User \"bob.smith\" accessed restricted folder: /hr/private/investigation.pdf. 6 restricted access attempts recorded.",
+      "explanation": "User \"bob.smith\" accessed restricted folder: /hr/private/investigation.pdf. 6 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T10:06:37.351Z",
+      "timestamp": "2026-09-29T10:06:37.351Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/hr/private/investigation.pdf",
+      "acknowledged": false
+    },
+    {
+      "id": "87725351-9b14-4cbe-8274-0fccc9b86dad",
+      "threatId": "THR-877253",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "10.0.0.45",
+      "ipAddress": "10.0.0.45",
+      "target": "SRV-001",
+      "serverId": "SRV-001",
+      "serverName": "ThreatX Demo Server",
+      "userId": "u2",
+      "username": "bob.smith",
+      "device": "Windows Desktop",
+      "status": "investigating",
+      "description": "User \"bob.smith\" accessed restricted folder: /admin/secrets/master.key. 5 restricted access attempts recorded.",
+      "explanation": "User \"bob.smith\" accessed restricted folder: /admin/secrets/master.key. 5 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T09:59:37.232Z",
+      "timestamp": "2026-09-29T09:59:37.232Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/admin/secrets/master.key",
+      "acknowledged": false
+    },
+    {
+      "id": "d2b40036-61ad-497b-897d-b49b2bbd7fb3",
+      "threatId": "THR-D2B400",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "192.168.1.10",
+      "ipAddress": "192.168.1.10",
+      "target": "SRV-002",
+      "serverId": "SRV-002",
+      "serverName": "Production Edge Gateway",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "device": "MacBook Pro",
+      "status": "investigating",
+      "description": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 4 restricted access attempts recorded.",
+      "explanation": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 4 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T09:54:57.106Z",
+      "timestamp": "2026-09-29T09:54:57.106Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/hr/private/investigation.pdf",
+      "acknowledged": false
+    },
+    {
+      "id": "ec7e12d7-1bb0-47cc-a21e-dd7b061858cc",
+      "threatId": "THR-EC7E12",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "172.16.0.22",
+      "ipAddress": "172.16.0.22",
+      "target": "SRV-002",
+      "serverId": "SRV-002",
+      "serverName": "Production Edge Gateway",
+      "userId": "u3",
+      "username": "carol.williams",
+      "device": "iPhone 15",
+      "status": "investigating",
+      "description": "User \"carol.williams\" accessed restricted folder: /admin/secrets/master.key. 6 restricted access attempts recorded.",
+      "explanation": "User \"carol.williams\" accessed restricted folder: /admin/secrets/master.key. 6 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T09:41:51.820Z",
+      "timestamp": "2026-09-29T09:41:51.820Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/admin/secrets/master.key",
+      "acknowledged": false
+    },
+    {
+      "id": "7992d8cc-d294-43c5-a554-cdcfbf7bbcc7",
+      "threatId": "THR-7992D8",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "172.16.0.22",
+      "ipAddress": "172.16.0.22",
+      "target": "SRV-002",
+      "serverId": "SRV-002",
+      "serverName": "Production Edge Gateway",
+      "userId": "u3",
+      "username": "carol.williams",
+      "device": "iPhone 15",
+      "status": "investigating",
+      "description": "User \"carol.williams\" accessed restricted folder: /confidential/payroll.xlsx. 5 restricted access attempts recorded.",
+      "explanation": "User \"carol.williams\" accessed restricted folder: /confidential/payroll.xlsx. 5 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T09:38:21.768Z",
+      "timestamp": "2026-09-29T09:38:21.768Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/confidential/payroll.xlsx",
+      "acknowledged": false
+    },
+    {
+      "id": "458866d0-f7b7-4044-9fc2-74ea0900023f",
+      "threatId": "THR-458866",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "192.168.1.10",
+      "ipAddress": "192.168.1.10",
+      "target": "SRV-002",
+      "serverId": "SRV-002",
+      "serverName": "Production Edge Gateway",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "device": "MacBook Pro",
+      "status": "investigating",
+      "description": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 3 restricted access attempts recorded.",
+      "explanation": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 3 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T09:37:46.766Z",
+      "timestamp": "2026-09-29T09:37:46.766Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/hr/private/investigation.pdf",
+      "acknowledged": false
+    },
+    {
+      "id": "57402891-f749-47ea-beb3-e1a002a3fb4b",
+      "threatId": "THR-574028",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "192.168.2.80",
+      "ipAddress": "192.168.2.80",
+      "target": "SRV-003",
+      "serverId": "SRV-003",
+      "serverName": "Database Primary Replica",
+      "userId": "u4",
+      "username": "dave.chen",
+      "device": "ThinkPad",
+      "status": "investigating",
+      "description": "User \"dave.chen\" accessed restricted folder: /finance/reports/q4-earnings.xlsx. 8 restricted access attempts recorded.",
+      "explanation": "User \"dave.chen\" accessed restricted folder: /finance/reports/q4-earnings.xlsx. 8 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T09:32:31.400Z",
+      "timestamp": "2026-09-29T09:32:31.400Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/finance/reports/q4-earnings.xlsx",
+      "acknowledged": false
+    },
+    {
+      "id": "88c7b48c-48bd-4507-8401-7b6409306f52",
+      "threatId": "THR-88C7B4",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "10.0.0.99",
+      "ipAddress": "10.0.0.99",
+      "target": "SRV-001",
+      "serverId": "SRV-001",
+      "serverName": "ThreatX Demo Server",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "device": "MacBook Air",
+      "status": "investigating",
+      "description": "User \"eve.garcia\" accessed restricted folder: /admin/secrets/master.key. 5 restricted access attempts recorded.",
+      "explanation": "User \"eve.garcia\" accessed restricted folder: /admin/secrets/master.key. 5 restricted access attempts recorded.",
+      "detectedAt": "2026-09-28T15:53:29.246Z",
+      "timestamp": "2026-09-28T15:53:29.246Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/admin/secrets/master.key",
+      "acknowledged": false
+    },
     {
       "id": "36b8a5b8-d37a-4e43-8a79-d623710570c6",
       "threatId": "THR-36B8A5",
@@ -821,6 +1091,141 @@
     }
   ],
   "alerts": [
+    {
+      "id": "38df02f8-e9f1-4fd7-8bf5-a26e6e111674",
+      "alertId": "ALT-4DB210",
+      "threatEventId": "92fd2208-8a88-44a2-b3b8-c5556f596c1e",
+      "threatId": "THR-92FD22",
+      "title": "High Risk: restricted folder access",
+      "message": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 5 restricted access attempts recorded.",
+      "severity": "critical",
+      "riskLevel": "High",
+      "source": "192.168.1.10",
+      "target": "SRV-003",
+      "status": "open",
+      "read": false,
+      "createdAt": "2026-09-29T10:25:55.130Z"
+    },
+    {
+      "id": "94470d0c-76be-4261-823e-1923a158c08b",
+      "alertId": "ALT-9CFA0F",
+      "threatEventId": "5e6b048a-6179-449a-84ce-eb7e785aed2a",
+      "threatId": "THR-5E6B04",
+      "title": "High Risk: restricted folder access",
+      "message": "User \"bob.smith\" accessed restricted folder: /hr/private/investigation.pdf. 6 restricted access attempts recorded.",
+      "severity": "critical",
+      "riskLevel": "High",
+      "source": "10.0.0.45",
+      "target": "SRV-002",
+      "status": "open",
+      "read": false,
+      "createdAt": "2026-09-29T10:06:37.351Z"
+    },
+    {
+      "id": "db185370-0836-4d44-8203-9c4eaf6f82c0",
+      "alertId": "ALT-973A9E",
+      "threatEventId": "87725351-9b14-4cbe-8274-0fccc9b86dad",
+      "threatId": "THR-877253",
+      "title": "High Risk: restricted folder access",
+      "message": "User \"bob.smith\" accessed restricted folder: /admin/secrets/master.key. 5 restricted access attempts recorded.",
+      "severity": "critical",
+      "riskLevel": "High",
+      "source": "10.0.0.45",
+      "target": "SRV-001",
+      "status": "open",
+      "read": false,
+      "createdAt": "2026-09-29T09:59:37.232Z"
+    },
+    {
+      "id": "b5e134a3-fecc-4b14-9c62-9076084850d7",
+      "alertId": "ALT-9F12B2",
+      "threatEventId": "d2b40036-61ad-497b-897d-b49b2bbd7fb3",
+      "threatId": "THR-D2B400",
+      "title": "High Risk: restricted folder access",
+      "message": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 4 restricted access attempts recorded.",
+      "severity": "critical",
+      "riskLevel": "High",
+      "source": "192.168.1.10",
+      "target": "SRV-002",
+      "status": "open",
+      "read": false,
+      "createdAt": "2026-09-29T09:54:57.106Z"
+    },
+    {
+      "id": "64c39243-a5b9-41b5-bba8-ca41f4d7e418",
+      "alertId": "ALT-EB93C5",
+      "threatEventId": "ec7e12d7-1bb0-47cc-a21e-dd7b061858cc",
+      "threatId": "THR-EC7E12",
+      "title": "High Risk: restricted folder access",
+      "message": "User \"carol.williams\" accessed restricted folder: /admin/secrets/master.key. 6 restricted access attempts recorded.",
+      "severity": "critical",
+      "riskLevel": "High",
+      "source": "172.16.0.22",
+      "target": "SRV-002",
+      "status": "open",
+      "read": false,
+      "createdAt": "2026-09-29T09:41:51.820Z"
+    },
+    {
+      "id": "39e686f9-ae5e-4a3c-b970-8b133dc2a84d",
+      "alertId": "ALT-65CE9B",
+      "threatEventId": "7992d8cc-d294-43c5-a554-cdcfbf7bbcc7",
+      "threatId": "THR-7992D8",
+      "title": "High Risk: restricted folder access",
+      "message": "User \"carol.williams\" accessed restricted folder: /confidential/payroll.xlsx. 5 restricted access attempts recorded.",
+      "severity": "critical",
+      "riskLevel": "High",
+      "source": "172.16.0.22",
+      "target": "SRV-002",
+      "status": "open",
+      "read": false,
+      "createdAt": "2026-09-29T09:38:21.768Z"
+    },
+    {
+      "id": "55b454b4-4d09-4023-b56c-c4670448a916",
+      "alertId": "ALT-C1E240",
+      "threatEventId": "458866d0-f7b7-4044-9fc2-74ea0900023f",
+      "threatId": "THR-458866",
+      "title": "High Risk: restricted folder access",
+      "message": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 3 restricted access attempts recorded.",
+      "severity": "critical",
+      "riskLevel": "High",
+      "source": "192.168.1.10",
+      "target": "SRV-002",
+      "status": "open",
+      "read": false,
+      "createdAt": "2026-09-29T09:37:46.766Z"
+    },
+    {
+      "id": "47608463-34e8-4085-8f10-4aa816d4efc4",
+      "alertId": "ALT-EC3769",
+      "threatEventId": "57402891-f749-47ea-beb3-e1a002a3fb4b",
+      "threatId": "THR-574028",
+      "title": "High Risk: restricted folder access",
+      "message": "User \"dave.chen\" accessed restricted folder: /finance/reports/q4-earnings.xlsx. 8 restricted access attempts recorded.",
+      "severity": "critical",
+      "riskLevel": "High",
+      "source": "192.168.2.80",
+      "target": "SRV-003",
+      "status": "open",
+      "read": false,
+      "createdAt": "2026-09-29T09:32:31.400Z"
+    },
+    {
+      "id": "9b5d34c8-178a-409f-9cf9-d0b2e744e060",
+      "alertId": "ALT-A97659",
+      "threatEventId": "88c7b48c-48bd-4507-8401-7b6409306f52",
+      "threatId": "THR-88C7B4",
+      "title": "High Risk: restricted folder access",
+      "message": "User \"eve.garcia\" accessed restricted folder: /admin/secrets/master.key. 5 restricted access attempts recorded.",
+      "severity": "critical",
+      "riskLevel": "High",
+      "source": "10.0.0.99",
+      "target": "SRV-001",
+      "status": "open",
+      "read": false,
+      "createdAt": "2026-09-28T15:53:29.246Z"
+    },
     {
       "id": "1c2006f1-d9fa-4778-b0c9-b9db66800cf6",
       "alertId": "ALT-47EF25",
@@ -5888,6 +6293,1686 @@
       },
       "success": true,
       "timestamp": "2026-09-28T15:52:19.237Z"
+    },
+    {
+      "id": "8b46e9e1-718b-493b-9f81-eb4d87152e5b",
+      "serverId": "SRV-001",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "login",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-28T15:52:54.245Z"
+    },
+    {
+      "id": "aba45391-2e84-4bfe-b86e-fdd3f83d1714",
+      "serverId": "SRV-001",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "file_access",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "filePath": "/admin/secrets/master.key",
+      "success": true,
+      "timestamp": "2026-09-28T15:53:29.246Z"
+    },
+    {
+      "id": "a9785b47-01e8-4de4-8d0d-e872839798f2",
+      "serverId": "SRV-003",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "login",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-28T15:54:04.251Z"
+    },
+    {
+      "id": "b78de3c8-fb1d-4295-9841-a4648cfc81f6",
+      "serverId": "SRV-001",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "file_access",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-0.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T09:30:11.357Z"
+    },
+    {
+      "id": "5d59d677-7947-4cd1-ad63-18c108f9fa16",
+      "serverId": "SRV-002",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:30:46.367Z"
+    },
+    {
+      "id": "df70a786-bdfa-4c68-bbbf-593bb9098636",
+      "serverId": "SRV-001",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "eventType": "file_access",
+      "ipAddress": "192.168.1.10",
+      "device": "MacBook Pro",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 40.7128,
+        "lng": -74.006,
+        "city": "New York",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-9.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T09:31:21.374Z"
+    },
+    {
+      "id": "52e6cf3f-e0f3-4629-b414-69605e5f99d5",
+      "serverId": "SRV-003",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "file_access",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-2.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T09:31:56.386Z"
+    },
+    {
+      "id": "88f9f394-7dc3-4c26-9cba-382b4f1f1d99",
+      "serverId": "SRV-003",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "file_access",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "filePath": "/finance/reports/q4-earnings.xlsx",
+      "success": true,
+      "timestamp": "2026-09-29T09:32:31.400Z"
+    },
+    {
+      "id": "a659f8d4-c116-4da4-9b73-77d838bbf534",
+      "serverId": "SRV-001",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "eventType": "login",
+      "ipAddress": "192.168.1.10",
+      "device": "MacBook Pro",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 40.7128,
+        "lng": -74.006,
+        "city": "New York",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:33:06.410Z"
+    },
+    {
+      "id": "4460ed03-173d-4768-9ea6-ff78af366502",
+      "serverId": "SRV-002",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "login",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:33:41.426Z"
+    },
+    {
+      "id": "b5dd5ff8-cc89-4f6c-b0b2-b6cb39572c6f",
+      "serverId": "SRV-003",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "login",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:34:16.730Z"
+    },
+    {
+      "id": "3690c043-5e69-4ceb-8828-370c29e8f7fc",
+      "serverId": "SRV-003",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:34:51.731Z"
+    },
+    {
+      "id": "02a167b4-55f1-4361-a173-65cf405e40a6",
+      "serverId": "SRV-003",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "login",
+      "ipAddress": "10.0.0.45",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 41.8781,
+        "lng": -87.6298,
+        "city": "Chicago",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:35:26.732Z"
+    },
+    {
+      "id": "72944f13-fd77-4325-a714-27d12980149f",
+      "serverId": "SRV-001",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "login",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:36:01.733Z"
+    },
+    {
+      "id": "ac1c0e31-e2f2-4e61-86b5-066835cfc408",
+      "serverId": "SRV-002",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:36:36.741Z"
+    },
+    {
+      "id": "d506cc58-9d25-4836-8090-382e82983f7b",
+      "serverId": "SRV-003",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:37:11.758Z"
+    },
+    {
+      "id": "7082fd79-8bc9-4420-9572-8b9c71b4be66",
+      "serverId": "SRV-002",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "eventType": "file_access",
+      "ipAddress": "192.168.1.10",
+      "device": "MacBook Pro",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "filePath": "/hr/private/investigation.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T09:37:46.766Z"
+    },
+    {
+      "id": "d264cc53-6584-4076-a7b3-fef640b844e5",
+      "serverId": "SRV-002",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "file_access",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "filePath": "/confidential/payroll.xlsx",
+      "success": true,
+      "timestamp": "2026-09-29T09:38:21.768Z"
+    },
+    {
+      "id": "f81b837f-c0d0-4571-ae64-5ea414024037",
+      "serverId": "SRV-003",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "45.33.32.156",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "success": true,
+      "timestamp": "2026-09-29T09:38:56.788Z"
+    },
+    {
+      "id": "deb6057f-d7db-4768-bbaf-550e382e4ee4",
+      "serverId": "SRV-001",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:39:31.796Z"
+    },
+    {
+      "id": "935e24c0-4e53-4381-9b8f-5dc32a9e61e5",
+      "serverId": "SRV-002",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "login",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:40:06.798Z"
+    },
+    {
+      "id": "1a2f37bd-d46c-4bed-897b-27c61ebf0df3",
+      "serverId": "SRV-001",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:40:41.804Z"
+    },
+    {
+      "id": "7362680c-43d6-4a84-addd-5a5cc8c92246",
+      "serverId": "SRV-002",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "login",
+      "ipAddress": "88.198.22.4",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "success": true,
+      "timestamp": "2026-09-29T09:41:16.820Z"
+    },
+    {
+      "id": "d16b8186-ebd6-4fc7-9f1c-8246313cf304",
+      "serverId": "SRV-002",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "file_access",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "filePath": "/admin/secrets/master.key",
+      "success": true,
+      "timestamp": "2026-09-29T09:41:51.820Z"
+    },
+    {
+      "id": "88edf894-7eec-41f5-814e-c46fe6fb07a9",
+      "serverId": "SRV-001",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "login",
+      "ipAddress": "10.0.0.45",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 41.8781,
+        "lng": -87.6298,
+        "city": "Chicago",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:42:26.826Z"
+    },
+    {
+      "id": "f6c2f7e4-7f42-4bb6-8b33-b68caa48d39f",
+      "serverId": "SRV-002",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "login",
+      "ipAddress": "10.0.0.45",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 41.8781,
+        "lng": -87.6298,
+        "city": "Chicago",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:43:01.835Z"
+    },
+    {
+      "id": "4cac4f88-aae5-4ac4-b042-7a2b410ebf32",
+      "serverId": "SRV-001",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "login",
+      "ipAddress": "10.0.0.45",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 41.8781,
+        "lng": -87.6298,
+        "city": "Chicago",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:43:36.839Z"
+    },
+    {
+      "id": "4776c0a2-ea62-4760-9005-8fa19dd973a6",
+      "serverId": "SRV-003",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "file_access",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-4.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T09:44:11.844Z"
+    },
+    {
+      "id": "89098923-4068-4f84-9d8f-51b58daf4e91",
+      "serverId": "SRV-003",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "file_access",
+      "ipAddress": "10.0.0.45",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 41.8781,
+        "lng": -87.6298,
+        "city": "Chicago",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-4.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T09:44:46.859Z"
+    },
+    {
+      "id": "1543daa5-0c25-4d92-8d3d-49207164e060",
+      "serverId": "SRV-003",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "login",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:45:21.865Z"
+    },
+    {
+      "id": "5d3d1b4b-da5c-496a-825b-d8c050ae58be",
+      "serverId": "SRV-003",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "file_access",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-5.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T09:45:56.875Z"
+    },
+    {
+      "id": "81226ff9-58cd-411d-83f4-10248a053069",
+      "serverId": "SRV-002",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "file_access",
+      "ipAddress": "10.0.0.45",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 41.8781,
+        "lng": -87.6298,
+        "city": "Chicago",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-9.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T09:46:31.876Z"
+    },
+    {
+      "id": "53ae44d5-9735-4733-8585-520544fe6721",
+      "serverId": "SRV-001",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "failed_login",
+      "ipAddress": "185.220.101.5",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "success": false,
+      "timestamp": "2026-09-29T09:47:06.888Z"
+    },
+    {
+      "id": "5c0da6d5-d81c-4db1-a857-166137236e6a",
+      "serverId": "SRV-002",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "file_access",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-8.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T09:47:41.898Z"
+    },
+    {
+      "id": "0c17fd39-394e-4383-baf2-40e21042e4ac",
+      "serverId": "SRV-001",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:48:16.908Z"
+    },
+    {
+      "id": "68295be6-2549-49de-a84a-bfa1b702147e",
+      "serverId": "SRV-001",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "login",
+      "ipAddress": "10.0.0.45",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 41.8781,
+        "lng": -87.6298,
+        "city": "Chicago",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:49:15.642Z"
+    },
+    {
+      "id": "672e37f8-123f-4b12-83cc-04ce75e8c332",
+      "serverId": "SRV-002",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "login",
+      "ipAddress": "45.33.32.156",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "success": true,
+      "timestamp": "2026-09-29T09:49:50.649Z"
+    },
+    {
+      "id": "127ff7c4-9444-42ed-8678-d93593be8eb4",
+      "serverId": "SRV-003",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "eventType": "file_access",
+      "ipAddress": "192.168.1.10",
+      "device": "MacBook Pro",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 40.7128,
+        "lng": -74.006,
+        "city": "New York",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-2.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T09:50:25.655Z"
+    },
+    {
+      "id": "7989c708-face-4582-8cf1-257c030d221b",
+      "serverId": "SRV-003",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "login",
+      "ipAddress": "88.198.22.4",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "success": true,
+      "timestamp": "2026-09-29T09:51:00.656Z"
+    },
+    {
+      "id": "34d491ba-2581-4319-8664-b0459ac48ced",
+      "serverId": "SRV-003",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "login",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:52:06.785Z"
+    },
+    {
+      "id": "3ca423c8-155b-4547-babe-01e262489ca4",
+      "serverId": "SRV-002",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "login",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:52:41.787Z"
+    },
+    {
+      "id": "e77a2979-2ae1-4178-90ea-1304a9551ad1",
+      "serverId": "SRV-003",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "file_access",
+      "ipAddress": "10.0.0.45",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 41.8781,
+        "lng": -87.6298,
+        "city": "Chicago",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-0.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T09:53:47.090Z"
+    },
+    {
+      "id": "d2be8b93-5c30-473b-83e6-92348035d9a6",
+      "serverId": "SRV-003",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "login",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:54:22.097Z"
+    },
+    {
+      "id": "4668ae38-0b4b-4b8c-9864-ff93e9a37609",
+      "serverId": "SRV-002",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "eventType": "file_access",
+      "ipAddress": "192.168.1.10",
+      "device": "MacBook Pro",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "filePath": "/hr/private/investigation.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T09:54:57.106Z"
+    },
+    {
+      "id": "fd3bfad7-8858-4800-9e0a-55ef0bb89d24",
+      "serverId": "SRV-002",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "eventType": "login",
+      "ipAddress": "192.168.1.10",
+      "device": "MacBook Pro",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 40.7128,
+        "lng": -74.006,
+        "city": "New York",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:55:32.112Z"
+    },
+    {
+      "id": "3b6ae8b3-33e5-4589-97e0-34625c4f79c3",
+      "serverId": "SRV-002",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "eventType": "login",
+      "ipAddress": "88.198.22.4",
+      "device": "MacBook Pro",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "success": true,
+      "timestamp": "2026-09-29T09:56:07.182Z"
+    },
+    {
+      "id": "e361722d-ebd5-418b-9b9e-bbfea847e9d4",
+      "serverId": "SRV-001",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "login",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:56:42.185Z"
+    },
+    {
+      "id": "162b21b4-081f-488e-9362-88ad4cd8223e",
+      "serverId": "SRV-002",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "file_access",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-9.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T09:57:17.186Z"
+    },
+    {
+      "id": "ac28fa0c-7ade-41a6-9e31-aebef1a22ece",
+      "serverId": "SRV-002",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "eventType": "file_access",
+      "ipAddress": "192.168.1.10",
+      "device": "MacBook Pro",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 40.7128,
+        "lng": -74.006,
+        "city": "New York",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-7.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T09:57:52.184Z"
+    },
+    {
+      "id": "13dab108-c369-4d07-a95a-7f3e2169bb04",
+      "serverId": "SRV-002",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:58:27.199Z"
+    },
+    {
+      "id": "a4a28e28-dc8d-4a81-9a54-216dd7a1d197",
+      "serverId": "SRV-003",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T09:59:02.214Z"
+    },
+    {
+      "id": "0ac8ef43-605f-44fd-8708-46af2b647d15",
+      "serverId": "SRV-001",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "file_access",
+      "ipAddress": "10.0.0.45",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "filePath": "/admin/secrets/master.key",
+      "success": true,
+      "timestamp": "2026-09-29T09:59:37.232Z"
+    },
+    {
+      "id": "b64b9dff-ee69-4b6f-9832-fdf852d0b0c9",
+      "serverId": "SRV-003",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "login",
+      "ipAddress": "45.33.32.156",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "success": true,
+      "timestamp": "2026-09-29T10:00:12.246Z"
+    },
+    {
+      "id": "3856aeeb-9e2c-40a8-a1a6-9989b192426b",
+      "serverId": "SRV-002",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "login",
+      "ipAddress": "45.33.32.156",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "success": true,
+      "timestamp": "2026-09-29T10:00:47.253Z"
+    },
+    {
+      "id": "3a67b98c-8cc1-46a6-8935-410341af88cf",
+      "serverId": "SRV-002",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "file_access",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-7.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:01:22.255Z"
+    },
+    {
+      "id": "2fa06614-d392-40b8-b49f-1a0b7e6ff3a3",
+      "serverId": "SRV-001",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:01:57.270Z"
+    },
+    {
+      "id": "19b5f04a-dda7-4a1b-830c-fd9909eb6047",
+      "serverId": "SRV-001",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "file_access",
+      "ipAddress": "10.0.0.45",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 41.8781,
+        "lng": -87.6298,
+        "city": "Chicago",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-0.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:02:32.287Z"
+    },
+    {
+      "id": "f1738241-5194-4de0-b3f5-e150b8fbf221",
+      "serverId": "SRV-001",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "login",
+      "ipAddress": "88.198.22.4",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "success": true,
+      "timestamp": "2026-09-29T10:03:07.294Z"
+    },
+    {
+      "id": "2cc5644a-6cec-4cd0-b7f6-127beb3b5bf8",
+      "serverId": "SRV-002",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "login",
+      "ipAddress": "10.0.0.45",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 41.8781,
+        "lng": -87.6298,
+        "city": "Chicago",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:03:42.300Z"
+    },
+    {
+      "id": "e7b8f2f3-ca9c-4180-8546-ca9a25177dab",
+      "serverId": "SRV-003",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "eventType": "login",
+      "ipAddress": "200.41.88.22",
+      "device": "MacBook Pro",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "success": true,
+      "timestamp": "2026-09-29T10:04:17.312Z"
+    },
+    {
+      "id": "accb9c84-9fce-4176-a327-d5b44a50b256",
+      "serverId": "SRV-002",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "file_access",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-9.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:04:52.323Z"
+    },
+    {
+      "id": "1823a315-ec57-4619-94ca-de081826c3ba",
+      "serverId": "SRV-002",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "eventType": "login",
+      "ipAddress": "88.198.22.4",
+      "device": "MacBook Pro",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "success": true,
+      "timestamp": "2026-09-29T10:05:27.326Z"
+    },
+    {
+      "id": "a1e34791-d58d-4113-a2ec-40e894207654",
+      "serverId": "SRV-003",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "login",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:06:02.338Z"
+    },
+    {
+      "id": "1756ac25-2694-407c-9a15-e334c4919cca",
+      "serverId": "SRV-002",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "file_access",
+      "ipAddress": "10.0.0.45",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "filePath": "/hr/private/investigation.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:06:37.351Z"
+    },
+    {
+      "id": "15ab3f21-56a5-47a1-a6a0-eb95c503a147",
+      "serverId": "SRV-002",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "failed_login",
+      "ipAddress": "45.33.32.156",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "success": false,
+      "timestamp": "2026-09-29T10:07:12.352Z"
+    },
+    {
+      "id": "ad7781a7-a7fa-4de3-8f28-45f7c4d00ea6",
+      "serverId": "SRV-003",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "failed_login",
+      "ipAddress": "185.220.101.5",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "success": false,
+      "timestamp": "2026-09-29T10:07:47.366Z"
+    },
+    {
+      "id": "a1713f86-d5b1-4f1b-be06-13be26100c84",
+      "serverId": "SRV-001",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:08:22.367Z"
+    },
+    {
+      "id": "e2364bf5-a836-4fb3-a768-d9a22a086c4b",
+      "serverId": "SRV-002",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "failed_login",
+      "ipAddress": "185.220.101.5",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "success": false,
+      "timestamp": "2026-09-29T10:08:57.378Z"
+    },
+    {
+      "id": "4bb37121-570e-455d-9a5a-4b2693541c3b",
+      "serverId": "SRV-002",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "file_access",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-8.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:09:32.403Z"
+    },
+    {
+      "id": "1082b2fd-1964-4bff-8e14-36e0ce52bcab",
+      "serverId": "SRV-003",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "login",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:10:08.003Z"
+    },
+    {
+      "id": "eadcae86-73e3-46bf-8345-5b5e7a01d583",
+      "serverId": "SRV-002",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "file_access",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-3.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:10:43.003Z"
+    },
+    {
+      "id": "311a5ee1-b3ed-4293-8d66-29da63235786",
+      "serverId": "SRV-003",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "file_access",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-7.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:11:18.108Z"
+    },
+    {
+      "id": "0c7be9b9-342d-46f6-830d-e712182221cc",
+      "serverId": "SRV-001",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "login",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:11:53.232Z"
+    },
+    {
+      "id": "e7249b37-d118-45cf-94e5-c48db5ce0eac",
+      "serverId": "SRV-003",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:12:28.445Z"
+    },
+    {
+      "id": "77787617-9102-4dbf-924f-799249868a1e",
+      "serverId": "SRV-002",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "login",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:13:03.472Z"
+    },
+    {
+      "id": "9a34ed81-94d6-47bb-81c3-a5b126165246",
+      "serverId": "SRV-003",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "login",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:13:38.473Z"
+    },
+    {
+      "id": "3a8ea9e7-2f79-44f4-9829-c5bd4dd47a2c",
+      "serverId": "SRV-002",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "file_access",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-7.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:14:13.579Z"
+    },
+    {
+      "id": "c54d8714-64d2-49b9-844b-65f85e216ecb",
+      "serverId": "SRV-003",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "file_access",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-8.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:14:48.653Z"
+    },
+    {
+      "id": "8923b6b1-1a94-4fbd-9b90-8f529f245af5",
+      "serverId": "SRV-002",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "file_access",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-9.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:15:23.654Z"
+    },
+    {
+      "id": "86311767-c3e0-4b4a-9ea2-3249efde6428",
+      "serverId": "SRV-003",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "file_access",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-7.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:15:58.687Z"
+    },
+    {
+      "id": "e6990e64-b1a6-44cc-9de7-2e4429d45c22",
+      "serverId": "SRV-001",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "login",
+      "ipAddress": "10.0.0.45",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 41.8781,
+        "lng": -87.6298,
+        "city": "Chicago",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:16:33.689Z"
+    },
+    {
+      "id": "ee66a4a9-b808-464a-8706-6dec8db0d337",
+      "serverId": "SRV-003",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "login",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:17:08.696Z"
+    },
+    {
+      "id": "7b3aaa0b-0ed6-4064-b1db-e50968856afe",
+      "serverId": "SRV-001",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "login",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:17:43.875Z"
+    },
+    {
+      "id": "0847c46f-22fb-45f0-97f2-0502a65d0989",
+      "serverId": "SRV-001",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:18:18.883Z"
+    },
+    {
+      "id": "1b5fff0c-bd62-42ae-a02f-6d559d589154",
+      "serverId": "SRV-002",
+      "userId": "u2",
+      "username": "bob.smith",
+      "eventType": "login",
+      "ipAddress": "10.0.0.45",
+      "device": "Windows Desktop",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 41.8781,
+        "lng": -87.6298,
+        "city": "Chicago",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:18:53.915Z"
+    },
+    {
+      "id": "e21a5ecf-5494-4331-85a5-597cc894ae22",
+      "serverId": "SRV-003",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "login",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:19:28.917Z"
+    },
+    {
+      "id": "310b4e4e-bb93-4119-aecf-275d4a4d2b30",
+      "serverId": "SRV-002",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "login",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:20:03.950Z"
+    },
+    {
+      "id": "c43d6e79-71f9-4522-bee7-a32836c4433a",
+      "serverId": "SRV-002",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "login",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:20:38.962Z"
+    },
+    {
+      "id": "8aa9a8c4-45c9-4052-967d-b6a9ba618e25",
+      "serverId": "SRV-003",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "file_access",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-3.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:21:14.127Z"
+    },
+    {
+      "id": "38f41d4f-1f64-48fc-82e2-1fd3c49ac910",
+      "serverId": "SRV-002",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "file_access",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-8.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:21:49.506Z"
+    },
+    {
+      "id": "26e9b0fd-122c-472c-9cb8-23d979e48ba9",
+      "serverId": "SRV-001",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "eventType": "login",
+      "ipAddress": "192.168.1.10",
+      "device": "MacBook Pro",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 40.7128,
+        "lng": -74.006,
+        "city": "New York",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:22:24.775Z"
+    },
+    {
+      "id": "96092b79-3160-4621-82a3-69bad9bca613",
+      "serverId": "SRV-003",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:22:59.942Z"
+    },
+    {
+      "id": "c5551624-711a-4dcf-9211-853dda90007e",
+      "serverId": "SRV-002",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "eventType": "login",
+      "ipAddress": "10.0.0.99",
+      "device": "MacBook Air",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 30.2672,
+        "lng": -97.7431,
+        "city": "Austin",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:23:34.943Z"
+    },
+    {
+      "id": "8fcaf74a-feff-4145-9f2d-ce1ce3d11934",
+      "serverId": "SRV-002",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "login",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:24:09.956Z"
+    },
+    {
+      "id": "383b129f-6401-401e-af85-5f87a14dee85",
+      "serverId": "SRV-001",
+      "userId": "u3",
+      "username": "carol.williams",
+      "eventType": "login",
+      "ipAddress": "172.16.0.22",
+      "device": "iPhone 15",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 37.7749,
+        "lng": -122.4194,
+        "city": "San Francisco",
+        "country": "US"
+      },
+      "success": true,
+      "timestamp": "2026-09-29T10:24:44.955Z"
+    },
+    {
+      "id": "fb254f80-c484-45af-b108-988e825ea596",
+      "serverId": "SRV-003",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "eventType": "file_access",
+      "ipAddress": "192.168.1.10",
+      "device": "MacBook Pro",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 40.7128,
+        "lng": -74.006,
+        "city": "New York",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-8.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:25:20.089Z"
+    },
+    {
+      "id": "a96839c2-8437-44ce-aee1-de3ccd2bbaff",
+      "serverId": "SRV-003",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "eventType": "file_access",
+      "ipAddress": "192.168.1.10",
+      "device": "MacBook Pro",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "filePath": "/hr/private/investigation.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:25:55.130Z"
+    },
+    {
+      "id": "ef0372e9-0d17-404f-a534-ee0d14b525cc",
+      "serverId": "SRV-002",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "eventType": "file_access",
+      "ipAddress": "192.168.1.10",
+      "device": "MacBook Pro",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 40.7128,
+        "lng": -74.006,
+        "city": "New York",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-7.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:26:30.252Z"
+    },
+    {
+      "id": "c1e6db3f-d1a1-44d4-aaad-e2e3cd50efed",
+      "serverId": "SRV-003",
+      "userId": "u4",
+      "username": "dave.chen",
+      "eventType": "file_access",
+      "ipAddress": "192.168.2.80",
+      "device": "ThinkPad",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ThreatXAgent/1.0",
+      "location": {
+        "lat": 47.6062,
+        "lng": -122.3321,
+        "city": "Seattle",
+        "country": "US"
+      },
+      "filePath": "/public/documents/guidelines-4.pdf",
+      "success": true,
+      "timestamp": "2026-09-29T10:27:05.258Z"
     }
   ],
   "behaviorProfiles": [
@@ -5897,7 +7982,8 @@
       "knownIps": [
         "10.0.0.45",
         "200.41.88.22",
-        "45.33.32.156"
+        "45.33.32.156",
+        "88.198.22.4"
       ],
       "knownDevices": [
         "Windows Desktop"
@@ -5915,7 +8001,7 @@
           "city": "Chicago"
         }
       ],
-      "failedLoginCount": 1,
+      "failedLoginCount": 0,
       "accessedFiles": [
         "/public/documents/guidelines-0.pdf",
         "/public/documents/guidelines-6.pdf",
@@ -5926,13 +8012,15 @@
         "/public/documents/guidelines-3.pdf",
         "/public/documents/guidelines-7.pdf",
         "/public/documents/guidelines-2.pdf",
-        "/admin/secrets/master.key"
+        "/admin/secrets/master.key",
+        "/public/documents/guidelines-9.pdf",
+        "/hr/private/investigation.pdf"
       ],
-      "restrictedAccessCount": 4,
+      "restrictedAccessCount": 6,
       "lastLogin": {
         "ip": "10.0.0.45",
         "device": "Windows Desktop",
-        "timestamp": "2026-09-28T15:22:04.833Z",
+        "timestamp": "2026-09-29T10:18:53.915Z",
         "location": {
           "lat": 41.8781,
           "lng": -87.6298
@@ -5983,11 +8071,11 @@
         "/admin/secrets/master.key",
         "/finance/reports/q4-earnings.xlsx"
       ],
-      "restrictedAccessCount": 4,
+      "restrictedAccessCount": 6,
       "lastLogin": {
         "ip": "172.16.0.22",
         "device": "iPhone 15",
-        "timestamp": "2026-09-28T15:48:15.592Z",
+        "timestamp": "2026-09-29T10:24:44.955Z",
         "location": {
           "lat": 37.7749,
           "lng": -122.4194
@@ -6020,7 +8108,7 @@
           "city": "Austin"
         }
       ],
-      "failedLoginCount": 1,
+      "failedLoginCount": 0,
       "accessedFiles": [
         "/public/documents/guidelines-2.pdf",
         "/public/documents/guidelines-8.pdf",
@@ -6033,13 +8121,14 @@
         "/public/documents/guidelines-3.pdf",
         "/confidential/payroll.xlsx",
         "/hr/private/investigation.pdf",
-        "/admin/secrets/master.key"
+        "/admin/secrets/master.key",
+        "/public/documents/guidelines-9.pdf"
       ],
-      "restrictedAccessCount": 4,
+      "restrictedAccessCount": 5,
       "lastLogin": {
         "ip": "10.0.0.99",
         "device": "MacBook Air",
-        "timestamp": "2026-09-28T15:35:30.265Z",
+        "timestamp": "2026-09-29T10:23:34.943Z",
         "location": {
           "lat": 30.2672,
           "lng": -97.7431
@@ -6088,11 +8177,11 @@
         "/public/documents/guidelines-1.pdf",
         "/confidential/payroll.xlsx"
       ],
-      "restrictedAccessCount": 7,
+      "restrictedAccessCount": 8,
       "lastLogin": {
         "ip": "192.168.2.80",
         "device": "ThinkPad",
-        "timestamp": "2026-09-28T15:52:19.237Z",
+        "timestamp": "2026-09-29T10:24:09.956Z",
         "location": {
           "lat": 47.6062,
           "lng": -122.3321
@@ -6136,13 +8225,15 @@
         "/public/documents/guidelines-6.pdf",
         "/public/documents/guidelines-3.pdf",
         "/public/documents/guidelines-5.pdf",
-        "/finance/reports/q4-earnings.xlsx"
+        "/finance/reports/q4-earnings.xlsx",
+        "/public/documents/guidelines-9.pdf",
+        "/public/documents/guidelines-8.pdf"
       ],
-      "restrictedAccessCount": 2,
+      "restrictedAccessCount": 5,
       "lastLogin": {
         "ip": "192.168.1.10",
         "device": "MacBook Pro",
-        "timestamp": "2026-09-28T15:49:25.616Z",
+        "timestamp": "2026-09-29T10:22:24.775Z",
         "location": {
           "lat": 40.7128,
           "lng": -74.006
@@ -6151,6 +8242,276 @@
     }
   ],
   "threatEvents": [
+    {
+      "id": "92fd2208-8a88-44a2-b3b8-c5556f596c1e",
+      "threatId": "THR-92FD22",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "192.168.1.10",
+      "ipAddress": "192.168.1.10",
+      "target": "SRV-003",
+      "serverId": "SRV-003",
+      "serverName": "Database Primary Replica",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "device": "MacBook Pro",
+      "status": "investigating",
+      "description": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 5 restricted access attempts recorded.",
+      "explanation": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 5 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T10:25:55.130Z",
+      "timestamp": "2026-09-29T10:25:55.130Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/hr/private/investigation.pdf",
+      "acknowledged": false
+    },
+    {
+      "id": "5e6b048a-6179-449a-84ce-eb7e785aed2a",
+      "threatId": "THR-5E6B04",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "10.0.0.45",
+      "ipAddress": "10.0.0.45",
+      "target": "SRV-002",
+      "serverId": "SRV-002",
+      "serverName": "Production Edge Gateway",
+      "userId": "u2",
+      "username": "bob.smith",
+      "device": "Windows Desktop",
+      "status": "investigating",
+      "description": "User \"bob.smith\" accessed restricted folder: /hr/private/investigation.pdf. 6 restricted access attempts recorded.",
+      "explanation": "User \"bob.smith\" accessed restricted folder: /hr/private/investigation.pdf. 6 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T10:06:37.351Z",
+      "timestamp": "2026-09-29T10:06:37.351Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/hr/private/investigation.pdf",
+      "acknowledged": false
+    },
+    {
+      "id": "87725351-9b14-4cbe-8274-0fccc9b86dad",
+      "threatId": "THR-877253",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "10.0.0.45",
+      "ipAddress": "10.0.0.45",
+      "target": "SRV-001",
+      "serverId": "SRV-001",
+      "serverName": "ThreatX Demo Server",
+      "userId": "u2",
+      "username": "bob.smith",
+      "device": "Windows Desktop",
+      "status": "investigating",
+      "description": "User \"bob.smith\" accessed restricted folder: /admin/secrets/master.key. 5 restricted access attempts recorded.",
+      "explanation": "User \"bob.smith\" accessed restricted folder: /admin/secrets/master.key. 5 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T09:59:37.232Z",
+      "timestamp": "2026-09-29T09:59:37.232Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/admin/secrets/master.key",
+      "acknowledged": false
+    },
+    {
+      "id": "d2b40036-61ad-497b-897d-b49b2bbd7fb3",
+      "threatId": "THR-D2B400",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "192.168.1.10",
+      "ipAddress": "192.168.1.10",
+      "target": "SRV-002",
+      "serverId": "SRV-002",
+      "serverName": "Production Edge Gateway",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "device": "MacBook Pro",
+      "status": "investigating",
+      "description": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 4 restricted access attempts recorded.",
+      "explanation": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 4 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T09:54:57.106Z",
+      "timestamp": "2026-09-29T09:54:57.106Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/hr/private/investigation.pdf",
+      "acknowledged": false
+    },
+    {
+      "id": "ec7e12d7-1bb0-47cc-a21e-dd7b061858cc",
+      "threatId": "THR-EC7E12",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "172.16.0.22",
+      "ipAddress": "172.16.0.22",
+      "target": "SRV-002",
+      "serverId": "SRV-002",
+      "serverName": "Production Edge Gateway",
+      "userId": "u3",
+      "username": "carol.williams",
+      "device": "iPhone 15",
+      "status": "investigating",
+      "description": "User \"carol.williams\" accessed restricted folder: /admin/secrets/master.key. 6 restricted access attempts recorded.",
+      "explanation": "User \"carol.williams\" accessed restricted folder: /admin/secrets/master.key. 6 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T09:41:51.820Z",
+      "timestamp": "2026-09-29T09:41:51.820Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/admin/secrets/master.key",
+      "acknowledged": false
+    },
+    {
+      "id": "7992d8cc-d294-43c5-a554-cdcfbf7bbcc7",
+      "threatId": "THR-7992D8",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "172.16.0.22",
+      "ipAddress": "172.16.0.22",
+      "target": "SRV-002",
+      "serverId": "SRV-002",
+      "serverName": "Production Edge Gateway",
+      "userId": "u3",
+      "username": "carol.williams",
+      "device": "iPhone 15",
+      "status": "investigating",
+      "description": "User \"carol.williams\" accessed restricted folder: /confidential/payroll.xlsx. 5 restricted access attempts recorded.",
+      "explanation": "User \"carol.williams\" accessed restricted folder: /confidential/payroll.xlsx. 5 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T09:38:21.768Z",
+      "timestamp": "2026-09-29T09:38:21.768Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/confidential/payroll.xlsx",
+      "acknowledged": false
+    },
+    {
+      "id": "458866d0-f7b7-4044-9fc2-74ea0900023f",
+      "threatId": "THR-458866",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "192.168.1.10",
+      "ipAddress": "192.168.1.10",
+      "target": "SRV-002",
+      "serverId": "SRV-002",
+      "serverName": "Production Edge Gateway",
+      "userId": "u1",
+      "username": "alice.johnson",
+      "device": "MacBook Pro",
+      "status": "investigating",
+      "description": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 3 restricted access attempts recorded.",
+      "explanation": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 3 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T09:37:46.766Z",
+      "timestamp": "2026-09-29T09:37:46.766Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/hr/private/investigation.pdf",
+      "acknowledged": false
+    },
+    {
+      "id": "57402891-f749-47ea-beb3-e1a002a3fb4b",
+      "threatId": "THR-574028",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "192.168.2.80",
+      "ipAddress": "192.168.2.80",
+      "target": "SRV-003",
+      "serverId": "SRV-003",
+      "serverName": "Database Primary Replica",
+      "userId": "u4",
+      "username": "dave.chen",
+      "device": "ThinkPad",
+      "status": "investigating",
+      "description": "User \"dave.chen\" accessed restricted folder: /finance/reports/q4-earnings.xlsx. 8 restricted access attempts recorded.",
+      "explanation": "User \"dave.chen\" accessed restricted folder: /finance/reports/q4-earnings.xlsx. 8 restricted access attempts recorded.",
+      "detectedAt": "2026-09-29T09:32:31.400Z",
+      "timestamp": "2026-09-29T09:32:31.400Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/finance/reports/q4-earnings.xlsx",
+      "acknowledged": false
+    },
+    {
+      "id": "88c7b48c-48bd-4507-8401-7b6409306f52",
+      "threatId": "THR-88C7B4",
+      "type": "restricted_folder_access",
+      "threatType": "restricted_folder_access",
+      "severity": "high",
+      "riskLevel": "High",
+      "riskScore": 75,
+      "source": "10.0.0.99",
+      "ipAddress": "10.0.0.99",
+      "target": "SRV-001",
+      "serverId": "SRV-001",
+      "serverName": "ThreatX Demo Server",
+      "userId": "u5",
+      "username": "eve.garcia",
+      "device": "MacBook Air",
+      "status": "investigating",
+      "description": "User \"eve.garcia\" accessed restricted folder: /admin/secrets/master.key. 5 restricted access attempts recorded.",
+      "explanation": "User \"eve.garcia\" accessed restricted folder: /admin/secrets/master.key. 5 restricted access attempts recorded.",
+      "detectedAt": "2026-09-28T15:53:29.246Z",
+      "timestamp": "2026-09-28T15:53:29.246Z",
+      "recommendedActions": [
+        "Review access permissions",
+        "Audit user role assignments",
+        "Enable file access logging alerts",
+        "Suspend file access privileges"
+      ],
+      "filePath": "/admin/secrets/master.key",
+      "acknowledged": false
+    },
     {
       "id": "36b8a5b8-d37a-4e43-8a79-d623710570c6",
       "threatId": "THR-36B8A5",
@@ -6808,6 +9169,213 @@
     }
   ],
   "incidents": [
+    {
+      "id": "2c96b260-26f1-4d3f-83d5-1b51360216e0",
+      "threatEventId": "92fd2208-8a88-44a2-b3b8-c5556f596c1e",
+      "title": "Incident: restricted folder access - alice.johnson",
+      "description": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 5 restricted access attempts recorded.",
+      "riskLevel": "High",
+      "status": "open",
+      "assignedTo": "Security Team",
+      "createdAt": "2026-09-29T10:25:55.130Z",
+      "updatedAt": "2026-09-29T10:25:55.130Z",
+      "investigationHistory": [
+        {
+          "id": "3c313538-2f06-4d41-8c2f-39f44f53e3be",
+          "timestamp": "2026-09-29T10:25:55.130Z",
+          "action": "Incident auto-created",
+          "analyst": "ThreatX AI Engine",
+          "notes": "Automatically created from high-risk threat detection. Risk score: 75/100."
+        }
+      ],
+      "relatedEvents": [
+        "92fd2208-8a88-44a2-b3b8-c5556f596c1e"
+      ]
+    },
+    {
+      "id": "f2d64eae-7aed-47ff-b8d0-3c62e69c072c",
+      "threatEventId": "5e6b048a-6179-449a-84ce-eb7e785aed2a",
+      "title": "Incident: restricted folder access - bob.smith",
+      "description": "User \"bob.smith\" accessed restricted folder: /hr/private/investigation.pdf. 6 restricted access attempts recorded.",
+      "riskLevel": "High",
+      "status": "open",
+      "assignedTo": "Security Team",
+      "createdAt": "2026-09-29T10:06:37.351Z",
+      "updatedAt": "2026-09-29T10:06:37.351Z",
+      "investigationHistory": [
+        {
+          "id": "25bbbb88-4fc0-4952-af25-3d6a287d1489",
+          "timestamp": "2026-09-29T10:06:37.351Z",
+          "action": "Incident auto-created",
+          "analyst": "ThreatX AI Engine",
+          "notes": "Automatically created from high-risk threat detection. Risk score: 75/100."
+        }
+      ],
+      "relatedEvents": [
+        "5e6b048a-6179-449a-84ce-eb7e785aed2a"
+      ]
+    },
+    {
+      "id": "84554d31-dd43-4360-be12-0f3dfa82f0fe",
+      "threatEventId": "87725351-9b14-4cbe-8274-0fccc9b86dad",
+      "title": "Incident: restricted folder access - bob.smith",
+      "description": "User \"bob.smith\" accessed restricted folder: /admin/secrets/master.key. 5 restricted access attempts recorded.",
+      "riskLevel": "High",
+      "status": "open",
+      "assignedTo": "Security Team",
+      "createdAt": "2026-09-29T09:59:37.232Z",
+      "updatedAt": "2026-09-29T09:59:37.232Z",
+      "investigationHistory": [
+        {
+          "id": "844cf004-b1a5-424c-8eb1-89bb8c06790a",
+          "timestamp": "2026-09-29T09:59:37.232Z",
+          "action": "Incident auto-created",
+          "analyst": "ThreatX AI Engine",
+          "notes": "Automatically created from high-risk threat detection. Risk score: 75/100."
+        }
+      ],
+      "relatedEvents": [
+        "87725351-9b14-4cbe-8274-0fccc9b86dad"
+      ]
+    },
+    {
+      "id": "ebef45ac-c8ba-4ac2-8a02-84ff2fd57bb3",
+      "threatEventId": "d2b40036-61ad-497b-897d-b49b2bbd7fb3",
+      "title": "Incident: restricted folder access - alice.johnson",
+      "description": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 4 restricted access attempts recorded.",
+      "riskLevel": "High",
+      "status": "open",
+      "assignedTo": "Security Team",
+      "createdAt": "2026-09-29T09:54:57.106Z",
+      "updatedAt": "2026-09-29T09:54:57.106Z",
+      "investigationHistory": [
+        {
+          "id": "062983cb-e3b6-4add-a344-17120cf42b00",
+          "timestamp": "2026-09-29T09:54:57.106Z",
+          "action": "Incident auto-created",
+          "analyst": "ThreatX AI Engine",
+          "notes": "Automatically created from high-risk threat detection. Risk score: 75/100."
+        }
+      ],
+      "relatedEvents": [
+        "d2b40036-61ad-497b-897d-b49b2bbd7fb3"
+      ]
+    },
+    {
+      "id": "76b8461c-dd6a-40fe-94c4-c2de9bcf50b7",
+      "threatEventId": "ec7e12d7-1bb0-47cc-a21e-dd7b061858cc",
+      "title": "Incident: restricted folder access - carol.williams",
+      "description": "User \"carol.williams\" accessed restricted folder: /admin/secrets/master.key. 6 restricted access attempts recorded.",
+      "riskLevel": "High",
+      "status": "open",
+      "assignedTo": "Security Team",
+      "createdAt": "2026-09-29T09:41:51.820Z",
+      "updatedAt": "2026-09-29T09:41:51.820Z",
+      "investigationHistory": [
+        {
+          "id": "ca3a8297-1c94-42d2-94ad-0741744bebb1",
+          "timestamp": "2026-09-29T09:41:51.820Z",
+          "action": "Incident auto-created",
+          "analyst": "ThreatX AI Engine",
+          "notes": "Automatically created from high-risk threat detection. Risk score: 75/100."
+        }
+      ],
+      "relatedEvents": [
+        "ec7e12d7-1bb0-47cc-a21e-dd7b061858cc"
+      ]
+    },
+    {
+      "id": "49c8f1aa-9525-430a-9e5c-1b59b88b91a3",
+      "threatEventId": "7992d8cc-d294-43c5-a554-cdcfbf7bbcc7",
+      "title": "Incident: restricted folder access - carol.williams",
+      "description": "User \"carol.williams\" accessed restricted folder: /confidential/payroll.xlsx. 5 restricted access attempts recorded.",
+      "riskLevel": "High",
+      "status": "open",
+      "assignedTo": "Security Team",
+      "createdAt": "2026-09-29T09:38:21.768Z",
+      "updatedAt": "2026-09-29T09:38:21.768Z",
+      "investigationHistory": [
+        {
+          "id": "d0015e52-ce68-4ed6-8506-f186134c037c",
+          "timestamp": "2026-09-29T09:38:21.768Z",
+          "action": "Incident auto-created",
+          "analyst": "ThreatX AI Engine",
+          "notes": "Automatically created from high-risk threat detection. Risk score: 75/100."
+        }
+      ],
+      "relatedEvents": [
+        "7992d8cc-d294-43c5-a554-cdcfbf7bbcc7"
+      ]
+    },
+    {
+      "id": "4e66c1fc-2a19-4f13-8411-f6b96f58ebd5",
+      "threatEventId": "458866d0-f7b7-4044-9fc2-74ea0900023f",
+      "title": "Incident: restricted folder access - alice.johnson",
+      "description": "User \"alice.johnson\" accessed restricted folder: /hr/private/investigation.pdf. 3 restricted access attempts recorded.",
+      "riskLevel": "High",
+      "status": "open",
+      "assignedTo": "Security Team",
+      "createdAt": "2026-09-29T09:37:46.766Z",
+      "updatedAt": "2026-09-29T09:37:46.766Z",
+      "investigationHistory": [
+        {
+          "id": "70da892a-58c0-4d3e-bbd3-406360824ed7",
+          "timestamp": "2026-09-29T09:37:46.766Z",
+          "action": "Incident auto-created",
+          "analyst": "ThreatX AI Engine",
+          "notes": "Automatically created from high-risk threat detection. Risk score: 75/100."
+        }
+      ],
+      "relatedEvents": [
+        "458866d0-f7b7-4044-9fc2-74ea0900023f"
+      ]
+    },
+    {
+      "id": "d5a0abad-b3f6-4e14-928c-6c1a98b42213",
+      "threatEventId": "57402891-f749-47ea-beb3-e1a002a3fb4b",
+      "title": "Incident: restricted folder access - dave.chen",
+      "description": "User \"dave.chen\" accessed restricted folder: /finance/reports/q4-earnings.xlsx. 8 restricted access attempts recorded.",
+      "riskLevel": "High",
+      "status": "open",
+      "assignedTo": "Security Team",
+      "createdAt": "2026-09-29T09:32:31.400Z",
+      "updatedAt": "2026-09-29T09:32:31.400Z",
+      "investigationHistory": [
+        {
+          "id": "ead96fb2-3571-4fee-b11c-53fbc04b407f",
+          "timestamp": "2026-09-29T09:32:31.400Z",
+          "action": "Incident auto-created",
+          "analyst": "ThreatX AI Engine",
+          "notes": "Automatically created from high-risk threat detection. Risk score: 75/100."
+        }
+      ],
+      "relatedEvents": [
+        "57402891-f749-47ea-beb3-e1a002a3fb4b"
+      ]
+    },
+    {
+      "id": "430c14c5-be52-4f1f-9dd4-07b5f0432d6f",
+      "threatEventId": "88c7b48c-48bd-4507-8401-7b6409306f52",
+      "title": "Incident: restricted folder access - eve.garcia",
+      "description": "User \"eve.garcia\" accessed restricted folder: /admin/secrets/master.key. 5 restricted access attempts recorded.",
+      "riskLevel": "High",
+      "status": "open",
+      "assignedTo": "Security Team",
+      "createdAt": "2026-09-28T15:53:29.246Z",
+      "updatedAt": "2026-09-28T15:53:29.246Z",
+      "investigationHistory": [
+        {
+          "id": "930f3f8e-cbe0-478e-a5fb-395542b6d191",
+          "timestamp": "2026-09-28T15:53:29.246Z",
+          "action": "Incident auto-created",
+          "analyst": "ThreatX AI Engine",
+          "notes": "Automatically created from high-risk threat detection. Risk score: 75/100."
+        }
+      ],
+      "relatedEvents": [
+        "88c7b48c-48bd-4507-8401-7b6409306f52"
+      ]
+    },
     {
       "id": "9f136f01-a422-4e98-9bfa-d13abab88f92",
       "threatEventId": "36b8a5b8-d37a-4e43-8a79-d623710570c6",

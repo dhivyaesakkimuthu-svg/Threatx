@@ -31,7 +31,7 @@ export default function ErrorState({
         <button
           onClick={onRetry}
           disabled={isRetrying}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold text-xs shadow-xs transition-all disabled:opacity-50"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-red-600 hover:bg-red-700 text-gray-900 font-semibold text-xs shadow-xs transition-all disabled:opacity-50"
         >
           <RefreshCw size={14} className={isRetrying ? 'animate-spin' : ''} />
           <span>{isRetrying ? 'Reconnecting...' : 'Retry Connection'}</span>
@@ -39,7 +39,7 @@ export default function ErrorState({
       )}
 
       <div className="mt-6 pt-4 border-t border-[#E4E7EC] text-[11px] text-[#667085] font-mono flex items-center gap-2">
-        <Terminal size={12} className="text-slate-500" />
+        <Terminal size={12} className="text-gray-400" />
         <span>Ensure demo-server (port 5001) or Express server (port 3001) is active</span>
       </div>
     </div>

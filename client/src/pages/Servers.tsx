@@ -131,39 +131,39 @@ export default function Servers() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in pb-12">
       <Topbar
         title="Infrastructure Monitor"
         subtitle="Manage connected server nodes, live telemetry and agent configurations"
       />
 
-      {/* Action Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-white border border-[#E4E7EC] shadow-xs">
+      {/* Action Header - Dark Cybersecurity */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-gray-200  shadow-xl">
         <div className="flex items-center gap-3">
           <button
             onClick={() => {
               setIsRefreshing(true);
               loadData();
             }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#F8FAFC] hover:bg-slate-100 border border-[#E4E7EC] text-xs text-[#172033] transition-all font-semibold"
+            className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 border border-gray-200 text-xs text-gray-700 hover:text-gray-900 transition-all font-bold cursor-pointer"
           >
-            <RefreshCw size={13} className={isRefreshing ? 'animate-spin text-blue-600' : ''} />
+            <RefreshCw size={14} className={isRefreshing ? 'animate-spin text-blue-600' : ''} />
             Sync Cluster
           </button>
-          <span className="text-xs text-[#667085] font-mono">
-            {servers.length} Monitored Node{servers.length === 1 ? '' : 's'} Active
+          <span className="text-xs text-gray-500 font-mono">
+            <strong className="text-gray-900">{servers.length}</strong> Monitored Node{servers.length === 1 ? '' : 's'} Active
           </span>
         </div>
 
         <Link
           to="/servers/add"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-xs font-semibold text-white transition-all shadow-xs"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-xs font-bold text-gray-900 transition-all shadow-lg shadow-blue-500/20"
         >
-          <Plus size={14} /> Add Monitored Server
+          <Plus size={16} /> Add Monitored Server
         </Link>
       </div>
 
-      {/* Server Grid */}
+      {/* Server Grid - Dark Theme */}
       {servers.length === 0 ? (
         <EmptyState
           title="No servers registered"
@@ -189,74 +189,75 @@ export default function Servers() {
               <div
                 key={server.id || server.serverId}
                 onClick={() => handleInspect(server)}
-                className="cursor-pointer rounded-xl bg-white border border-[#E4E7EC] hover:border-blue-400 p-5 shadow-xs hover:shadow-md flex flex-col justify-between transition-all group"
+                className="cursor-pointer rounded-2xl bg-white border border-gray-200 hover:border-cyan-500/50 p-5 shadow-xl hover:shadow-cyan-500/10 flex flex-col justify-between transition-all group "
               >
                 <div>
                   {/* Top Bar */}
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="p-2.5 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 group-hover:bg-blue-100 transition-colors">
-                        <ServerIcon size={20} />
+                      <div className="p-3 rounded-xl bg-blue-50 border border-blue-300 text-blue-600 group-hover:bg-blue-50 transition-colors">
+                        <ServerIcon size={22} />
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <h3 className="font-bold text-[#172033] truncate max-w-[160px] text-sm">
+                          <h3 className="font-bold text-gray-900 truncate max-w-[160px] text-sm tracking-wide">
                             {server.name}
                           </h3>
                           {isDemo && (
-                            <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
-                              <Zap size={9} className="text-emerald-600" /> Live
+                            <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-500 border border-emerald-500/40 flex items-center gap-1 font-mono">
+                              <Zap size={10} className="text-emerald-600 animate-pulse" /> Live
                             </span>
                           )}
                         </div>
-                        <p className="text-[11px] text-[#667085] font-mono">{server.serverId || server.id}</p>
+                        <p className="text-xs text-gray-500 font-mono mt-0.5">{server.serverId || server.id}</p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-1.5">
                       <button
                         onClick={(e) => handleDelete(server.id || server.serverId, e)}
-                        className="p-1.5 text-[#667085] hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
+                        className="p-2 text-gray-500 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-all"
                         title="Remove Server"
                       >
-                        <Trash2 size={15} />
+                        <Trash2 size={16} />
                       </button>
                     </div>
                   </div>
 
                   {/* Metrics Table */}
-                  <div className="space-y-2 text-xs bg-[#F8FAFC] p-3.5 rounded-lg border border-[#E4E7EC] mb-4">
+                  <div className="space-y-2.5 text-xs bg-gray-50 p-4 rounded-xl border border-gray-200 mb-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-[#667085] font-medium text-[10px] uppercase tracking-wider">
+                      <span className="text-gray-500 font-bold text-[10px] uppercase tracking-wider">
                         IP Address
                       </span>
-                      <span className="font-mono text-[#172033] text-xs font-bold">
+                      <span className="font-mono text-blue-500 text-xs font-bold">
                         {server.ipAddress || '127.0.0.1'}
                       </span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[#667085] font-medium text-[10px] uppercase tracking-wider">
+                      <span className="text-gray-500 font-bold text-[10px] uppercase tracking-wider">
                         Health Status
                       </span>
                       <StatusBadge status={health} size="sm" />
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[#667085] font-medium text-[10px] uppercase tracking-wider">
+                      <span className="text-gray-500 font-bold text-[10px] uppercase tracking-wider">
                         Connection
                       </span>
-                      <span className="capitalize font-mono text-[11px] text-[#172033] font-semibold">
+                      <span className="capitalize font-mono text-xs text-emerald-600 font-bold flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                         {connection}
                       </span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[#667085] font-medium text-[10px] uppercase tracking-wider">
+                      <span className="text-gray-500 font-bold text-[10px] uppercase tracking-wider">
                         Last Heartbeat
                       </span>
-                      <span className="flex items-center gap-1 font-mono text-[10px] text-[#667085]">
-                        <Clock size={10} />
+                      <span className="flex items-center gap-1 font-mono text-[11px] text-gray-500">
+                        <Clock size={12} className="text-blue-600" />
                         {getRelativeTime(heartbeat)}
                       </span>
                     </div>
@@ -264,31 +265,31 @@ export default function Servers() {
 
                   {/* Resource Gauges */}
                   <div className="grid grid-cols-2 gap-3 mb-2">
-                    <div className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E4E7EC]">
-                      <div className="flex justify-between items-center text-[10px] text-[#667085] font-mono mb-1">
-                        <span className="flex items-center gap-1 font-sans font-medium">
-                          <Cpu size={12} className="text-blue-600" /> CPU
+                    <div className="p-3 rounded-xl bg-gray-50 border border-gray-200">
+                      <div className="flex justify-between items-center text-[10px] text-gray-500 font-mono mb-1.5">
+                        <span className="flex items-center gap-1 font-sans font-bold text-gray-600">
+                          <Cpu size={13} className="text-blue-600" /> CPU
                         </span>
-                        <span className="font-bold text-[#172033]">{cpu}%</span>
+                        <span className="font-black text-blue-500 font-mono text-xs">{cpu}%</span>
                       </div>
-                      <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                      <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-blue-600 transition-all duration-500 rounded-full"
+                          className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-500 rounded-full shadow-sm"
                           style={{ width: `${Math.min(100, Math.max(0, cpu))}%` }}
                         />
                       </div>
                     </div>
 
-                    <div className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E4E7EC]">
-                      <div className="flex justify-between items-center text-[10px] text-[#667085] font-mono mb-1">
-                        <span className="flex items-center gap-1 font-sans font-medium">
-                          <HardDrive size={12} className="text-teal-600" /> Memory
+                    <div className="p-3 rounded-xl bg-gray-50 border border-gray-200">
+                      <div className="flex justify-between items-center text-[10px] text-gray-500 font-mono mb-1.5">
+                        <span className="flex items-center gap-1 font-sans font-bold text-gray-600">
+                          <HardDrive size={13} className="text-teal-400" /> Memory
                         </span>
-                        <span className="font-bold text-[#172033]">{memory}%</span>
+                        <span className="font-black text-teal-300 font-mono text-xs">{memory}%</span>
                       </div>
-                      <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                      <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-teal-600 transition-all duration-500 rounded-full"
+                          className="h-full bg-gradient-to-r from-teal-500 to-emerald-400 transition-all duration-500 rounded-full shadow-sm"
                           style={{ width: `${Math.min(100, Math.max(0, memory))}%` }}
                         />
                       </div>
@@ -296,10 +297,10 @@ export default function Servers() {
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-[#E4E7EC] flex items-center justify-between text-[11px] text-[#667085]">
-                  <span>OS: {server.os || 'Linux'}</span>
-                  <span className="text-blue-600 group-hover:translate-x-0.5 transition-transform flex items-center gap-1 font-semibold">
-                    Telemetry Drill-down <Eye size={12} />
+                <div className="pt-3 border-t border-gray-200 flex items-center justify-between text-xs text-gray-500">
+                  <span className="font-mono">OS: {server.os || 'Linux Ubuntu'}</span>
+                  <span className="text-blue-600 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all flex items-center gap-1 font-bold">
+                    Drill-down <Eye size={13} />
                   </span>
                 </div>
               </div>
@@ -316,4 +317,3 @@ export default function Servers() {
     </div>
   );
 }
-

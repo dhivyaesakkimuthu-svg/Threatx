@@ -208,6 +208,17 @@ export interface ApiService {
   analyzeEvent: (payload: { event?: any; telemetry?: any }) => Promise<any>;
   getIntelligenceDecisions: (params?: Record<string, any>) => Promise<any>;
   getIntelligenceStats: () => Promise<any>;
+  getIntelligenceStatus: () => Promise<{
+    abuseIpdb: { configured: boolean; service: string; status: string };
+    virusTotal: { configured: boolean; service: string; status: string };
+    gemini: { configured: boolean; service: string; status: string };
+  }>;
+  lookupIp: (ip: string) => Promise<any>;
+  lookupDomain: (domain: string) => Promise<any>;
+  lookupHash: (hash: string) => Promise<any>;
+  copilotChat: (message: string, context?: any, chatHistory?: any[]) => Promise<any>;
+  copilotAnalyze: (payload: { event?: any; telemetry?: any; server?: any; enrichWithIoc?: boolean }) => Promise<any>;
+  generateAiReport: (incidentData: any) => Promise<any>;
   getDemoScenarios: () => Promise<{ demoMode: boolean; count: number; scenarios: any[] }>;
   triggerDemoScenario: (scenario: string) => Promise<any>;
   resetDemoData: () => Promise<{ status: string; message: string }>;

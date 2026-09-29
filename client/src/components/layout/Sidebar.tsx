@@ -44,11 +44,11 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
     <motion.aside
       animate={{ width: collapsed ? 72 : 260 }}
       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed left-0 top-0 h-full z-40 flex flex-col border-r border-blue-500/10 bg-[#0a0e1a]/95 backdrop-blur-xl"
+      className="fixed left-0 top-0 h-full z-40 flex flex-col border-r border-blue-500/10 bg-[#0a0e1a]/95 "
     >
       <div className="flex items-center gap-3 px-5 py-6 border-b border-blue-500/10 overflow-hidden">
         <div className="p-2 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 shrink-0 shadow-lg shadow-blue-500/20 neon-border-blue">
-          <Shield size={22} className="text-white" />
+          <Shield size={22} className="text-gray-900" />
         </div>
         {!collapsed && (
           <motion.div
@@ -60,7 +60,7 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
             <h1 className="text-lg font-extrabold bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent tracking-tight">
               ThreatX
             </h1>
-            <p className="text-[10px] text-slate-500 font-semibold tracking-widest uppercase">Security Engine</p>
+            <p className="text-[10px] text-gray-400 font-semibold tracking-widest uppercase">Security Engine</p>
           </motion.div>
         )}
       </div>
@@ -75,8 +75,8 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
             className={({ isActive }) =>
               `relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 group overflow-hidden ${
                 isActive
-                  ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-inner'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                  ? 'bg-blue-50 text-blue-400 border border-blue-500/20 shadow-inner'
+                  : 'text-gray-500 hover:text-gray-700 hover:bg-white/5'
               }`
             }
           >
@@ -85,7 +85,7 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
                 {isActive && (
                   <motion.div
                     layoutId="sidebar-active-glow"
-                    className="absolute left-0 top-1/4 bottom-1/4 w-1 rounded-r bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]"
+                    className="absolute left-0 top-1/4 bottom-1/4 w-1 rounded-r bg-blue-500 shadow-sm"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -114,9 +114,9 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
           target="_blank"
           rel="noopener noreferrer"
           title="Open OmniCorp Target Simulator Portal"
-          className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 hover:border-amber-500/40 text-amber-400 text-xs font-semibold transition-all group"
+          className="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 hover:border-amber-500/40 text-amber-600 text-xs font-semibold transition-all group"
         >
-          <PlayCircle size={17} className="shrink-0 text-amber-400 group-hover:scale-110 transition-transform" />
+          <PlayCircle size={17} className="shrink-0 text-amber-600 group-hover:scale-110 transition-transform" />
           {!collapsed && (
             <div className="flex-1 min-w-0 flex items-center justify-between">
               <span className="truncate">Demo Portal</span>
@@ -128,7 +128,7 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
 
       <button
         onClick={onToggle}
-        className="mx-3 mb-4 p-2 rounded-xl text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-all flex items-center justify-center"
+        className="mx-3 mb-4 p-2 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-white/5 transition-all flex items-center justify-center"
       >
         {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
       </button>

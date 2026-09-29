@@ -304,7 +304,7 @@ export const api = {
     return res.data;
   },
 
-  // 13. AI Threat Intelligence (/api/intelligence)
+  // 13. AI Threat Intelligence & Integrations (/api/intelligence)
   analyzeEvent: async (payload) => {
     const res = await apiClient.post('/api/intelligence/analyze', payload);
     return res.data;
@@ -315,6 +315,34 @@ export const api = {
   },
   getIntelligenceStats: async () => {
     const res = await apiClient.get('/api/intelligence/stats');
+    return res.data;
+  },
+  getIntelligenceStatus: async () => {
+    const res = await apiClient.get('/api/intelligence/status');
+    return res.data;
+  },
+  lookupIp: async (ip) => {
+    const res = await apiClient.post('/api/intelligence/lookup/ip', { ip });
+    return res.data;
+  },
+  lookupDomain: async (domain) => {
+    const res = await apiClient.post('/api/intelligence/lookup/domain', { domain });
+    return res.data;
+  },
+  lookupHash: async (hash) => {
+    const res = await apiClient.post('/api/intelligence/lookup/hash', { hash });
+    return res.data;
+  },
+  copilotChat: async (message, context, chatHistory) => {
+    const res = await apiClient.post('/api/intelligence/copilot/chat', { message, context, chatHistory });
+    return res.data;
+  },
+  copilotAnalyze: async (payload) => {
+    const res = await apiClient.post('/api/intelligence/copilot/analyze', payload);
+    return res.data;
+  },
+  generateAiReport: async (incidentData) => {
+    const res = await apiClient.post('/api/intelligence/generate-report', incidentData);
     return res.data;
   },
 

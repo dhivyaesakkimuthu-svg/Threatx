@@ -29,16 +29,16 @@ import ErrorState from '../components/ErrorState';
 import { api, type AnalyticsData } from '../services/api';
 
 const SEVERITY_COLORS = {
-  critical: '#DC2626',
-  high: '#EA580C',
-  medium: '#D97706',
-  low: '#16A34A',
+  critical: '#F43F5E',
+  high: '#FB923C',
+  medium: '#FBBF24',
+  low: '#34D399',
 };
 
 const STATUS_COLORS = {
-  open: '#D97706',
-  investigating: '#0EA5A4',
-  resolved: '#16A34A',
+  open: '#FBBF24',
+  investigating: '#22D3EE',
+  resolved: '#34D399',
   dismissed: '#64748B',
 };
 
@@ -106,16 +106,16 @@ export default function Analytics() {
   ];
 
   const serverHealthData = [
-    { name: 'Healthy', value: data?.serverHealthDistribution?.healthy || (data?.onlineServers ?? 3), color: '#16A34A' },
-    { name: 'Warning', value: data?.serverHealthDistribution?.warning || 0, color: '#D97706' },
-    { name: 'Degraded', value: data?.serverHealthDistribution?.degraded || 0, color: '#DB2777' },
-    { name: 'Critical', value: data?.serverHealthDistribution?.critical || 0, color: '#DC2626' },
+    { name: 'Healthy', value: data?.serverHealthDistribution?.healthy || (data?.onlineServers ?? 3), color: '#34D399' },
+    { name: 'Warning', value: data?.serverHealthDistribution?.warning || 0, color: '#FBBF24' },
+    { name: 'Degraded', value: data?.serverHealthDistribution?.degraded || 0, color: '#F43F5E' },
+    { name: 'Critical', value: data?.serverHealthDistribution?.critical || 0, color: '#E11D48' },
   ].filter((p) => p.value > 0);
 
   const timelineData = data?.timeline || [];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in pb-12">
       <Topbar
         title="Security Analytics & Metrics"
         subtitle="Deep threat telemetry, severity distributions, triage stats and infrastructure performance"
@@ -160,13 +160,13 @@ export default function Analytics() {
       {/* Primary Visual Charts Row: Threat Vectors Breakdown & Threat Severity Split */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Threat Type Breakdown Bar Chart */}
-        <div className="lg:col-span-2 rounded-xl bg-white border border-[#E4E7EC] p-5 shadow-xs">
-          <div className="flex items-center justify-between pb-3 border-b border-[#E4E7EC] mb-4">
+        <div className="lg:col-span-2 rounded-2xl bg-white border border-gray-200  p-5 shadow-xl">
+          <div className="flex items-center justify-between pb-3 border-b border-gray-200 mb-4">
             <div>
-              <h3 className="text-sm font-bold text-[#172033] uppercase tracking-wider">
+              <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider">
                 Threat Vectors Distribution
               </h3>
-              <p className="text-[11px] text-[#667085] font-mono">
+              <p className="text-xs text-gray-500 font-mono">
                 Categorized threat signatures ingested into MongoDB
               </p>
             </div>
@@ -175,41 +175,41 @@ export default function Analytics() {
                 setIsRefreshing(true);
                 loadAnalytics();
               }}
-              className="p-1.5 text-[#667085] hover:text-[#172033] rounded-lg transition-colors"
+              className="p-2 text-gray-500 hover:text-gray-900 rounded-xl bg-gray-50 border border-gray-200 transition-colors cursor-pointer"
               title="Refresh Analytics"
             >
-              <RefreshCw size={13} className={isRefreshing ? 'animate-spin text-blue-600' : ''} />
+              <RefreshCw size={14} className={isRefreshing ? 'animate-spin text-blue-600' : ''} />
             </button>
           </div>
 
           <div className="h-64">
             {typeData.length === 0 ? (
-              <div className="h-full flex items-center justify-center text-xs text-[#667085]">
+              <div className="h-full flex items-center justify-center text-xs text-gray-400 font-mono">
                 No threat vectors recorded in database
               </div>
             ) : (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={typeData} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" stroke="#F1F4F9" horizontal={false} />
-                  <XAxis type="number" tick={{ fill: '#667085', fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" horizontal={false} />
+                  <XAxis type="number" tick={{ fill: '#94A3B8', fontSize: 11 }} axisLine={false} tickLine={false} />
                   <YAxis
                     dataKey="name"
                     type="category"
                     width={170}
-                    tick={{ fill: '#172033', fontSize: 11 }}
+                    tick={{ fill: '#E2E8F0', fontSize: 11 }}
                     axisLine={false}
                     tickLine={false}
                   />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: '#FFFFFF',
-                      border: '1px solid #E4E7EC',
-                      borderRadius: '8px',
-                      color: '#172033',
-                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                      backgroundColor: '#0A0E1A',
+                      border: '1px solid #334155',
+                      borderRadius: '12px',
+                      color: '#F8FAFC',
+                      boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)',
                     }}
                   />
-                  <Bar dataKey="count" fill="#2563EB" radius={[0, 4, 4, 0]} />
+                  <Bar dataKey="count" fill="#06B6D4" radius={[0, 6, 6, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             )}
@@ -217,19 +217,19 @@ export default function Analytics() {
         </div>
 
         {/* Severity Distribution Pie */}
-        <div className="rounded-xl bg-white border border-[#E4E7EC] p-5 shadow-xs flex flex-col justify-between">
-          <div className="pb-3 border-b border-[#E4E7EC] mb-2">
-            <h3 className="text-sm font-bold text-[#172033] uppercase tracking-wider">
+        <div className="rounded-2xl bg-white border border-gray-200  p-5 shadow-xl flex flex-col justify-between">
+          <div className="pb-3 border-b border-gray-200 mb-2">
+            <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider">
               Threat Severity Split
             </h3>
-            <p className="text-[11px] text-[#667085] font-mono">
+            <p className="text-xs text-gray-500 font-mono">
               Proportion of Critical, High, Medium, and Low risks
             </p>
           </div>
 
           <div className="h-48 flex items-center justify-center">
             {pieData.length === 0 ? (
-              <div className="text-xs text-[#667085]">No active threat distribution</div>
+              <div className="text-xs text-gray-400 font-mono">No active threat distribution</div>
             ) : (
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -248,11 +248,10 @@ export default function Analytics() {
                   </Pie>
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: '#FFFFFF',
-                      border: '1px solid #E4E7EC',
-                      borderRadius: '8px',
-                      color: '#172033',
-                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                      backgroundColor: '#0A0E1A',
+                      border: '1px solid #334155',
+                      borderRadius: '12px',
+                      color: '#F8FAFC',
                     }}
                   />
                 </PieChart>
@@ -260,21 +259,21 @@ export default function Analytics() {
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-2 pt-3 border-t border-[#E4E7EC] text-[11px] font-mono">
-            <div className="flex items-center gap-1.5 text-red-700">
-              <span className="w-2 h-2 rounded-full bg-red-600" />
+          <div className="grid grid-cols-2 gap-2 pt-3 border-t border-gray-200 text-xs font-mono">
+            <div className="flex items-center gap-1.5 text-rose-600 font-bold">
+              <span className="w-2 h-2 rounded-full bg-rose-500 shadow-sm" />
               Critical: {riskDist.critical}
             </div>
-            <div className="flex items-center gap-1.5 text-orange-700">
-              <span className="w-2 h-2 rounded-full bg-orange-600" />
+            <div className="flex items-center gap-1.5 text-orange-400 font-bold">
+              <span className="w-2 h-2 rounded-full bg-orange-500 shadow-sm" />
               High: {riskDist.high}
             </div>
-            <div className="flex items-center gap-1.5 text-amber-700">
-              <span className="w-2 h-2 rounded-full bg-amber-600" />
+            <div className="flex items-center gap-1.5 text-amber-600 font-bold">
+              <span className="w-2 h-2 rounded-full bg-amber-500 shadow-sm" />
               Medium: {riskDist.medium}
             </div>
-            <div className="flex items-center gap-1.5 text-emerald-700">
-              <span className="w-2 h-2 rounded-full bg-emerald-600" />
+            <div className="flex items-center gap-1.5 text-emerald-600 font-bold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-sm" />
               Low: {riskDist.low}
             </div>
           </div>
@@ -284,13 +283,13 @@ export default function Analytics() {
       {/* Second Charts Row: Alerts by Status & Server Health Distribution */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Alerts by Status */}
-        <div className="rounded-xl bg-white border border-[#E4E7EC] p-5 shadow-xs">
-          <div className="pb-3 border-b border-[#E4E7EC] mb-4 flex items-center justify-between">
+        <div className="rounded-2xl bg-white border border-gray-200  p-5 shadow-xl">
+          <div className="pb-3 border-b border-gray-200 mb-4 flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-bold text-[#172033] uppercase tracking-wider flex items-center gap-2">
-                <Bell size={15} className="text-amber-600" /> Alerts Triage Status
+              <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider flex items-center gap-2">
+                <Bell size={16} className="text-amber-600" /> Alerts Triage Status
               </h3>
-              <p className="text-[11px] text-[#667085] font-mono">
+              <p className="text-xs text-gray-500 font-mono">
                 Open, Investigating, Resolved, and Dismissed incidents
               </p>
             </div>
@@ -299,19 +298,18 @@ export default function Analytics() {
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={alertsStatusData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#F1F4F9" vertical={false} />
-                <XAxis dataKey="name" tick={{ fill: '#667085', fontSize: 11 }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fill: '#667085', fontSize: 11 }} axisLine={false} tickLine={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" vertical={false} />
+                <XAxis dataKey="name" tick={{ fill: '#94A3B8', fontSize: 11 }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fill: '#94A3B8', fontSize: 11 }} axisLine={false} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #E4E7EC',
-                    borderRadius: '8px',
-                    color: '#172033',
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                    backgroundColor: '#0A0E1A',
+                    border: '1px solid #334155',
+                    borderRadius: '12px',
+                    color: '#F8FAFC',
                   }}
                 />
-                <Bar dataKey="count" name="Alert Count" radius={[4, 4, 0, 0]}>
+                <Bar dataKey="count" name="Alert Count" radius={[6, 6, 0, 0]}>
                   {alertsStatusData.map((entry, index) => (
                     <Cell key={`alert-cell-${index}`} fill={entry.fill} />
                   ))}
@@ -322,19 +320,19 @@ export default function Analytics() {
         </div>
 
         {/* Server Health Distribution */}
-        <div className="rounded-xl bg-white border border-[#E4E7EC] p-5 shadow-xs flex flex-col justify-between">
-          <div className="pb-3 border-b border-[#E4E7EC] mb-2">
-            <h3 className="text-sm font-bold text-[#172033] uppercase tracking-wider flex items-center gap-2">
-              <ServerIcon size={15} className="text-teal-600" /> Infrastructure Health Breakdown
+        <div className="rounded-2xl bg-white border border-gray-200  p-5 shadow-xl flex flex-col justify-between">
+          <div className="pb-3 border-b border-gray-200 mb-2">
+            <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider flex items-center gap-2">
+              <ServerIcon size={16} className="text-blue-600" /> Infrastructure Health Breakdown
             </h3>
-            <p className="text-[11px] text-[#667085] font-mono">
+            <p className="text-xs text-gray-500 font-mono">
               Cluster node condition and availability states
             </p>
           </div>
 
           <div className="h-44 flex items-center justify-center">
             {serverHealthData.length === 0 ? (
-              <div className="text-xs text-[#667085]">No servers active</div>
+              <div className="text-xs text-gray-400 font-mono">No servers active</div>
             ) : (
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -353,11 +351,10 @@ export default function Analytics() {
                   </Pie>
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: '#FFFFFF',
-                      border: '1px solid #E4E7EC',
-                      borderRadius: '8px',
-                      color: '#172033',
-                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                      backgroundColor: '#0A0E1A',
+                      border: '1px solid #334155',
+                      borderRadius: '12px',
+                      color: '#F8FAFC',
                     }}
                   />
                 </PieChart>
@@ -365,21 +362,21 @@ export default function Analytics() {
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-2 pt-3 border-t border-[#E4E7EC] text-[11px] font-mono">
-            <div className="flex items-center gap-1.5 text-emerald-700">
-              <span className="w-2 h-2 rounded-full bg-emerald-600" />
+          <div className="grid grid-cols-2 gap-2 pt-3 border-t border-gray-200 text-xs font-mono">
+            <div className="flex items-center gap-1.5 text-emerald-600 font-bold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-sm" />
               Healthy: {data?.serverHealthDistribution?.healthy ?? data?.onlineServers ?? 3}
             </div>
-            <div className="flex items-center gap-1.5 text-amber-700">
-              <span className="w-2 h-2 rounded-full bg-amber-600" />
+            <div className="flex items-center gap-1.5 text-amber-600 font-bold">
+              <span className="w-2 h-2 rounded-full bg-amber-500 shadow-sm" />
               Warning: {data?.serverHealthDistribution?.warning ?? 0}
             </div>
-            <div className="flex items-center gap-1.5 text-pink-700">
-              <span className="w-2 h-2 rounded-full bg-pink-600" />
+            <div className="flex items-center gap-1.5 text-rose-600 font-bold">
+              <span className="w-2 h-2 rounded-full bg-rose-500 shadow-sm" />
               Degraded: {data?.serverHealthDistribution?.degraded ?? 0}
             </div>
-            <div className="flex items-center gap-1.5 text-red-700">
-              <span className="w-2 h-2 rounded-full bg-red-600" />
+            <div className="flex items-center gap-1.5 text-rose-500 font-bold">
+              <span className="w-2 h-2 rounded-full bg-rose-600 shadow-sm" />
               Critical: {data?.serverHealthDistribution?.critical ?? 0}
             </div>
           </div>
@@ -387,13 +384,13 @@ export default function Analytics() {
       </div>
 
       {/* 24-Hour Area Ingress Timeline */}
-      <div className="rounded-xl bg-white border border-[#E4E7EC] p-5 shadow-xs">
-        <div className="flex items-center justify-between pb-3 border-b border-[#E4E7EC] mb-4">
+      <div className="rounded-2xl bg-white border border-gray-200  p-5 shadow-xl">
+        <div className="flex items-center justify-between pb-3 border-b border-gray-200 mb-4">
           <div>
-            <h3 className="text-sm font-bold text-[#172033] uppercase tracking-wider flex items-center gap-2">
-              <Activity size={15} className="text-blue-600" /> 24-Hour Threat Ingress Timeline
+            <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider flex items-center gap-2">
+              <Activity size={16} className="text-blue-600" /> 24-Hour Threat Ingress Timeline
             </h3>
-            <p className="text-[11px] text-[#667085] font-mono">
+            <p className="text-xs text-gray-500 font-mono">
               Temporal event correlation from MongoDB security documents
             </p>
           </div>
@@ -404,23 +401,22 @@ export default function Analytics() {
             <AreaChart data={timelineData}>
               <defs>
                 <linearGradient id="threatAnalyticsArea" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#2563EB" stopOpacity={0.25} />
-                  <stop offset="95%" stopColor="#2563EB" stopOpacity={0.0} />
+                  <stop offset="5%" stopColor="#06B6D4" stopOpacity={0.35} />
+                  <stop offset="95%" stopColor="#06B6D4" stopOpacity={0.0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#F1F4F9" />
-              <XAxis dataKey="time" tick={{ fill: '#667085', fontSize: 10 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: '#667085', fontSize: 10 }} axisLine={false} tickLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" />
+              <XAxis dataKey="time" tick={{ fill: '#94A3B8', fontSize: 11 }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fill: '#94A3B8', fontSize: 11 }} axisLine={false} tickLine={false} />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid #E4E7EC',
-                  borderRadius: '8px',
-                  color: '#172033',
-                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                  backgroundColor: '#0A0E1A',
+                  border: '1px solid #334155',
+                  borderRadius: '12px',
+                  color: '#F8FAFC',
                 }}
               />
-              <Area type="monotone" dataKey="count" stroke="#2563EB" strokeWidth={2} fill="url(#threatAnalyticsArea)" />
+              <Area type="monotone" dataKey="count" stroke="#06B6D4" strokeWidth={2.5} fill="url(#threatAnalyticsArea)" />
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -428,4 +424,3 @@ export default function Analytics() {
     </div>
   );
 }
-

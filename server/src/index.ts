@@ -114,14 +114,16 @@ const authLimiter = rateLimit({
 });
 
 const generalApiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 3000, // Generous limit for live telemetry polling
+  windowMs: 15 * 60 * 1000,
+  max: 50000,
+  skip: (req) => req.ip === '127.0.0.1' || req.ip === '::1' || req.ip === '::ffff:127.0.0.1' || process.env.NODE_ENV !== 'production',
   standardHeaders: true,
   legacyHeaders: false,
 });
 
 app.use('/api/', generalApiLimiter);
 app.use('/api/auth/login', authLimiter);
+
 
 // 5. Health, Readiness, and Info Routes
 app.use('/api/health', healthRouter);

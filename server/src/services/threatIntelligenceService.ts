@@ -1,6 +1,8 @@
 import { INTELLIGENCE_CONFIG } from '../config/intelligenceConfig.js';
 import { IntelligenceDecisionModel } from '../models/IntelligenceDecision.js';
 import { isDbConnected } from '../config/db.js';
+import { abuseIPDBService } from './abuseIpdbService.js';
+import { virusTotalService } from './virusTotalService.js';
 
 export interface AnalysisInput {
   event?: any;
@@ -24,6 +26,11 @@ export interface AnalysisResult {
   anomalies: string[];
   recommendedAction: string;
   analyzedAt: string;
+  enrichment?: {
+    abuseIpdb?: any;
+    virusTotal?: any;
+    ipReputationScore?: number;
+  };
 }
 
 interface HistoricalEventRecord {
@@ -266,6 +273,99 @@ class ThreatIntelligenceEngine {
       anomalies,
       recommendedAction,
       analyzedAt: new Date(now).toISOString(),
+    };
+  }
+
+  /**
+   * Async Analysis with Live External Threat Intelligence Enrichment (AbuseIPDB + VirusTotal)
+   */
+  public async analyzeAsync(input: AnalysisInput): Promise<AnalysisResult> {
+    const baseResult = this.analyze(input);
+    const rawEvent = input?.event || {};
+    const sourceIp = String(rawEvent.source_ip || rawEvent.ip_address || rawEvent.source || rawEvent.ip || '').trim();
+
+    if (!sourceIp || abuseIPDBService.isPrivateIp(sourceIp)) {
+      return baseResult;
+    }
+
+    let abuseIpdbData: any = null;
+    let virusTotalData: any = null;
+
+    // Parallel lookup with safe fallback
+    await Promise.allSettled([
+      (async () => {
+        if (abuseIPDBService.isConfigured()) {
+          try {
+            abuseIpdbData = await abuseIPDBService.checkIp(sourceIp);
+          } catch (e: any) {
+            console.warn('[ThreatIntelligence] AbuseIPDB enrichment skipped:', e.message);
+          }
+        }
+      })(),
+      (async () => {
+        if (virusTotalService.isConfigured()) {
+          try {
+            virusTotalData = await virusTotalService.checkIp(sourceIp);
+          } catch (e: any) {
+            console.warn('[ThreatIntelligence] VirusTotal enrichment skipped:', e.message);
+          }
+        }
+      })(),
+    ]);
+
+    let adjustedScore = baseResult.riskScore;
+    const additionalReasons = [...baseResult.reasons];
+    const additionalAnomalies = [...baseResult.anomalies];
+
+    // Factor in AbuseIPDB Confidence Score
+    if (abuseIpdbData && typeof abuseIpdbData.abuseConfidenceScore === 'number') {
+      const abuseScore = abuseIpdbData.abuseConfidenceScore;
+      if (abuseScore >= 50) {
+        adjustedScore = Math.min(100, adjustedScore + 25);
+        additionalAnomalies.push('ABUSEIPDB_CONFIRMED_MALICIOUS');
+        additionalReasons.push(
+          `AbuseIPDB Threat Intelligence: IP ${sourceIp} flagged with ${abuseScore}% abuse confidence (${abuseIpdbData.totalReports} reports, ISP: ${abuseIpdbData.isp})`
+        );
+      } else if (abuseScore > 0 || abuseIpdbData.totalReports > 0) {
+        adjustedScore = Math.min(100, adjustedScore + 10);
+        additionalReasons.push(
+          `AbuseIPDB Reputation Notice: ${abuseIpdbData.totalReports} prior abuse reports logged against ${sourceIp}`
+        );
+      }
+    }
+
+    // Factor in VirusTotal Malicious Engine Detections
+    if (virusTotalData && virusTotalData.stats) {
+      const maliciousCount = virusTotalData.stats.malicious || 0;
+      const suspiciousCount = virusTotalData.stats.suspicious || 0;
+      if (maliciousCount >= 3) {
+        adjustedScore = Math.min(100, adjustedScore + 30);
+        additionalAnomalies.push('VIRUSTOTAL_MALICIOUS_CONSENSUS');
+        additionalReasons.push(
+          `VirusTotal Intelligence: Flagged as malicious by ${maliciousCount} antivirus engines (${virusTotalData.detectionRate})`
+        );
+      } else if (maliciousCount > 0 || suspiciousCount >= 2) {
+        adjustedScore = Math.min(100, adjustedScore + 15);
+        additionalReasons.push(
+          `VirusTotal Intelligence: Flagged by ${maliciousCount + suspiciousCount} security scanners`
+        );
+      }
+    }
+
+    const finalScore = Math.min(100, Math.max(0, Math.round(adjustedScore)));
+    const riskLevel = this.getRiskLevel(finalScore);
+
+    return {
+      ...baseResult,
+      riskScore: finalScore,
+      riskLevel,
+      reasons: additionalReasons,
+      anomalies: additionalAnomalies,
+      enrichment: {
+        abuseIpdb: abuseIpdbData,
+        virusTotal: virusTotalData,
+        ipReputationScore: abuseIpdbData?.abuseConfidenceScore ?? (virusTotalData?.stats?.malicious ? 75 : 0),
+      },
     };
   }
 

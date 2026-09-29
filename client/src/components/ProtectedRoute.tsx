@@ -50,7 +50,7 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
         </p>
         <a
           href="/"
-          className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-semibold transition-all shadow-sm"
+          className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#2563EB] hover:bg-[#1D4ED8] text-gray-900 text-xs font-semibold transition-all shadow-sm"
         >
           <ArrowLeft size={14} /> Return to Dashboard
         </a>

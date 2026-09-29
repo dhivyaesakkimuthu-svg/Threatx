@@ -84,14 +84,15 @@ export default function Sessions() {
     const device = (s.device || '').toLowerCase();
     const location = (s.location || '').toLowerCase();
     const sId = (s.sessionId || s.id || '').toLowerCase();
-    const matchesQuery =
-      !searchQuery ||
-      username.includes(query) ||
-      ip.includes(query) ||
-      device.includes(query) ||
-      location.includes(query) ||
-      sId.includes(query);
-    return matchesFilter && matchesQuery;
+    return (
+      matchesFilter &&
+      (!searchQuery ||
+        username.includes(query) ||
+        ip.includes(query) ||
+        device.includes(query) ||
+        location.includes(query) ||
+        sId.includes(query))
+    );
   });
 
   const totalPages = Math.max(1, Math.ceil(filteredSessions.length / pageSize));
@@ -106,12 +107,12 @@ export default function Sessions() {
   const getDeviceIcon = (deviceStr?: string) => {
     const d = (deviceStr || '').toLowerCase();
     if (d.includes('mac') || d.includes('windows') || d.includes('linux') || d.includes('terminal') || d.includes('ssh')) {
-      return <Laptop size={14} className="text-blue-600 shrink-0" />;
+      return <Laptop size={15} className="text-blue-600 shrink-0" />;
     }
     if (d.includes('ios') || d.includes('android') || d.includes('phone') || d.includes('mobile')) {
-      return <Smartphone size={14} className="text-indigo-600 shrink-0" />;
+      return <Smartphone size={15} className="text-indigo-400 shrink-0" />;
     }
-    return <Monitor size={14} className="text-[#667085] shrink-0" />;
+    return <Monitor size={15} className="text-gray-500 shrink-0" />;
   };
 
   if (loading && sessions.length === 0) {
@@ -133,7 +134,7 @@ export default function Sessions() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in pb-12">
       <Topbar
         title="User Sessions & Telemetry"
         subtitle="Active client sessions, concurrent device tokens and risk anomalies"
@@ -175,20 +176,22 @@ export default function Sessions() {
         />
       </div>
 
-      {/* Table container */}
-      <div className="rounded-xl bg-white border border-[#E4E7EC] p-5 shadow-xs">
+      {/* Table container - Dark Cybersecurity */}
+      <div className="rounded-2xl bg-white border border-gray-200  p-5 shadow-xl">
         {/* Controls */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#E4E7EC] mb-4">
-          <div className="flex items-center gap-2">
-            <Users size={18} className="text-blue-600" />
-            <h3 className="text-sm font-bold text-[#172033] uppercase tracking-wider">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-gray-200 mb-4">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 rounded-xl bg-blue-50 text-blue-600 border border-blue-200">
+              <Users size={18} />
+            </div>
+            <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider">
               Connected Sessions Matrix
             </h3>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <div className="relative">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#667085]" />
+              <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500" />
               <input
                 type="text"
                 value={searchQuery}
@@ -197,11 +200,11 @@ export default function Sessions() {
                   setCurrentPage(1);
                 }}
                 placeholder="Search username, IP, location..."
-                className="pl-8 pr-3 py-1.5 rounded-lg bg-[#F8FAFC] border border-[#E4E7EC] text-xs text-[#172033] placeholder:text-[#667085] focus:outline-none focus:border-blue-500 w-52"
+                className="pl-10 pr-4 py-2 rounded-xl bg-gray-50/70 border border-gray-200 text-xs text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-cyan-500 w-56 font-sans"
               />
             </div>
 
-            <div className="flex items-center bg-slate-100 p-1 rounded-lg border border-[#E4E7EC] text-xs font-semibold">
+            <div className="flex items-center bg-gray-50/70 p-1 rounded-xl border border-gray-200 text-xs font-semibold">
               {(['all', 'active', 'flagged', 'idle', 'terminated'] as const).map((st) => (
                 <button
                   key={st}
@@ -209,10 +212,10 @@ export default function Sessions() {
                     setFilterStatus(st);
                     setCurrentPage(1);
                   }}
-                  className={`px-2.5 py-0.5 rounded capitalize transition-all text-[11px] font-semibold ${
+                  className={`px-3 py-1 rounded-lg capitalize transition-all text-xs font-bold cursor-pointer ${
                     filterStatus === st
-                      ? 'bg-white text-blue-700 shadow-xs font-bold'
-                      : 'text-[#667085] hover:text-[#172033] hover:bg-slate-200/60'
+                      ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-gray-900 shadow-sm'
+                      : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
                   {st}
@@ -223,7 +226,7 @@ export default function Sessions() {
             <button
               onClick={loadSessions}
               aria-label="Reload sessions list"
-              className="p-2 rounded-lg bg-[#F8FAFC] border border-[#E4E7EC] text-[#667085] hover:text-[#172033] transition-colors"
+              className="p-2.5 rounded-xl bg-gray-50 border border-gray-200 text-gray-500 hover:text-gray-900 transition-colors cursor-pointer"
             >
               <RefreshCw size={14} className={loading ? 'animate-spin text-blue-600' : ''} />
             </button>
@@ -240,20 +243,20 @@ export default function Sessions() {
           />
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+            <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-b border-[#E4E7EC] bg-[#F8FAFC] text-[#667085] font-semibold uppercase tracking-wider text-[10px]">
-                  <th className="py-3 px-4">Session & User</th>
-                  <th className="py-3 px-4">Device & Client</th>
-                  <th className="py-3 px-4">IP Address</th>
-                  <th className="py-3 px-4">Geo Location</th>
-                  <th className="py-3 px-4">Target Server</th>
-                  <th className="py-3 px-4">Risk Score</th>
-                  <th className="py-3 px-4">Status</th>
-                  <th className="py-3 px-4 text-right">Action</th>
+                <tr className="border-b border-gray-200 bg-[#060911]/90 text-gray-500 font-bold uppercase tracking-wider text-xs">
+                  <th className="py-4 px-5">Session &amp; User</th>
+                  <th className="py-4 px-5">Device &amp; Client</th>
+                  <th className="py-4 px-5">IP Address</th>
+                  <th className="py-4 px-5">Geo Location</th>
+                  <th className="py-4 px-5">Target Server</th>
+                  <th className="py-4 px-5">Risk Score</th>
+                  <th className="py-4 px-5">Status</th>
+                  <th className="py-4 px-5 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E4E7EC]">
+              <tbody className="divide-y divide-slate-800/60 text-gray-700">
                 {paginatedSessions.map((session) => {
                   const id = session.sessionId || session.id || '';
                   const riskScore = session.riskScore ?? 10;
@@ -263,79 +266,79 @@ export default function Sessions() {
                   const srv = session.serverId || 'SRV-001';
 
                   return (
-                    <tr key={id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3.5 px-4 whitespace-nowrap">
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-7 h-7 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center font-bold text-blue-700 text-xs">
+                    <tr key={id} className="hover:bg-gray-100/40 transition-colors">
+                      <td className="py-4 px-5 whitespace-nowrap">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center font-bold text-blue-500 text-xs">
                             {(session.username || 'US').substring(0, 2).toUpperCase()}
                           </div>
                           <div>
-                            <span className="font-semibold text-[#172033]">{session.username}</span>
-                            <span className="block text-[10px] text-[#667085] font-mono">{id}</span>
+                            <span className="font-bold text-gray-900 text-sm">{session.username}</span>
+                            <span className="block text-[11px] text-gray-500 font-mono mt-0.5">{id}</span>
                           </div>
                         </div>
                       </td>
-                      <td className="py-3.5 px-4 text-[#172033] whitespace-nowrap">
-                        <div className="flex items-center gap-1.5">
+                      <td className="py-4 px-5 text-gray-700 whitespace-nowrap">
+                        <div className="flex items-center gap-2">
                           {getDeviceIcon(device)}
                           <span className="font-medium text-xs">{device}</span>
                         </div>
                       </td>
-                      <td className="py-3.5 px-4 font-mono font-semibold text-blue-700 whitespace-nowrap">
+                      <td className="py-4 px-5 font-mono font-bold text-blue-500 whitespace-nowrap">
                         {ip}
                       </td>
-                      <td className="py-3.5 px-4 text-[#172033] whitespace-nowrap">
+                      <td className="py-4 px-5 text-gray-600 whitespace-nowrap text-xs">
                         {location}
                       </td>
-                      <td className="py-3.5 px-4 text-[#667085] font-mono text-[11px] whitespace-nowrap">
+                      <td className="py-4 px-5 text-gray-500 font-mono text-xs whitespace-nowrap">
                         {srv}
                       </td>
-                      <td className="py-3.5 px-4 whitespace-nowrap">
+                      <td className="py-4 px-5 whitespace-nowrap">
                         <span
-                          className={`font-mono font-bold text-xs px-2 py-0.5 rounded border ${
+                          className={`font-mono font-bold text-xs px-2.5 py-1 rounded-full border ${
                             riskScore > 60
-                              ? 'text-red-700 bg-red-50 border-red-200'
+                              ? 'text-rose-500 bg-rose-50 border-rose-500/40'
                               : riskScore > 30
-                              ? 'text-amber-700 bg-amber-50 border-amber-200'
-                              : 'text-emerald-700 bg-emerald-50 border-emerald-200'
+                              ? 'text-amber-500 bg-amber-500/20 border-amber-500/40'
+                              : 'text-emerald-500 bg-emerald-50 border-emerald-500/40'
                           }`}
                         >
                           {riskScore}/100
                         </span>
                       </td>
-                      <td className="py-3.5 px-4 whitespace-nowrap">
+                      <td className="py-4 px-5 whitespace-nowrap">
                         {session.status === 'active' && (
-                          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" /> Active
+                          <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-500/30">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> Active
                           </span>
                         )}
                         {session.status === 'flagged' && (
-                          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded border border-red-200">
-                            <ShieldAlert size={10} /> Flagged
+                          <span className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-600 bg-rose-500/15 px-2.5 py-1 rounded-full border border-rose-200">
+                            <ShieldAlert size={12} /> Flagged
                           </span>
                         )}
                         {session.status === 'idle' && (
-                          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                          <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-600 bg-amber-500/15 px-2.5 py-1 rounded-full border border-amber-500/30">
                             Idle
                           </span>
                         )}
                         {session.status === 'terminated' && (
-                          <span className="inline-flex items-center gap-1 text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 line-through">
+                          <span className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-500 bg-gray-100 px-2.5 py-1 rounded-full border border-gray-300 line-through">
                             Terminated
                           </span>
                         )}
                       </td>
-                      <td className="py-3.5 px-4 text-right whitespace-nowrap">
+                      <td className="py-4 px-5 text-right whitespace-nowrap">
                         {session.status !== 'terminated' ? (
                           <button
                             onClick={() => handleTerminate(id)}
-                            className="px-2.5 py-1 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 text-[11px] font-semibold border border-red-200 transition-all flex items-center gap-1 ml-auto shadow-2xs"
+                            className="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-500/30 text-rose-500 text-xs font-bold border border-rose-500/40 transition-all flex items-center gap-1.5 ml-auto cursor-pointer"
                             title="Revoke session token"
                           >
-                            <ShieldX size={12} /> Revoke
+                            <ShieldX size={13} /> Revoke
                           </button>
                         ) : (
-                          <span className="text-[10px] text-[#667085] font-mono">Revoked</span>
+                          <span className="text-xs text-gray-400 font-mono">Revoked</span>
                         )}
                       </td>
                     </tr>
@@ -348,28 +351,28 @@ export default function Sessions() {
 
         {/* Pagination footer */}
         {filteredSessions.length > pageSize && (
-          <div className="p-4 border-t border-[#E4E7EC] flex items-center justify-between text-xs text-[#667085] mt-2">
-            <span className="font-mono text-[11px]">
+          <div className="p-4 border-t border-gray-200 flex items-center justify-between text-xs text-gray-500 mt-2">
+            <span className="font-mono text-xs">
               Showing {(validPage - 1) * pageSize + 1} to {Math.min(validPage * pageSize, filteredSessions.length)} of {filteredSessions.length} sessions
             </span>
 
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <button
                 disabled={validPage <= 1}
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                className="p-1.5 rounded-lg bg-[#F8FAFC] border border-[#E4E7EC] disabled:opacity-40 hover:text-[#172033] transition-colors"
+                className="p-1.5 rounded-lg bg-gray-50 border border-gray-200 disabled:opacity-40 hover:text-gray-900 transition-colors cursor-pointer"
               >
-                <ChevronLeft size={14} />
+                <ChevronLeft size={16} />
               </button>
-              <span className="font-mono px-2 text-[#172033] font-bold">
+              <span className="font-mono px-2 text-gray-900 font-bold">
                 Page {validPage} / {totalPages}
               </span>
               <button
                 disabled={validPage >= totalPages}
                 onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                className="p-1.5 rounded-lg bg-[#F8FAFC] border border-[#E4E7EC] disabled:opacity-40 hover:text-[#172033] transition-colors"
+                className="p-1.5 rounded-lg bg-gray-50 border border-gray-200 disabled:opacity-40 hover:text-gray-900 transition-colors cursor-pointer"
               >
-                <ChevronRight size={14} />
+                <ChevronRight size={16} />
               </button>
             </div>
           </div>
@@ -378,4 +381,3 @@ export default function Sessions() {
     </div>
   );
 }
-

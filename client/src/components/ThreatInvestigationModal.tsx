@@ -86,7 +86,7 @@ export default function ThreatInvestigationModal({
         ? new Date(detectedDate.getTime() + 45000).toLocaleTimeString()
         : 'Pending',
       status: !isPendingTriage ? 'completed' : 'pending',
-      color: !isPendingTriage ? 'text-blue-600' : 'text-slate-400',
+      color: !isPendingTriage ? 'text-blue-600' : 'text-gray-500',
     },
     {
       title: 'Mitigation & Quarantine',
@@ -97,13 +97,13 @@ export default function ThreatInvestigationModal({
         ? new Date(detectedDate.getTime() + 90000).toLocaleTimeString()
         : 'Awaiting Action',
       status: isResolved ? 'completed' : 'pending',
-      color: isResolved ? 'text-emerald-600' : 'text-slate-400',
+      color: isResolved ? 'text-emerald-600' : 'text-gray-500',
     },
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs animate-fade-in">
-      <div className="w-full max-w-3xl rounded-2xl bg-white border border-[#E4E7EC] p-6 shadow-2xl space-y-5 max-h-[92vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/40 backdrop-blur-xs animate-fade-in">
+      <div className="w-full max-w-3xl rounded-2xl bg-white border border-[#E4E7EC] p-6 shadow-lg space-y-5 max-h-[92vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-start justify-between pb-4 border-b border-slate-100">
           <div className="flex items-center gap-3.5">
@@ -122,7 +122,7 @@ export default function ThreatInvestigationModal({
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg text-gray-500 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
             aria-label="Close investigation modal"
           >
             <X size={20} />
@@ -131,7 +131,7 @@ export default function ThreatInvestigationModal({
 
         {/* Threat Summary Banner */}
         <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-          <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+          <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
             <Terminal size={14} className="text-blue-600" /> Incident Description & Root Cause
           </h4>
           <p className="text-slate-800 text-xs leading-relaxed">
@@ -142,28 +142,28 @@ export default function ThreatInvestigationModal({
         {/* 4-Box Key Metrics Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
           <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-            <span className="text-[10px] text-slate-500 block uppercase font-medium mb-0.5 flex items-center gap-1">
+            <span className="text-[10px] text-gray-400 block uppercase font-medium mb-0.5 flex items-center gap-1">
               <Globe size={11} className="text-blue-600" /> Source IP
             </span>
             <span className="text-slate-900 font-bold font-mono text-xs">{ipStr}</span>
           </div>
 
           <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-            <span className="text-[10px] text-slate-500 block uppercase font-medium mb-0.5 flex items-center gap-1">
+            <span className="text-[10px] text-gray-400 block uppercase font-medium mb-0.5 flex items-center gap-1">
               <ServerIcon size={11} className="text-blue-600" /> Target Node
             </span>
             <span className="text-slate-900 font-bold font-mono text-xs">{srvStr}</span>
           </div>
 
           <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-            <span className="text-[10px] text-slate-500 block uppercase font-medium mb-0.5 flex items-center gap-1">
+            <span className="text-[10px] text-gray-400 block uppercase font-medium mb-0.5 flex items-center gap-1">
               <User size={11} className="text-blue-600" /> Username
             </span>
             <span className="text-slate-900 font-bold text-xs">{userStr}</span>
           </div>
 
           <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-            <span className="text-[10px] text-slate-500 block uppercase font-medium mb-0.5 flex items-center gap-1">
+            <span className="text-[10px] text-gray-400 block uppercase font-medium mb-0.5 flex items-center gap-1">
               <Radio size={11} className="text-red-600" /> Risk Score
             </span>
             <span className="text-red-600 font-bold font-mono text-xs">{threat.riskScore ?? 85}/100</span>
@@ -248,9 +248,9 @@ export default function ThreatInvestigationModal({
                 />
                 <div className="flex items-center justify-between">
                   <span className={`text-xs font-bold ${step.color}`}>{step.title}</span>
-                  <span className="text-[11px] font-mono text-slate-400">{step.timestamp}</span>
+                  <span className="text-[11px] font-mono text-gray-500">{step.timestamp}</span>
                 </div>
-                <p className="text-xs text-slate-500 mt-0.5">{step.description}</p>
+                <p className="text-xs text-gray-400 mt-0.5">{step.description}</p>
               </div>
             ))}
           </div>
@@ -258,7 +258,7 @@ export default function ThreatInvestigationModal({
 
         {/* Action controls footer */}
         <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-1.5 text-xs text-slate-400 font-mono">
+          <div className="flex items-center gap-1.5 text-xs text-gray-500 font-mono">
             <Clock size={12} />
             <span>Logged: {new Date(timeStr).toLocaleString()}</span>
           </div>
@@ -289,7 +289,7 @@ export default function ThreatInvestigationModal({
               <button
                 disabled={isUpdating}
                 onClick={() => handleStatusChange('mitigated')}
-                className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1.5"
+                className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-gray-900 font-semibold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1.5"
               >
                 <CheckCircle2 size={13} />
                 <span>Mitigate & Resolve</span>

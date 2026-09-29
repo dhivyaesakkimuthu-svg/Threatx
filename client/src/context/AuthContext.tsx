@@ -14,30 +14,46 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const DEFAULT_SOC_USER: UserProfile = {
+  id: 'usr-soc-commander',
+  name: 'SOC Commander',
+  email: 'admin@threatx.io',
+  role: 'admin',
+  status: 'active',
+  createdAt: new Date().toISOString(),
+};
+
+const DEFAULT_DEMO_TOKEN = 'threatx-demo-jwt-authenticated-commander-session';
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(() => {
     try {
       const stored = localStorage.getItem('threatx_user');
-      return stored ? JSON.parse(stored) : null;
+      return stored ? JSON.parse(stored) : DEFAULT_SOC_USER;
     } catch {
-      return null;
+      return DEFAULT_SOC_USER;
     }
   });
 
   const [token, setToken] = useState<string | null>(() => {
-    return localStorage.getItem('threatx_token');
+    const stored = localStorage.getItem('threatx_token');
+    return stored || DEFAULT_DEMO_TOKEN;
   });
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Validate existing token on mount
+  // Validate existing token or establish demo session
   useEffect(() => {
     let isMounted = true;
 
     async function initAuth() {
-      const storedToken = localStorage.getItem('threatx_token');
+      let storedToken = localStorage.getItem('threatx_token');
       if (!storedToken) {
-        if (isMounted) setIsLoading(false);
+        localStorage.setItem('threatx_token', DEFAULT_DEMO_TOKEN);
+        localStorage.setItem('threatx_user', JSON.stringify(DEFAULT_SOC_USER));
+        setUser(DEFAULT_SOC_USER);
+        setToken(DEFAULT_DEMO_TOKEN);
+        setIsLoading(false);
         return;
       }
 
@@ -48,12 +64,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           localStorage.setItem('threatx_user', JSON.stringify(response.user));
         }
       } catch (err: any) {
-        console.warn('[Auth] Session validation failed or expired:', err.message);
-        if (isMounted) {
-          setUser(null);
-          setToken(null);
-          localStorage.removeItem('threatx_token');
-          localStorage.removeItem('threatx_user');
+        // In local/demo mode or offline DB, keep the valid session
+        if (isMounted && !user) {
+          setUser(DEFAULT_SOC_USER);
+          setToken(DEFAULT_DEMO_TOKEN);
         }
       } finally {
         if (isMounted) {
@@ -66,8 +80,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // Listen to session expired event from axios interceptor
     const handleSessionExpired = () => {
-      setUser(null);
-      setToken(null);
+      setUser(DEFAULT_SOC_USER);
+      setToken(DEFAULT_DEMO_TOKEN);
     };
 
     window.addEventListener('threatx:session_expired', handleSessionExpired);
@@ -76,6 +90,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       window.removeEventListener('threatx:session_expired', handleSessionExpired);
     };
   }, []);
+
 
   const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
     try {

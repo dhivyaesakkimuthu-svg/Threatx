@@ -46,40 +46,40 @@ export default function ThreatActivityChart({
         ];
 
   return (
-    <div className="rounded-2xl bg-white border border-[#E4E7EC] p-5 shadow-xs flex flex-col justify-between h-full">
+    <div className="rounded-2xl bg-white  border border-gray-200 p-5 shadow-xl flex flex-col justify-between h-full">
       {/* Chart Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100 mb-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-gray-200 mb-2">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-xl bg-blue-50 text-blue-600">
+          <div className="p-2 rounded-xl bg-blue-50 border border-blue-200 text-blue-600">
             <Activity size={16} />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-slate-900">
-              Threat Activity Timeline
+            <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider">
+              Threat Activity Timeline &amp; Incident Velocity
             </h3>
-            <p className="text-xs text-slate-500">
-              Ingestion Rate: <span className="font-semibold text-slate-800">18.4 eps</span>
+            <p className="text-xs text-gray-500">
+              Ingestion Rate: <span className="font-semibold text-blue-600 font-mono">18.4 events/sec</span>
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           {/* Live Ingest Status */}
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-red-50 border border-red-200 text-xs font-semibold text-red-700">
-            <Radio size={12} className="text-red-600" />
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-rose-500/15 border border-rose-200 text-xs font-semibold text-rose-500">
+            <Radio size={12} className="text-rose-600 animate-pulse" />
             <span>{liveCount} Active Threats</span>
           </div>
 
           {/* Time Filter Buttons */}
-          <div className="flex items-center bg-slate-100 p-0.5 rounded-lg text-xs font-medium">
+          <div className="flex items-center bg-gray-50 border border-gray-200 p-0.5 rounded-xl text-xs font-medium">
             {(['1h', '24h', '7d'] as const).map((range) => (
               <button
                 key={range}
                 onClick={() => setTimeRange(range)}
-                className={`px-2.5 py-0.5 rounded-md transition-all uppercase cursor-pointer ${
+                className={`px-2.5 py-0.5 rounded-lg transition-all uppercase cursor-pointer ${
                   timeRange === range
-                    ? 'bg-white text-slate-900 font-semibold shadow-xs'
-                    : 'text-slate-500 hover:text-slate-800'
+                    ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-gray-900 font-semibold shadow-sm'
+                    : 'text-gray-500 hover:text-gray-900'
                 }`}
               >
                 {range}
@@ -95,39 +95,40 @@ export default function ThreatActivityChart({
           <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
             <defs>
               <linearGradient id="chartGradHigh" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#DC2626" stopOpacity={0.25} />
-                <stop offset="100%" stopColor="#DC2626" stopOpacity={0.0} />
+                <stop offset="0%" stopColor="#EF4444" stopOpacity={0.4} />
+                <stop offset="100%" stopColor="#EF4444" stopOpacity={0.0} />
               </linearGradient>
               <linearGradient id="chartGradMed" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#D97706" stopOpacity={0.2} />
-                <stop offset="100%" stopColor="#D97706" stopOpacity={0.0} />
+                <stop offset="0%" stopColor="#F59E0B" stopOpacity={0.3} />
+                <stop offset="100%" stopColor="#F59E0B" stopOpacity={0.0} />
               </linearGradient>
               <linearGradient id="chartGradLow" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#2563EB" stopOpacity={0.15} />
-                <stop offset="100%" stopColor="#2563EB" stopOpacity={0.0} />
+                <stop offset="0%" stopColor="#06B6D4" stopOpacity={0.25} />
+                <stop offset="100%" stopColor="#06B6D4" stopOpacity={0.0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#F1F4F9" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" vertical={false} />
             <XAxis
               dataKey="time"
-              tick={{ fill: '#64748b', fontSize: 11 }}
-              axisLine={{ stroke: '#E2E8F0' }}
+              tick={{ fill: '#94A3B8', fontSize: 11 }}
+              axisLine={{ stroke: '#334155' }}
               tickLine={false}
             />
             <YAxis
-              tick={{ fill: '#64748b', fontSize: 11 }}
+              tick={{ fill: '#94A3B8', fontSize: 11 }}
               axisLine={false}
               tickLine={false}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#FFFFFF',
-                border: '1px solid #E2E8F0',
+                backgroundColor: '#0F172A',
+                border: '1px solid #334155',
                 borderRadius: 12,
                 fontSize: 12,
-                boxShadow: '0 4px 6px -1px rgba(0,0,0,0.08)',
+                boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.4)',
+                color: '#F8FAFC',
               }}
-              labelStyle={{ color: '#1e293b', fontWeight: 'bold', marginBottom: 4 }}
+              labelStyle={{ color: '#06B6D4', fontWeight: 'bold', marginBottom: 4 }}
             />
             <Legend
               verticalAlign="top"
@@ -140,7 +141,7 @@ export default function ThreatActivityChart({
               type="monotone"
               dataKey="high"
               stackId="1"
-              stroke="#DC2626"
+              stroke="#EF4444"
               strokeWidth={2}
               fill="url(#chartGradHigh)"
               name="Critical/High"
@@ -149,7 +150,7 @@ export default function ThreatActivityChart({
               type="monotone"
               dataKey="medium"
               stackId="1"
-              stroke="#D97706"
+              stroke="#F59E0B"
               strokeWidth={2}
               fill="url(#chartGradMed)"
               name="Medium Risk"
@@ -158,7 +159,7 @@ export default function ThreatActivityChart({
               type="monotone"
               dataKey="low"
               stackId="1"
-              stroke="#2563EB"
+              stroke="#06B6D4"
               strokeWidth={2}
               fill="url(#chartGradLow)"
               name="Low Risk / Probes"
@@ -168,20 +169,21 @@ export default function ThreatActivityChart({
       </div>
 
       {/* Footer Metrics */}
-      <div className="grid grid-cols-3 gap-2 pt-3 border-t border-slate-100 text-center text-xs">
-        <div className="p-2 rounded-xl bg-slate-50 border border-slate-100">
-          <span className="text-[10px] text-slate-500 uppercase block font-medium">Peak Ingest</span>
-          <span className="font-semibold text-slate-800">24 threats/hr</span>
+      <div className="grid grid-cols-3 gap-2 pt-3 border-t border-gray-200 text-center text-xs">
+        <div className="p-2 rounded-xl bg-gray-50 border border-gray-200">
+          <span className="text-[10px] text-gray-500 uppercase block font-medium">Peak Velocity</span>
+          <span className="font-semibold text-gray-900 font-mono">24 events/min</span>
         </div>
-        <div className="p-2 rounded-xl bg-slate-50 border border-slate-100">
-          <span className="text-[10px] text-slate-500 uppercase block font-medium">Mitigation SLA</span>
-          <span className="font-semibold text-emerald-700">&lt; 45s</span>
+        <div className="p-2 rounded-xl bg-gray-50 border border-gray-200">
+          <span className="text-[10px] text-gray-500 uppercase block font-medium">Mitigation SLA</span>
+          <span className="font-semibold text-emerald-600 font-mono">&lt; 15s</span>
         </div>
-        <div className="p-2 rounded-xl bg-slate-50 border border-slate-100">
-          <span className="text-[10px] text-slate-500 uppercase block font-medium">Auto-Defense</span>
-          <span className="font-semibold text-blue-700">Active</span>
+        <div className="p-2 rounded-xl bg-gray-50 border border-gray-200">
+          <span className="text-[10px] text-gray-500 uppercase block font-medium">AI Auto-Triage</span>
+          <span className="font-semibold text-blue-600 font-mono">Continuous</span>
         </div>
       </div>
     </div>
   );
 }
+

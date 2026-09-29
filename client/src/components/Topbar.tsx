@@ -151,22 +151,22 @@ export default function Topbar({
 
   return (
     <>
-      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 relative pb-4 border-b border-[#E4E7EC]">
+      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 relative pb-4 border-b border-gray-200">
         {/* Title Section */}
         <div className="flex items-center gap-3">
           {showBrand && (
             <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-blue-50 border border-blue-200">
               <Shield className="w-4 h-4 text-blue-600" />
-              <span className="font-bold text-xs tracking-wider text-blue-700">
+              <span className="font-bold text-xs tracking-wider text-blue-700 font-mono">
                 THREATX
               </span>
             </div>
           )}
           <div>
-            <h1 className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-3">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 flex items-center gap-3">
               {title}
             </h1>
-            {subtitle && <p className="text-xs text-slate-500 mt-0.5 font-medium">{subtitle}</p>}
+            {subtitle && <p className="text-xs text-gray-500 mt-0.5 font-medium">{subtitle}</p>}
           </div>
         </div>
 
@@ -175,51 +175,51 @@ export default function Topbar({
           {/* Demo Scenario Controller Trigger */}
           <button
             onClick={() => setShowDemoModal(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 transition-all cursor-pointer shadow-xs text-xs font-semibold"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 transition-all cursor-pointer text-xs font-semibold"
             title="Launch Demo Attack Scenarios & Event Simulator"
           >
-            <Zap size={14} className="text-blue-600" />
-            <span>Demo Mode</span>
+            <Zap size={14} className="text-blue-500" />
+            <span>Attack Simulator</span>
           </button>
 
           {/* System Connection Status with Diagnostics Popup */}
           <div className="relative" ref={healthRef}>
             <button
               onClick={() => setShowHealthTooltip(!showHealthTooltip)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 transition-all cursor-pointer shadow-xs"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 transition-all cursor-pointer shadow-sm"
               title="Click to view SOC Cluster Health & Pipeline Diagnostics"
             >
-              <span className="text-[11px] font-medium text-slate-500">Status:</span>
+              <span className="text-[11px] font-medium text-gray-500">Status:</span>
               <StatusBadge status={statusLabel} size="sm" />
             </button>
 
             {/* Health Diagnostics Popup */}
             {showHealthTooltip && (
-              <div className="absolute right-0 mt-2 w-72 rounded-2xl border border-slate-200 bg-white shadow-xl p-4 z-50 animate-fade-in space-y-3 text-xs">
-                <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-                  <span className="font-bold text-slate-900 text-xs flex items-center gap-1.5">
-                    <Activity size={14} className="text-blue-600" /> Pipeline Diagnostics
+              <div className="absolute right-0 mt-2 w-72 rounded-2xl border border-gray-200 bg-white shadow-lg p-4 z-50 animate-fade-in space-y-3 text-xs">
+                <div className="flex items-center justify-between pb-2 border-b border-gray-100">
+                  <span className="font-bold text-gray-900 text-xs flex items-center gap-1.5">
+                    <Activity size={14} className="text-blue-500" /> Pipeline Diagnostics
                   </span>
-                  <span className="text-[11px] text-slate-500 font-mono">{healthData?.latencyMs ?? 12}ms</span>
+                  <span className="text-[11px] text-blue-600 font-mono">{healthData?.latencyMs ?? 12}ms</span>
                 </div>
 
                 <div className="space-y-2 text-xs">
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-600 flex items-center gap-1.5">
-                      <Database size={13} className="text-blue-600" /> MongoDB
+                    <span className="text-gray-500 flex items-center gap-1.5">
+                      <Database size={13} className="text-blue-500" /> MongoDB
                     </span>
-                    <span className={`font-semibold ${dbConnected ? 'text-emerald-700' : 'text-red-700'}`}>
+                    <span className={`font-semibold ${dbConnected ? 'text-emerald-600' : 'text-red-500'}`}>
                       {dbStatusStr || 'connected'}
                     </span>
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-600 flex items-center gap-1.5">
-                      <Radio size={13} className="text-amber-600" /> Demo Server :5001
+                    <span className="text-gray-500 flex items-center gap-1.5">
+                      <Radio size={13} className="text-amber-500" /> Demo Server :5001
                     </span>
                     <span
                       className={`font-semibold ${
-                        demoConnected ? 'text-emerald-700' : isDegraded ? 'text-amber-700' : 'text-red-700'
+                        demoConnected ? 'text-emerald-600' : isDegraded ? 'text-amber-500' : 'text-red-500'
                       }`}
                     >
                       {demoStatusStr || 'connected'}
@@ -227,17 +227,17 @@ export default function Topbar({
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-600 flex items-center gap-1.5">
-                      {isSocketConnected ? <Wifi size={13} className="text-blue-600" /> : <WifiOff size={13} className="text-red-600" />}
+                    <span className="text-gray-500 flex items-center gap-1.5">
+                      {isSocketConnected ? <Wifi size={13} className="text-blue-500" /> : <WifiOff size={13} className="text-red-500" />}
                       Socket.IO Bus
                     </span>
-                    <span className={`font-semibold ${isSocketConnected ? 'text-emerald-700' : 'text-red-700'}`}>
+                    <span className={`font-semibold ${isSocketConnected ? 'text-emerald-600' : 'text-red-500'}`}>
                       {isSocketConnected ? 'Active' : 'Reconnecting'}
                     </span>
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-slate-100 text-[10px] text-slate-400 flex justify-between">
+                <div className="pt-2 border-t border-gray-100 text-[10px] text-gray-400 flex justify-between">
                   <span>Central API: :3001</span>
                   <span>ThreatX Core v1.0</span>
                 </div>
@@ -247,9 +247,9 @@ export default function Topbar({
 
           {/* Last Updated */}
           {lastUpdated && (
-            <div className="hidden xl:flex items-center gap-1.5 text-xs text-slate-500 bg-white px-2.5 py-1.5 rounded-xl border border-slate-200 shadow-xs">
-              <Clock size={12} className="text-slate-400" />
-              <span>{lastUpdated}</span>
+            <div className="hidden xl:flex items-center gap-1.5 text-xs text-gray-500 bg-white px-2.5 py-1.5 rounded-xl border border-gray-200 shadow-sm">
+              <Clock size={12} className="text-gray-400" />
+              <span className="font-mono text-[11px]">{lastUpdated}</span>
             </div>
           )}
 
@@ -258,14 +258,14 @@ export default function Topbar({
             onClick={() => setShowSearchModal(true)}
             className="relative cursor-pointer group"
           >
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-hover:text-slate-600 transition-colors" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-blue-500 transition-colors" />
             <input
               type="text"
               readOnly
-              placeholder="Search threats, alerts..."
-              className="pl-8.5 pr-10 py-1.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 group-hover:border-slate-300 cursor-pointer transition-all w-44 md:w-52 shadow-xs"
+              placeholder="Search threats, IP, alerts..."
+              className="pl-8.5 pr-10 py-1.5 rounded-xl bg-white border border-gray-200 text-xs text-gray-700 placeholder:text-gray-400 group-hover:border-blue-300 cursor-pointer transition-all w-44 md:w-52 shadow-sm"
             />
-            <kbd className="absolute right-2 top-1/2 -translate-y-1/2 hidden md:inline-flex items-center px-1.5 py-0.5 rounded border border-slate-200 bg-slate-100 text-[10px] font-mono text-slate-500">
+            <kbd className="absolute right-2 top-1/2 -translate-y-1/2 hidden md:inline-flex items-center px-1.5 py-0.5 rounded border border-gray-200 bg-gray-50 text-[10px] font-mono text-gray-400">
               ⌘K
             </kbd>
           </div>
@@ -274,13 +274,13 @@ export default function Topbar({
           <div className="relative">
             <button
               onClick={() => setShowAlertDrawer(true)}
-              className="relative p-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 transition-all text-slate-600 hover:text-slate-900 shadow-xs cursor-pointer"
+              className="relative p-2 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 transition-all text-gray-600 hover:text-gray-900 shadow-sm cursor-pointer"
               title="Open Alert Center"
               aria-label="Alerts"
             >
               <Bell size={16} />
               {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-4 min-w-4 px-1 items-center justify-center rounded-full bg-red-600 text-[9px] font-bold text-white">
+                <span className="absolute -top-1 -right-1 flex h-4 min-w-4 px-1 items-center justify-center rounded-full bg-red-600 text-[9px] font-bold text-gray-900 shadow-sm">
                   {unreadCount}
                 </span>
               )}
@@ -291,37 +291,37 @@ export default function Topbar({
           <div className="relative" ref={profileRef}>
             <button
               onClick={() => setShowProfileMenu(!showProfileMenu)}
-              className="flex items-center gap-2 pl-1.5 pr-2.5 py-1 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 transition-all text-left shadow-xs cursor-pointer"
+              className="flex items-center gap-2 pl-1.5 pr-2.5 py-1 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 transition-all text-left shadow-sm cursor-pointer"
             >
               <div
-                className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white shadow-xs ${
+                className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-gray-900 shadow-sm ${
                   userRole === 'admin'
-                    ? 'bg-rose-600'
+                    ? 'bg-gradient-to-tr from-red-500 to-rose-400'
                     : userRole === 'analyst'
-                    ? 'bg-blue-600'
-                    : 'bg-slate-600'
+                    ? 'bg-gradient-to-tr from-blue-500 to-cyan-400'
+                    : 'bg-gray-500'
                 }`}
               >
                 {initials}
               </div>
               <div className="hidden sm:block text-left">
-                <p className="text-xs font-semibold text-slate-800 leading-tight">
-                  {user?.name || 'Operator'}
+                <p className="text-xs font-semibold text-gray-800 leading-tight">
+                  {user?.name || 'SOC Commander'}
                 </p>
-                <p className="text-[10px] text-slate-400 uppercase font-bold">
+                <p className="text-[10px] text-blue-600 uppercase font-mono font-bold">
                   {userRole}
                 </p>
               </div>
             </button>
 
             {showProfileMenu && (
-              <div className="absolute right-0 mt-2 w-56 rounded-2xl border border-slate-200 bg-white shadow-xl p-1.5 z-50 animate-fade-in space-y-1 text-xs">
-                <div className="px-3 py-2 border-b border-slate-100">
-                  <p className="font-semibold text-slate-900">{user?.name || 'SOC User'}</p>
-                  <p className="text-[11px] text-slate-500 font-mono truncate">{user?.email || 'user@threatx.io'}</p>
+              <div className="absolute right-0 mt-2 w-56 rounded-2xl border border-gray-200 bg-white shadow-lg p-1.5 z-50 animate-fade-in space-y-1 text-xs">
+                <div className="px-3 py-2 border-b border-gray-100">
+                  <p className="font-semibold text-gray-900">{user?.name || 'SOC Commander'}</p>
+                  <p className="text-[11px] text-gray-500 font-mono truncate">{user?.email || 'admin@threatx.io'}</p>
                   <div className="mt-1 flex items-center gap-1.5">
-                    <span className="text-[10px] text-slate-400">Role:</span>
-                    <span className="text-[10px] font-bold uppercase px-1.5 py-0.2 rounded bg-slate-100 text-slate-700 border border-slate-200">
+                    <span className="text-[10px] text-gray-400">Role:</span>
+                    <span className="text-[10px] font-bold uppercase px-1.5 py-0.2 rounded bg-blue-50 text-blue-700 border border-blue-200">
                       {userRole}
                     </span>
                   </div>
@@ -329,25 +329,25 @@ export default function Topbar({
 
                 <a
                   href="/settings"
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-50 transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"
                 >
-                  <User size={14} className="text-slate-500" />
+                  <User size={14} className="text-gray-400" />
                   <span>Account Settings</span>
                 </a>
 
                 {userRole === 'admin' && (
                   <a
                     href="/users"
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-50 transition-colors"
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"
                   >
-                    <ShieldCheck size={14} className="text-blue-600" />
+                    <ShieldCheck size={14} className="text-blue-500" />
                     <span>User Management</span>
                   </a>
                 )}
 
                 <button
                   onClick={() => logout()}
-                  className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-red-600 hover:bg-red-50 transition-colors text-left font-semibold cursor-pointer"
+                  className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-red-500 hover:bg-red-50 transition-colors text-left font-semibold cursor-pointer"
                 >
                   <LogOut size={14} />
                   <span>Logout</span>
@@ -357,6 +357,7 @@ export default function Topbar({
           </div>
         </div>
       </header>
+
 
       {/* Real-time Alert Center Drawer */}
       <AlertCenterDrawer

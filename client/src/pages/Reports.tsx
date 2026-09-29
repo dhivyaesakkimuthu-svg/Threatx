@@ -134,29 +134,29 @@ export default function Reports() {
   }
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in pb-12">
       <Topbar
         title="Security Reports & Audit"
         subtitle="Generate, export and audit compliance and executive brief documents from MongoDB"
       />
 
       {/* Control Actions Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-gray-200  shadow-xl">
         <div className="flex items-center gap-3">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#98A2B3]" size={14} />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
             <input
               type="text"
               placeholder="Search reports..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-8 pr-3 py-1.5 text-xs bg-white border border-[#E4E7EC] rounded-lg text-[#172033] placeholder-[#98A2B3] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] w-48 sm:w-64"
+              className="pl-10 pr-4 py-2.5 text-sm bg-gray-50/70 border border-gray-200 rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-cyan-500 w-48 sm:w-64 font-sans"
             />
           </div>
           <Button
             variant="outline"
-            size="sm"
-            icon={<RefreshCw size={13} className={isRefreshing ? 'animate-spin text-[#2563EB]' : ''} />}
+            size="md"
+            icon={<RefreshCw size={14} className={isRefreshing ? 'animate-spin text-blue-600' : ''} />}
             onClick={() => {
               setIsRefreshing(true);
               fetchReports();
@@ -164,15 +164,15 @@ export default function Reports() {
           >
             Sync Reports
           </Button>
-          <span className="text-xs text-[#667085] font-mono hidden md:inline-block">
+          <span className="text-xs text-gray-500 font-mono hidden md:inline-block">
             {filteredReports.length} {filteredReports.length === 1 ? 'Report' : 'Reports'}
           </span>
         </div>
 
         <Button
           variant="primary"
-          size="sm"
-          icon={<Plus size={14} />}
+          size="md"
+          icon={<Plus size={16} />}
           onClick={() => setShowGenerateModal(true)}
         >
           Generate New Security Report
@@ -191,21 +191,21 @@ export default function Reports() {
           }}
         />
       ) : (
-        <div className="bg-white rounded-xl border border-[#E4E7EC] shadow-sm overflow-hidden">
+        <div className="bg-white rounded-2xl border border-gray-200  shadow-xl overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+            <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-b border-[#E4E7EC] bg-[#F8FAFC] text-[#667085] font-semibold text-[11px]">
-                  <th className="py-3 px-4">Report ID</th>
-                  <th className="py-3 px-4">Report Title & Summary</th>
-                  <th className="py-3 px-4">Type</th>
-                  <th className="py-3 px-4">Status</th>
-                  <th className="py-3 px-4">Generated At</th>
-                  <th className="py-3 px-4">Created By</th>
-                  <th className="py-3 px-4 text-right">Actions</th>
+                <tr className="border-b border-gray-200 bg-[#060911]/90 text-gray-500 font-bold text-xs uppercase tracking-wider">
+                  <th className="py-4 px-5">Report ID</th>
+                  <th className="py-4 px-5">Report Title &amp; Summary</th>
+                  <th className="py-4 px-5">Type</th>
+                  <th className="py-4 px-5">Status</th>
+                  <th className="py-4 px-5">Generated At</th>
+                  <th className="py-4 px-5">Created By</th>
+                  <th className="py-4 px-5 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#F1F4F9]">
+              <tbody className="divide-y divide-slate-800/60 text-gray-700">
                 {filteredReports.map((rep) => {
                   const id = rep.id || rep.reportId;
                   const genDate = rep.generatedAt || rep.createdAt;
@@ -215,73 +215,73 @@ export default function Reports() {
                     <tr
                       key={id}
                       onClick={() => setSelectedReport(rep)}
-                      className="hover:bg-[#F8FAFC] cursor-pointer transition-colors"
+                      className="hover:bg-gray-100/40 cursor-pointer transition-colors"
                     >
-                      <td className="py-3 px-4 font-mono font-medium text-[#2563EB] whitespace-nowrap">
+                      <td className="py-4 px-5 font-mono font-bold text-blue-600 whitespace-nowrap">
                         <div className="flex items-center gap-2">
-                          <FileText size={14} className="text-[#2563EB] shrink-0" />
+                          <FileText size={16} className="text-blue-600 shrink-0" />
                           {rep.reportId || id}
                         </div>
                       </td>
 
-                      <td className="py-3 px-4 max-w-xs md:max-w-md">
-                        <span className="font-semibold text-[#172033] block text-xs truncate">
+                      <td className="py-4 px-5 max-w-xs md:max-w-md">
+                        <span className="font-bold text-gray-900 block text-sm truncate">
                           {rep.title}
                         </span>
-                        <span className="text-[11px] text-[#667085] block truncate mt-0.5">
+                        <span className="text-xs text-gray-500 block truncate mt-0.5">
                           {rep.summary || 'Security operations summary report'}
                         </span>
                       </td>
 
-                      <td className="py-3 px-4 whitespace-nowrap">
-                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#EFF6FF] text-[#1D4ED8] border border-[#DBEAFE]">
+                      <td className="py-4 px-5 whitespace-nowrap">
+                        <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-blue-50 text-blue-500 border border-blue-200">
                           {rep.type?.replace(/_/g, ' ') || 'Summary'}
                         </span>
                       </td>
 
-                      <td className="py-3 px-4 whitespace-nowrap">
-                        <span className="inline-flex items-center gap-1 text-[11px] font-medium text-[#059669] bg-[#ECFDF5] px-2 py-0.5 rounded-full border border-[#A7F3D0]">
-                          <CheckCircle2 size={11} /> {rep.status || 'Generated'}
+                      <td className="py-4 px-5 whitespace-nowrap">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-500/30">
+                          <CheckCircle2 size={13} /> {rep.status || 'Generated'}
                         </span>
                       </td>
 
-                      <td className="py-3 px-4 text-[#667085] text-[11px] whitespace-nowrap">
-                        <span className="flex items-center gap-1 font-mono">
-                          <Clock size={11} className="text-[#98A2B3]" /> {formattedDate}
+                      <td className="py-4 px-5 text-gray-600 text-xs whitespace-nowrap">
+                        <span className="flex items-center gap-1.5 font-mono">
+                          <Clock size={13} className="text-blue-600" /> {formattedDate}
                         </span>
                       </td>
 
-                      <td className="py-3 px-4 text-[#475467] text-[11px] whitespace-nowrap">
-                        <span className="flex items-center gap-1">
-                          <User size={11} className="text-[#98A2B3]" /> {rep.createdBy || rep.author || 'SOC Lead'}
+                      <td className="py-4 px-5 text-gray-600 text-xs whitespace-nowrap">
+                        <span className="flex items-center gap-1.5">
+                          <User size={13} className="text-gray-500" /> {rep.createdBy || rep.author || 'SOC Lead'}
                         </span>
                       </td>
 
-                      <td className="py-3 px-4 text-right whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
-                        <div className="flex items-center justify-end gap-1">
+                      <td className="py-4 px-5 text-right whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
+                        <div className="flex items-center justify-end gap-1.5">
                           <button
                             onClick={() => setSelectedReport(rep)}
-                            className="p-1.5 rounded-lg text-[#667085] hover:text-[#172033] hover:bg-[#F1F4F9] transition-colors"
+                            className="p-2 rounded-xl text-gray-500 hover:text-gray-900 hover:bg-gray-100 border border-gray-200 transition-colors"
                             title="Inspect Report"
                             aria-label="Inspect Report"
                           >
-                            <FileText size={14} />
+                            <FileText size={15} />
                           </button>
                           <button
                             onClick={() => exportJSON(rep)}
-                            className="p-1.5 rounded-lg text-[#667085] hover:text-[#2563EB] hover:bg-[#EFF6FF] transition-colors"
+                            className="p-2 rounded-xl text-blue-600 hover:text-gray-900 hover:bg-cyan-950/60 border border-blue-200 transition-colors"
                             title="Export JSON"
                             aria-label="Export JSON"
                           >
-                            <Download size={14} />
+                            <Download size={15} />
                           </button>
                           <button
                             onClick={() => exportCSV(rep)}
-                            className="p-1.5 rounded-lg text-[#667085] hover:text-[#059669] hover:bg-[#ECFDF5] transition-colors"
+                            className="p-2 rounded-xl text-emerald-600 hover:text-gray-900 hover:bg-emerald-950/60 border border-emerald-500/30 transition-colors"
                             title="Export CSV"
                             aria-label="Export CSV"
                           >
-                            <FileSpreadsheet size={14} />
+                            <FileSpreadsheet size={15} />
                           </button>
                         </div>
                       </td>
@@ -294,68 +294,68 @@ export default function Reports() {
         </div>
       )}
 
-      {/* Report Inspection Modal */}
+      {/* Report Inspection Modal - Dark Cyber Styling */}
       {selectedReport && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in">
-          <div className="rounded-xl bg-white border border-[#E4E7EC] p-6 max-w-2xl w-full shadow-xl space-y-5">
-            <div className="flex items-start justify-between pb-4 border-b border-[#E4E7EC]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fade-in">
+          <div className="rounded-2xl bg-[#0A0E1A] border border-gray-200 p-6 max-w-2xl w-full shadow-lg space-y-5">
+            <div className="flex items-start justify-between pb-4 border-b border-gray-200">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-[#EFF6FF] text-[#2563EB]">
-                  <FileText size={20} />
+                <div className="p-2.5 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 text-gray-900 shadow-lg shadow-blue-500/20">
+                  <FileText size={22} />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-base font-bold text-[#172033]">{selectedReport.title}</h3>
-                    <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#EFF6FF] text-[#1D4ED8] border border-[#DBEAFE]">
+                    <h3 className="text-base font-bold text-gray-900">{selectedReport.title}</h3>
+                    <span className="text-xs font-bold px-2.5 py-0.5 rounded-lg bg-blue-50 text-blue-500 border border-blue-200">
                       {selectedReport.type?.replace(/_/g, ' ')}
                     </span>
                   </div>
-                  <p className="text-xs text-[#667085] font-mono mt-0.5">{selectedReport.reportId || selectedReport.id}</p>
+                  <p className="text-xs text-gray-500 font-mono mt-0.5">{selectedReport.reportId || selectedReport.id}</p>
                 </div>
               </div>
               <button
                 onClick={() => setSelectedReport(null)}
-                className="p-1.5 text-[#667085] hover:text-[#172033] rounded-lg hover:bg-[#F1F4F9]"
+                className="p-2 text-gray-500 hover:text-gray-900 rounded-xl hover:bg-gray-100"
                 aria-label="Close"
               >
                 <X size={18} />
               </button>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-[#F8FAFC] p-3.5 rounded-xl border border-[#E4E7EC] text-xs">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-gray-50/70 p-4 rounded-xl border border-gray-200 text-xs">
               <div>
-                <span className="text-[10px] text-[#667085] uppercase font-semibold tracking-wider block">Status</span>
-                <span className="font-semibold text-[#059669] font-mono uppercase">{selectedReport.status || 'Generated'}</span>
+                <span className="text-[10px] text-gray-500 uppercase font-bold tracking-wider block">Status</span>
+                <span className="font-bold text-emerald-600 font-mono uppercase">{selectedReport.status || 'Generated'}</span>
               </div>
               <div>
-                <span className="text-[10px] text-[#667085] uppercase font-semibold tracking-wider block">Author</span>
-                <span className="font-medium text-[#172033]">{selectedReport.createdBy || selectedReport.author || 'ThreatX SOC'}</span>
+                <span className="text-[10px] text-gray-500 uppercase font-bold tracking-wider block">Author</span>
+                <span className="font-semibold text-gray-900">{selectedReport.createdBy || selectedReport.author || 'ThreatX SOC'}</span>
               </div>
               <div>
-                <span className="text-[10px] text-[#667085] uppercase font-semibold tracking-wider block">Date</span>
-                <span className="font-mono text-[#475467]">
+                <span className="text-[10px] text-gray-500 uppercase font-bold tracking-wider block">Date</span>
+                <span className="font-mono text-gray-600">
                   {selectedReport.generatedAt ? new Date(selectedReport.generatedAt).toLocaleString() : 'N/A'}
                 </span>
               </div>
               <div>
-                <span className="text-[10px] text-[#667085] uppercase font-semibold tracking-wider block">Period</span>
-                <span className="font-medium text-[#2563EB]">{selectedReport.period || '24h Standard'}</span>
+                <span className="text-[10px] text-gray-500 uppercase font-bold tracking-wider block">Period</span>
+                <span className="font-bold text-blue-600">{selectedReport.period || '24h Standard'}</span>
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-[#172033] uppercase tracking-wider block">Executive Summary & Findings</label>
-              <div className="p-4 rounded-xl bg-[#F8FAFC] border border-[#E4E7EC] text-xs text-[#475467] leading-relaxed max-h-48 overflow-y-auto">
+              <label className="text-xs font-bold text-gray-600 uppercase tracking-wider block">Executive Summary &amp; Findings</label>
+              <div className="p-4 rounded-xl bg-gray-50 border border-gray-200 text-xs text-gray-600 leading-relaxed max-h-48 overflow-y-auto">
                 {selectedReport.summary || 'No detailed summary provided.'}
               </div>
             </div>
 
-            <div className="pt-3 border-t border-[#E4E7EC] flex items-center justify-between">
+            <div className="pt-3 border-t border-gray-200 flex items-center justify-between">
               <div className="flex gap-2">
                 <Button
                   variant="outline"
                   size="sm"
-                  icon={<Download size={13} />}
+                  icon={<Download size={14} />}
                   onClick={() => exportJSON(selectedReport)}
                 >
                   Export JSON
@@ -363,7 +363,7 @@ export default function Reports() {
                 <Button
                   variant="outline"
                   size="sm"
-                  icon={<FileSpreadsheet size={13} />}
+                  icon={<FileSpreadsheet size={14} />}
                   onClick={() => exportCSV(selectedReport)}
                 >
                   Export CSV
@@ -382,20 +382,20 @@ export default function Reports() {
         </div>
       )}
 
-      {/* Generate Report Modal */}
+      {/* Generate Report Modal - Dark Cybersecurity */}
       {showGenerateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in">
-          <div className="rounded-xl bg-white border border-[#E4E7EC] p-6 max-w-lg w-full shadow-xl">
-            <div className="flex items-center justify-between pb-4 border-b border-[#E4E7EC] mb-4">
-              <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-xl bg-[#EFF6FF] text-[#2563EB]">
-                  <FileText size={18} />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fade-in">
+          <div className="rounded-2xl bg-[#0A0E1A] border border-gray-200 p-6 max-w-lg w-full shadow-lg">
+            <div className="flex items-center justify-between pb-4 border-b border-gray-200 mb-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 text-gray-900 shadow-lg shadow-blue-500/20">
+                  <FileText size={20} />
                 </div>
-                <h3 className="text-base font-bold text-[#172033]">Generate Security Report</h3>
+                <h3 className="text-base font-bold text-gray-900">Generate Security Report</h3>
               </div>
               <button
                 onClick={() => setShowGenerateModal(false)}
-                className="p-1.5 text-[#667085] hover:text-[#172033] rounded-lg hover:bg-[#F1F4F9]"
+                className="p-2 text-gray-500 hover:text-gray-900 rounded-xl hover:bg-gray-100"
                 aria-label="Close"
               >
                 <X size={18} />
@@ -404,7 +404,7 @@ export default function Reports() {
 
             <form onSubmit={handleGenerate} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-[#172033] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1.5">
                   Report Title
                 </label>
                 <input
@@ -413,18 +413,18 @@ export default function Reports() {
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="e.g. Q3 SOC Perimeter Security Audit"
-                  className="w-full px-3.5 py-2 rounded-lg bg-white border border-[#E4E7EC] text-xs text-[#172033] placeholder-[#98A2B3] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
+                  className="w-full px-4 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-cyan-500 font-sans"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#172033] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1.5">
                   Report Type
                 </label>
                 <select
                   value={newType}
                   onChange={(e) => setNewType(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-lg bg-white border border-[#E4E7EC] text-xs text-[#172033] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
+                  className="w-full px-4 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs text-gray-700 focus:outline-none focus:border-cyan-500 cursor-pointer"
                 >
                   <option value="security_summary">Security Summary</option>
                   <option value="compliance_audit">Compliance Audit</option>
@@ -434,7 +434,7 @@ export default function Reports() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#172033] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-gray-600 uppercase tracking-wider mb-1.5">
                   Executive Summary / Brief
                 </label>
                 <textarea
@@ -442,15 +442,15 @@ export default function Reports() {
                   value={newSummary}
                   onChange={(e) => setNewSummary(e.target.value)}
                   placeholder="Summarize key risk vectors, mitigation results, and incident counts..."
-                  className="w-full px-3.5 py-2 rounded-lg bg-white border border-[#E4E7EC] text-xs text-[#172033] placeholder-[#98A2B3] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
+                  className="w-full px-4 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-xs text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-cyan-500 font-sans"
                 />
               </div>
 
-              <div className="pt-3 border-t border-[#E4E7EC] flex justify-end gap-2">
+              <div className="pt-3 border-t border-gray-200 flex justify-end gap-2.5">
                 <Button
                   type="button"
                   variant="ghost"
-                  size="sm"
+                  size="md"
                   onClick={() => setShowGenerateModal(false)}
                 >
                   Cancel
@@ -458,7 +458,7 @@ export default function Reports() {
                 <Button
                   type="submit"
                   variant="primary"
-                  size="sm"
+                  size="md"
                   disabled={generating}
                 >
                   {generating ? 'Generating...' : 'Create Report'}

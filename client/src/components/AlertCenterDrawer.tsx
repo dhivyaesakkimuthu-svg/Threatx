@@ -103,8 +103,8 @@ export default function AlertCenterDrawer({
   }).length;
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-slate-900/40 backdrop-blur-xs animate-fade-in">
-      <div className="w-full max-w-xl bg-white border-l border-[#E4E7EC] h-full flex flex-col shadow-2xl">
+    <div className="fixed inset-0 z-50 flex justify-end bg-white/40 backdrop-blur-xs animate-fade-in">
+      <div className="w-full max-w-xl bg-white border-l border-[#E4E7EC] h-full flex flex-col shadow-lg">
         {/* Header */}
         <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between bg-white">
           <div className="flex items-center gap-3">
@@ -117,12 +117,12 @@ export default function AlertCenterDrawer({
                   Alert Center
                 </h3>
                 {openCount > 0 && (
-                  <span className="px-2 py-0.2 rounded-full bg-red-600 text-white font-bold text-xs">
+                  <span className="px-2 py-0.2 rounded-full bg-red-600 text-gray-900 font-bold text-xs">
                     {openCount}
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-gray-400">
                 Security event triage and incident alarms
               </p>
             </div>
@@ -140,7 +140,7 @@ export default function AlertCenterDrawer({
             )}
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg text-gray-500 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
               aria-label="Close alerts panel"
             >
               <X size={18} />
@@ -151,13 +151,13 @@ export default function AlertCenterDrawer({
         {/* Search bar & Tabs */}
         <div className="p-3.5 border-b border-slate-100 bg-slate-50/50 space-y-2.5">
           <div className="relative">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by ID, title, IP or source..."
-              className="w-full pl-8.5 pr-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-500 shadow-xs"
+              className="w-full pl-8.5 pr-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 placeholder:text-gray-500 focus:outline-none focus:border-blue-500 shadow-xs"
             />
           </div>
 
@@ -167,7 +167,7 @@ export default function AlertCenterDrawer({
               className={`py-1.5 px-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'open'
                   ? 'bg-white text-slate-900 shadow-xs'
-                  : 'text-slate-500 hover:text-slate-800'
+                  : 'text-gray-400 hover:text-slate-800'
               }`}
             >
               Open ({openCount})
@@ -176,7 +176,7 @@ export default function AlertCenterDrawer({
               onClick={() => setActiveTab('critical')}
               className={`py-1.5 px-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'critical'
-                  ? 'bg-red-600 text-white shadow-xs'
+                  ? 'bg-red-600 text-gray-900 shadow-xs'
                   : 'text-red-700 hover:text-red-800'
               }`}
             >
@@ -186,7 +186,7 @@ export default function AlertCenterDrawer({
               onClick={() => setActiveTab('high')}
               className={`py-1.5 px-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'high'
-                  ? 'bg-orange-600 text-white shadow-xs'
+                  ? 'bg-orange-600 text-gray-900 shadow-xs'
                   : 'text-orange-700 hover:text-orange-800'
               }`}
             >
@@ -196,8 +196,8 @@ export default function AlertCenterDrawer({
               onClick={() => setActiveTab('resolved')}
               className={`py-1.5 px-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === 'resolved'
-                  ? 'bg-emerald-600 text-white shadow-xs'
-                  : 'text-slate-500 hover:text-slate-800'
+                  ? 'bg-emerald-600 text-gray-900 shadow-xs'
+                  : 'text-gray-400 hover:text-slate-800'
               }`}
             >
               Resolved ({resolvedCount})
@@ -208,10 +208,10 @@ export default function AlertCenterDrawer({
         {/* Alerts List */}
         <div className="flex-1 overflow-y-auto p-4 space-y-2.5">
           {filteredAlerts.length === 0 ? (
-            <div className="text-center py-16 text-xs text-slate-500">
+            <div className="text-center py-16 text-xs text-gray-400">
               <CheckCircle2 size={32} className="mx-auto mb-2 text-emerald-600" />
               <p className="font-semibold text-slate-800">No alerts in this category</p>
-              <p className="text-xs text-slate-400 mt-0.5">All incidents have been triaged</p>
+              <p className="text-xs text-gray-500 mt-0.5">All incidents have been triaged</p>
             </div>
           ) : (
             filteredAlerts.map((alert) => {
@@ -249,9 +249,9 @@ export default function AlertCenterDrawer({
                           <StatusBadge status={alert.status || 'open'} size="sm" />
                         </div>
                         <h4 className="text-xs font-bold text-slate-900 truncate">{alert.title}</h4>
-                        <p className="text-xs text-slate-500 line-clamp-2 mt-0.5">{alert.description}</p>
+                        <p className="text-xs text-gray-400 line-clamp-2 mt-0.5">{alert.description}</p>
                         
-                        <div className="flex items-center gap-3 mt-2 text-[11px] text-slate-400 font-medium">
+                        <div className="flex items-center gap-3 mt-2 text-[11px] text-gray-500 font-medium">
                           <span>Source: {alert.source || 'ThreatX Core'}</span>
                           <span>•</span>
                           <span className="flex items-center gap-1 font-mono">
@@ -299,8 +299,8 @@ export default function AlertCenterDrawer({
 
         {/* Selected Alert Inspection Modal */}
         {selectedAlertForDetails && (
-          <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
-            <div className="w-full max-w-lg rounded-2xl bg-white border border-[#E4E7EC] p-5 shadow-2xl space-y-4">
+          <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-white/40 backdrop-blur-xs">
+            <div className="w-full max-w-lg rounded-2xl bg-white border border-[#E4E7EC] p-5 shadow-lg space-y-4">
               <div className="flex items-start justify-between pb-3 border-b border-slate-100">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
@@ -312,7 +312,7 @@ export default function AlertCenterDrawer({
                 </div>
                 <button
                   onClick={() => setSelectedAlertForDetails(null)}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+                  className="p-1.5 rounded-lg text-gray-500 hover:text-slate-700 hover:bg-slate-100"
                 >
                   <X size={18} />
                 </button>
@@ -324,11 +324,11 @@ export default function AlertCenterDrawer({
 
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl">
-                  <span className="text-[10px] text-slate-400 uppercase block font-medium">Source Node</span>
+                  <span className="text-[10px] text-gray-500 uppercase block font-medium">Source Node</span>
                   <span className="font-semibold text-slate-900 font-mono">{selectedAlertForDetails.source || 'SRV-001'}</span>
                 </div>
                 <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl">
-                  <span className="text-[10px] text-slate-400 uppercase block font-medium">Timestamp</span>
+                  <span className="text-[10px] text-gray-500 uppercase block font-medium">Timestamp</span>
                   <span className="font-semibold text-slate-900 font-mono">
                     {selectedAlertForDetails.timestamp ? new Date(selectedAlertForDetails.timestamp).toLocaleString() : 'N/A'}
                   </span>

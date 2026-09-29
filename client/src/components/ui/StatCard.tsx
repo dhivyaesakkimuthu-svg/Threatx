@@ -54,10 +54,10 @@ export default function StatCard({ title, value, icon: Icon, trend, accent = 'bl
         ) : isDown ? (
           <TrendingDown size={12} className="text-emerald-600 shrink-0" />
         ) : (
-          <ArrowRight size={12} className="text-slate-400 shrink-0" />
+          <ArrowRight size={12} className="text-gray-500 shrink-0" />
         )}
         <span className={`text-xs font-semibold ${
-          isUp ? 'text-red-600' : isDown ? 'text-emerald-600' : 'text-slate-500'
+          isUp ? 'text-red-600' : isDown ? 'text-emerald-600' : 'text-gray-400'
         }`}>
           {trend}
         </span>
@@ -69,7 +69,7 @@ export default function StatCard({ title, value, icon: Icon, trend, accent = 'bl
     <GlassCard className="h-full border border-[#E4E7EC] hover:border-slate-300 transition-all">
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-semibold text-slate-500 mb-1">{title}</p>
+          <p className="text-xs font-semibold text-gray-400 mb-1">{title}</p>
           <p className="text-2xl font-bold tracking-tight text-slate-900">{displayValue}</p>
           {renderTrend()}
         </div>

@@ -194,8 +194,8 @@ function SingleToast({
           onClick={onInvestigate}
           className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[10px] font-semibold transition-all ${
             isCritical
-              ? 'bg-red-600 hover:bg-red-700 text-white shadow-xs'
-              : 'bg-blue-600 hover:bg-blue-700 text-white shadow-xs'
+              ? 'bg-red-600 hover:bg-red-700 text-gray-900 shadow-xs'
+              : 'bg-blue-600 hover:bg-blue-700 text-gray-900 shadow-xs'
           }`}
         >
           Investigate <ExternalLink size={10} />

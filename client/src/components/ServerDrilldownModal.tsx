@@ -108,8 +108,8 @@ export default function ServerDrilldownModal({
   });
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs animate-fade-in">
-      <div className="w-full max-w-4xl rounded-2xl bg-white border border-[#E4E7EC] p-6 shadow-2xl space-y-6 max-h-[92vh] overflow-y-auto custom-scrollbar">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/40 backdrop-blur-xs animate-fade-in">
+      <div className="w-full max-w-4xl rounded-2xl bg-white border border-[#E4E7EC] p-6 shadow-lg space-y-6 max-h-[92vh] overflow-y-auto custom-scrollbar">
         {/* Header */}
         <div className="flex items-start justify-between pb-4 border-b border-[#E4E7EC]">
           <div className="flex items-center gap-3.5">
@@ -300,7 +300,7 @@ export default function ServerDrilldownModal({
         <div className="pt-4 border-t border-[#E4E7EC] flex justify-end">
           <button
             onClick={onClose}
-            className="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-all shadow-xs"
+            className="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-gray-900 font-semibold text-xs transition-all shadow-xs"
           >
             Close Drill-down Panel
           </button>

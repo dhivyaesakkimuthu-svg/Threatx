@@ -116,8 +116,8 @@ export default function DemoScenarioModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs animate-fade-in">
-      <div className="relative w-full max-w-2xl bg-white border border-[#E4E7EC] rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/40 backdrop-blur-xs animate-fade-in">
+      <div className="relative w-full max-w-2xl bg-white border border-[#E4E7EC] rounded-2xl shadow-lg overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-slate-100 bg-slate-50/50">
           <div className="flex items-center gap-3">
@@ -128,14 +128,14 @@ export default function DemoScenarioModal({
               <h2 className="text-base font-bold text-slate-900">
                 Demo Scenarios & Event Simulator
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-gray-400">
                 Trigger controlled attack simulations and inspect live SOC responses
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg text-gray-500 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
             aria-label="Close demo modal"
           >
             <X size={18} />
@@ -152,7 +152,7 @@ export default function DemoScenarioModal({
             className={`pb-3 px-3 font-semibold text-xs transition-all border-b-2 cursor-pointer ${
               activeTab === 'scenarios'
                 ? 'border-blue-600 text-blue-700'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
+                : 'border-transparent text-gray-400 hover:text-slate-800'
             }`}
           >
             Interactive Attack Scenarios
@@ -165,7 +165,7 @@ export default function DemoScenarioModal({
             className={`pb-3 px-3 font-semibold text-xs transition-all border-b-2 cursor-pointer flex items-center gap-1.5 ${
               activeTab === 'reset'
                 ? 'border-red-600 text-red-700'
-                : 'border-transparent text-slate-500 hover:text-slate-800'
+                : 'border-transparent text-gray-400 hover:text-slate-800'
             }`}
           >
             <RotateCcw size={12} />
@@ -218,8 +218,8 @@ export default function DemoScenarioModal({
                         <span className="font-bold text-slate-900 text-xs">{sc.name}</span>
                         <SeverityBadge severity={sc.severity} size="sm" />
                       </div>
-                      <p className="text-xs text-slate-500 leading-relaxed">{sc.description}</p>
-                      <div className="flex items-center gap-2 pt-1 text-[11px] text-slate-400 font-mono">
+                      <p className="text-xs text-gray-400 leading-relaxed">{sc.description}</p>
+                      <div className="flex items-center gap-2 pt-1 text-[11px] text-gray-500 font-mono">
                         <span>Event: {sc.simulatedEvent}</span>
                       </div>
                     </div>
@@ -228,7 +228,7 @@ export default function DemoScenarioModal({
                   <button
                     disabled={isExecuting !== null}
                     onClick={() => handleRunScenario(sc.id, sc.name)}
-                    className="self-end sm:self-center px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-xs transition-all flex items-center gap-1.5 shrink-0 cursor-pointer disabled:opacity-50"
+                    className="self-end sm:self-center px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-gray-900 font-semibold text-xs shadow-xs transition-all flex items-center gap-1.5 shrink-0 cursor-pointer disabled:opacity-50"
                   >
                     {isExecuting === sc.id ? (
                       <span className="inline-block animate-spin">⟳</span>
@@ -263,7 +263,7 @@ export default function DemoScenarioModal({
                   <button
                     disabled={isResetting}
                     onClick={handleResetData}
-                    className="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-xs shadow-xs transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+                    className="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-gray-900 font-semibold text-xs shadow-xs transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
                   >
                     <RotateCcw size={14} className={isResetting ? 'animate-spin' : ''} />
                     <span>{isResetting ? 'Restoring Baseline...' : 'Confirm Safe Demo Reset'}</span>

@@ -9,9 +9,10 @@
     "start": "tsx src/index.ts",
     "seed": "tsx src/seed.ts",
     "reset:demo": "tsx src/scripts/resetDemo.ts",
-    "test": "tsx src/tests/threatIntelligence.test.ts && tsx src/tests/authRbac.test.ts",
+    "test": "tsx src/tests/threatIntelligence.test.ts && tsx src/tests/authRbac.test.ts && tsx src/tests/apiIntegrations.test.ts",
     "test:ai": "tsx src/tests/threatIntelligence.test.ts",
     "test:auth": "tsx src/tests/authRbac.test.ts",
+    "test:integrations": "tsx src/tests/apiIntegrations.test.ts",
     "build": "tsc"
   },
   "keywords": [
