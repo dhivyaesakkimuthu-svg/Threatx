@@ -1,20 +1,10 @@
 export type RiskLevel = 'Low' | 'Medium' | 'High';
 
-export type ThreatType =
-  | 'unknown_ip'
-  | 'unusual_login_time'
-  | 'new_device'
-  | 'failed_login_attempts'
-  | 'impossible_travel'
-  | 'unauthorized_file_access'
-  | 'restricted_folder_access'
-  | 'mass_download';
-
 export interface Server {
   id: string;
   name: string;
   hostname: string;
-  apiKey: string;
+  apiKey?: string;
   status: 'online' | 'offline' | 'pending';
   os: string;
   ipAddress: string;
@@ -23,41 +13,13 @@ export interface Server {
   createdAt: string;
 }
 
-export interface ActivityLog {
-  id: string;
-  serverId: string;
-  userId: string;
-  username: string;
-  eventType: 'login' | 'logout' | 'file_access' | 'file_download' | 'failed_login';
-  ipAddress: string;
-  device: string;
-  userAgent: string;
-  location?: { lat: number; lng: number; city: string; country: string };
-  filePath?: string;
-  success: boolean;
-  timestamp: string;
-}
-
-export interface UserBehaviorProfile {
-  userId: string;
-  username: string;
-  knownIps: string[];
-  knownDevices: string[];
-  typicalLoginHours: number[];
-  typicalLocations: { lat: number; lng: number; city: string }[];
-  lastLogin?: { ip: string; device: string; timestamp: string; location?: { lat: number; lng: number } };
-  failedLoginCount: number;
-  accessedFiles: string[];
-  restrictedAccessCount: number;
-}
-
 export interface ThreatEvent {
   id: string;
   serverId: string;
   serverName: string;
   userId: string;
   username: string;
-  threatType: ThreatType;
+  threatType: string;
   riskLevel: RiskLevel;
   riskScore: number;
   ipAddress: string;
@@ -82,6 +44,7 @@ export interface Incident {
   updatedAt: string;
   investigationHistory: InvestigationEntry[];
   relatedEvents: string[];
+  threats?: ThreatEvent[];
 }
 
 export interface InvestigationEntry {
@@ -120,13 +83,4 @@ export interface DashboardStats {
   riskDistribution: { low: number; medium: number; high: number };
   recentLogins: LoginActivity[];
   threatTimeline: { time: string; count: number; high: number; medium: number; low: number }[];
-}
-
-export interface Database {
-  servers: Server[];
-  activityLogs: ActivityLog[];
-  behaviorProfiles: UserBehaviorProfile[];
-  threatEvents: ThreatEvent[];
-  incidents: Incident[];
-  alerts: Alert[];
 }

@@ -4,7 +4,7 @@ import { getDb, persistDb } from '../db/store.js';
 export class BehaviorProfileManager {
   getOrCreate(userId: string, username: string): UserBehaviorProfile {
     const db = getDb();
-    let profile = db.behaviorProfiles.find((p) => p.userId === userId);
+    let profile = db.behaviorProfiles.find((p) => p.userId === userId || p.username.toLowerCase() === username.toLowerCase());
     if (!profile) {
       profile = {
         userId,

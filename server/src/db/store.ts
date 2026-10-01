@@ -8,18 +8,12 @@ const DATA_DIR = path.join(__dirname, '..', 'data');
 const DB_FILE = path.join(DATA_DIR, 'threatx.json');
 
 const defaultDb: Database = {
-  users: [],
   servers: [],
-  threats: [],
-  alerts: [],
-  sessions: [],
-  activities: [],
-  reports: [],
-  // Legacy / internal compatibility aliases
   activityLogs: [],
   behaviorProfiles: [],
   threatEvents: [],
   incidents: [],
+  alerts: [],
 };
 
 function ensureDataDir() {
@@ -36,20 +30,7 @@ export function loadDb(): Database {
   }
   try {
     const raw = fs.readFileSync(DB_FILE, 'utf-8');
-    const parsed = JSON.parse(raw);
-    return {
-      ...defaultDb,
-      ...parsed,
-      users: parsed.users || defaultDb.users,
-      servers: parsed.servers || defaultDb.servers,
-      threats: parsed.threats || parsed.threatEvents || defaultDb.threats,
-      alerts: parsed.alerts || defaultDb.alerts,
-      sessions: parsed.sessions || defaultDb.sessions,
-      activities: parsed.activities || parsed.activityLogs || defaultDb.activities,
-      reports: parsed.reports || defaultDb.reports,
-      activityLogs: parsed.activityLogs || parsed.activities || defaultDb.activityLogs,
-      threatEvents: parsed.threatEvents || parsed.threats || defaultDb.threatEvents,
-    };
+    return { ...defaultDb, ...JSON.parse(raw) };
   } catch {
     return structuredClone(defaultDb);
   }
@@ -57,11 +38,6 @@ export function loadDb(): Database {
 
 export function saveDb(db: Database): void {
   ensureDataDir();
-  // Keep bidirectional sync between threats <-> threatEvents and activities <-> activityLogs
-  db.threats = db.threats || db.threatEvents || [];
-  db.threatEvents = db.threatEvents || db.threats || [];
-  db.activities = db.activities || db.activityLogs || [];
-  db.activityLogs = db.activityLogs || db.activities || [];
   fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2));
 }
 

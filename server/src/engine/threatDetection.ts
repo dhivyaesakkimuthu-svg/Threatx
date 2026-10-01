@@ -12,19 +12,8 @@ import type {
 import { getDb, persistDb } from '../db/store.js';
 import { behaviorManager } from './behaviorProfile.js';
 
-const RESTRICTED_FOLDERS = ['/confidential', '/finance', '/hr/private', '/admin/secrets', '/etc', '/var/www/secrets', '/srv/app', '/db'];
-const SENSITIVE_FILES = [
-  '/confidential/',
-  '/finance/reports/',
-  '/hr/private/',
-  'passwd',
-  '.env',
-  'ledger.csv',
-  'config.yaml',
-  'finance_backup.sql',
-  'customer_export.csv',
-  'credential_dump',
-];
+const RESTRICTED_FOLDERS = ['/confidential', '/finance', '/hr/private', '/admin/secrets', '/etc', '/srv/app', '/var/www', '/home/admin'];
+const SENSITIVE_FILES = ['/confidential/', '/finance/reports/', '/hr/private/', '.env', 'passwd', 'ledger.csv', 'credentials.key', 'customer_export.csv', 'secrets/config.yaml'];
 
 function haversineDistance(
   lat1: number,
@@ -57,9 +46,18 @@ interface DetectionResult {
 }
 
 export class ThreatDetectionEngine {
+  private recentThreats: Map<string, number> = new Map();
+
+  private shouldFire(userId: string, threatType: string, cooldownMs = 5 * 60 * 1000): boolean {
+    const key = `${userId}:${threatType}`;
+    const lastFired = this.recentThreats.get(key) ?? 0;
+    if (Date.now() - lastFired < cooldownMs) return false;
+    this.recentThreats.set(key, Date.now());
+    return true;
+  }
+
   analyze(log: ActivityLog, server: Server): ThreatEvent[] {
-    behaviorManager.updateFromActivity(log);
-    const profile = behaviorManager.getProfile(log.userId);
+    const profile = behaviorManager.getOrCreate(log.userId, log.username);
     if (!profile) return [];
 
     const detections: DetectionResult[] = [];
@@ -70,6 +68,8 @@ export class ThreatDetectionEngine {
     if (log.eventType === 'file_access' || log.eventType === 'file_download') {
       detections.push(...this.analyzeFileAccess(log, profile));
     }
+
+    behaviorManager.updateFromActivity(log);
 
     const events: ThreatEvent[] = [];
     for (const d of detections) {
@@ -188,18 +188,20 @@ export class ThreatDetectionEngine {
 
     if (isRestricted) {
       profile.restrictedAccessCount += 1;
-      const score = profile.restrictedAccessCount >= 3 ? 75 : 50;
-      results.push({
-        threatType: 'restricted_folder_access',
-        riskScore: score,
-        explanation: `User "${log.username}" accessed restricted folder: ${log.filePath}. ${profile.restrictedAccessCount} restricted access attempts recorded.`,
-        recommendedActions: [
-          'Review access permissions',
-          'Audit user role assignments',
-          'Enable file access logging alerts',
-          profile.restrictedAccessCount >= 3 ? 'Suspend file access privileges' : 'Monitor continued access',
-        ],
-      });
+      if (this.shouldFire(log.userId, 'restricted_folder_access')) {
+        const score = profile.restrictedAccessCount >= 3 ? 75 : 50;
+        results.push({
+          threatType: 'restricted_folder_access',
+          riskScore: score,
+          explanation: `User "${log.username}" accessed restricted folder: ${log.filePath}. ${profile.restrictedAccessCount} restricted access attempts recorded.`,
+          recommendedActions: [
+            'Review access permissions',
+            'Audit user role assignments',
+            'Enable file access logging alerts',
+            profile.restrictedAccessCount >= 3 ? 'Suspend file access privileges' : 'Monitor continued access',
+          ],
+        });
+      }
     }
 
     if (isSensitive && !profile.accessedFiles.includes(log.filePath)) {
@@ -222,7 +224,7 @@ export class ThreatDetectionEngine {
           l.eventType === 'file_download' &&
           new Date(log.timestamp).getTime() - new Date(l.timestamp).getTime() < 3600000
       );
-      if (recentDownloads.length >= 5) {
+      if (recentDownloads.length >= 5 && this.shouldFire(log.userId, 'mass_download')) {
         results.push({
           threatType: 'mass_download',
           riskScore: 85,
@@ -245,34 +247,20 @@ export class ThreatDetectionEngine {
     server: Server,
     detection: DetectionResult
   ): ThreatEvent {
-    const id = uuidv4();
-    const threatId = `THR-${id.substring(0, 6).toUpperCase()}`;
-    const riskLevel = classifyRisk(detection.riskScore);
-    const severity = (riskLevel.toLowerCase() as 'low' | 'medium' | 'high' | 'critical');
-    const timestamp = log.timestamp || new Date().toISOString();
-
     return {
-      id,
-      threatId,
-      type: detection.threatType || 'Suspicious Activity',
-      threatType: detection.threatType || 'Suspicious Activity',
-      severity,
-      riskLevel,
-      riskScore: detection.riskScore,
-      source: log.ipAddress || log.sourceIp || '127.0.0.1',
-      ipAddress: log.ipAddress || log.sourceIp || '127.0.0.1',
-      target: server.serverId || server.name || 'SRV-001',
-      serverId: server.serverId || server.id,
+      id: uuidv4(),
+      serverId: server.id,
       serverName: server.name,
       userId: log.userId,
       username: log.username,
+      threatType: detection.threatType,
+      riskLevel: classifyRisk(detection.riskScore),
+      riskScore: detection.riskScore,
+      ipAddress: log.ipAddress,
       device: log.device,
-      status: 'investigating',
-      description: detection.explanation,
+      timestamp: log.timestamp,
       explanation: detection.explanation,
-      detectedAt: timestamp,
-      timestamp,
-      recommendedActions: detection.recommendedActions || [],
+      recommendedActions: detection.recommendedActions,
       location: log.location ? `${log.location.city}, ${log.location.country}` : undefined,
       filePath: log.filePath,
       acknowledged: false,
@@ -281,48 +269,40 @@ export class ThreatDetectionEngine {
 
   private persistThreat(event: ThreatEvent): void {
     const db = getDb();
-    db.threats.unshift(event);
     db.threatEvents.unshift(event);
 
-    if (event.riskLevel === 'High' || event.severity === 'high' || event.severity === 'critical') {
-      const alertId = `ALT-${uuidv4().substring(0, 6).toUpperCase()}`;
+    if (event.riskLevel === 'High') {
       const alert: Alert = {
         id: uuidv4(),
-        alertId,
-        threatEventId: event.id || event.threatId,
-        threatId: event.threatId,
-        title: `High Risk: ${(event.threatType || event.type || 'Threat').replace(/_/g, ' ')}`,
-        message: event.description || event.explanation || 'Threat detected',
-        severity: 'critical',
+        threatEventId: event.id,
+        title: `High Risk: ${event.threatType.replace(/_/g, ' ')}`,
+        message: event.explanation,
         riskLevel: 'High',
-        source: event.source || event.ipAddress || '192.168.1.20',
-        target: event.target || 'SRV-001',
-        status: 'open',
         read: false,
-        createdAt: event.timestamp || event.detectedAt || new Date().toISOString(),
+        createdAt: event.timestamp,
       };
       db.alerts.unshift(alert);
 
       const incident: Incident = {
         id: uuidv4(),
-        threatEventId: event.id || event.threatId,
-        title: `Incident: ${(event.threatType || event.type || 'Threat').replace(/_/g, ' ')} - ${event.username}`,
-        description: event.explanation || event.description,
+        threatEventId: event.id,
+        title: `Incident: ${event.threatType.replace(/_/g, ' ')} - ${event.username}`,
+        description: event.explanation,
         riskLevel: 'High',
         status: 'open',
         assignedTo: 'Security Team',
-        createdAt: event.timestamp || new Date().toISOString(),
-        updatedAt: event.timestamp || new Date().toISOString(),
+        createdAt: event.timestamp,
+        updatedAt: event.timestamp,
         investigationHistory: [
           {
             id: uuidv4(),
-            timestamp: event.timestamp || new Date().toISOString(),
+            timestamp: event.timestamp,
             action: 'Incident auto-created',
             analyst: 'ThreatX AI Engine',
             notes: `Automatically created from high-risk threat detection. Risk score: ${event.riskScore}/100.`,
           },
         ],
-        relatedEvents: [event.id || event.threatId],
+        relatedEvents: [event.id],
       };
       db.incidents.unshift(incident);
     }

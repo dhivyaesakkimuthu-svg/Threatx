@@ -19,7 +19,7 @@ router.get('/stats', (_req, res) => {
   };
 
   const highCount = riskDistribution.high;
-  const securityScore = Math.max(0, Math.min(100, 100 - highCount * 8 - riskDistribution.medium * 3));
+  const securityScore = Math.max(0, Math.min(100, 100 - highCount * 3 - riskDistribution.medium * 1));
 
   const recentLogins = db.activityLogs
     .filter((l) => l.eventType === 'login' || l.eventType === 'failed_login')
