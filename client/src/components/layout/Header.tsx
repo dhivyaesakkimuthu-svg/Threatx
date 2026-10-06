@@ -53,8 +53,8 @@ export default function Header({ title, subtitle }: HeaderProps) {
   return (
     <header className="flex items-center justify-between mb-8 relative">
       <div>
-        <h2 className="text-2xl font-extrabold tracking-tight text-glow">{title}</h2>
-        {subtitle && <p className="text-sm text-slate-400 mt-1">{subtitle}</p>}
+        <h1 className="text-2xl font-bold text-white tracking-tight">{title}</h1>
+        {subtitle && <p className="text-sm font-normal text-slate-400 mt-1">{subtitle}</p>}
       </div>
 
       <div className="flex items-center gap-4">

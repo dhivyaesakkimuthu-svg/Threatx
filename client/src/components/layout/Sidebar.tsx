@@ -42,6 +42,22 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
     return () => clearInterval(interval);
   }, []);
 
+  const getUserDisplayName = () => {
+    if (!user) return 'Security Analyst';
+    if (user.name && user.name.trim().length > 2) return user.name;
+    if (user.email) {
+      const emailName = user.email.split('@')[0];
+      if (emailName.toLowerCase().startsWith('mdsuhail')) return 'Md Suhail';
+      return emailName.charAt(0).toUpperCase() + emailName.slice(1);
+    }
+    return user.name || 'Admin';
+  };
+
+  const getUserInitial = () => {
+    const name = getUserDisplayName();
+    return name.charAt(0).toUpperCase();
+  };
+
   return (
     <motion.aside
       animate={{ width: collapsed ? 72 : 260 }}
@@ -59,10 +75,10 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
             exit={{ opacity: 0, x: -10 }}
             className="flex-1 min-w-0"
           >
-            <h1 className="text-lg font-extrabold bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent tracking-tight">
+            <h1 className="text-base font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent tracking-tight">
               ThreatX
             </h1>
-            <p className="text-[10px] text-slate-500 font-semibold tracking-widest uppercase">Security Engine</p>
+            <p className="text-[10px] text-slate-400 font-semibold tracking-widest uppercase">Security Engine</p>
           </motion.div>
         )}
       </div>
@@ -75,23 +91,21 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
             end={to === '/'}
             title={collapsed ? label : undefined}
             className={({ isActive }) =>
-              `relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 group overflow-hidden ${
+              `relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all duration-200 group overflow-hidden ${
                 isActive
-                  ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-inner'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                  ? 'bg-white/10 text-white font-semibold border-l-2 border-cyan-400 shadow-sm'
+                  : 'text-slate-300 font-medium hover:text-white hover:bg-white/5'
               }`
             }
           >
             {({ isActive }) => (
               <>
-                {isActive && (
-                  <motion.div
-                    layoutId="sidebar-active-glow"
-                    className="absolute left-0 top-1/4 bottom-1/4 w-1 rounded-r bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <Icon size={20} className="shrink-0 transition-transform group-hover:scale-110" />
+                <Icon
+                  size={19}
+                  className={`shrink-0 transition-transform group-hover:scale-105 ${
+                    isActive ? 'text-cyan-400' : 'text-slate-400 group-hover:text-slate-200'
+                  }`}
+                />
                 {!collapsed && (
                   <span className="truncate">{label}</span>
                 )}
@@ -112,15 +126,22 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
       {/* User profile & Logout Footer */}
       <div className="p-3 border-t border-blue-500/10 space-y-1">
         {!collapsed && user && (
-          <div className="px-3 py-2 rounded-xl bg-blue-500/5 border border-blue-500/10 flex items-center justify-between">
-            <div className="min-w-0">
-              <p className="text-xs font-bold text-slate-300 truncate">{user.name}</p>
-              <p className="text-[10px] text-cyan-400 uppercase font-mono">{user.role}</p>
+          <div className="px-3 py-2.5 rounded-xl bg-white/[0.03] border border-blue-500/10 flex items-center justify-between gap-2.5">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-sm border border-blue-400/20">
+                {getUserInitial()}
+              </div>
+              <div className="min-w-0">
+                <p className="text-xs font-bold text-slate-100 truncate">{getUserDisplayName()}</p>
+                <p className="text-[10px] text-cyan-400 font-semibold uppercase font-mono tracking-wider">
+                  {user.role || 'analyst'}
+                </p>
+              </div>
             </div>
             <button
               onClick={logout}
               title="Sign Out"
-              className="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors"
+              className="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors shrink-0 cursor-pointer"
             >
               <LogOut size={16} />
             </button>
@@ -130,7 +151,7 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
           <button
             onClick={logout}
             title="Sign Out"
-            className="w-full p-2.5 rounded-xl text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors flex items-center justify-center"
+            className="w-full p-2.5 rounded-xl text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors flex items-center justify-center cursor-pointer"
           >
             <LogOut size={18} />
           </button>
@@ -138,7 +159,7 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
 
         <button
           onClick={onToggle}
-          className="w-full p-2 rounded-xl text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-all flex items-center justify-center"
+          className="w-full p-2 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-white/5 transition-all flex items-center justify-center cursor-pointer"
         >
           {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
         </button>

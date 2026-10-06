@@ -42,27 +42,27 @@ export default function Profile() {
               {getInitials(name || 'Admin')}
             </div>
             <div>
-              <h3 className="text-lg font-extrabold text-slate-200">{name}</h3>
-              <p className="text-xs text-cyan-400 font-semibold uppercase tracking-wider">
+              <h3 className="text-lg font-bold text-slate-100">{name}</h3>
+              <p className="text-xs text-cyan-300 font-semibold uppercase tracking-wider">
                 {user?.role || 'admin'} role
               </p>
-              <p className="text-xs text-slate-400 flex items-center gap-1 mt-1 font-mono">
-                <Mail size={12} className="text-slate-500" /> {user?.email || 'admin@threatx.io'}
+              <p className="text-xs text-slate-400 flex items-center gap-1.5 mt-1 font-mono">
+                <Mail size={13} className="text-slate-500" /> {user?.email || 'admin@threatx.io'}
               </p>
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Full Name</label>
+              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Full Name</label>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full mt-1.5 px-3 py-2.5 rounded-xl bg-black/40 border border-blue-500/15 text-xs text-slate-300 focus:outline-none focus:border-blue-500/30"
+                className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm text-slate-200 focus:outline-none focus:border-cyan-500/50 transition-colors"
               />
             </div>
             <div>
-              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Role Assignment</label>
-              <input value={user?.role ? `${user.role.toUpperCase()} (Threat Analyst)` : 'ADMIN (Security Administrator)'} disabled className="w-full mt-1.5 px-3 py-2.5 rounded-xl bg-black/40 border border-blue-500/15 text-xs text-slate-300 opacity-50 cursor-not-allowed" />
+              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Role Assignment</label>
+              <input value={user?.role ? `${user.role.toUpperCase()} (Threat Analyst)` : 'ADMIN (Security Administrator)'} disabled className="w-full px-4 py-2.5 rounded-xl bg-slate-900/40 border border-slate-800 text-sm text-slate-400 opacity-60 cursor-not-allowed" />
             </div>
           </div>
         </GlassCard>
@@ -71,13 +71,13 @@ export default function Profile() {
         <GlassCard>
           <div className="flex items-center gap-2.5 mb-4">
             <Activity size={18} className="text-cyan-400" />
-            <h3 className="font-extrabold text-slate-200 uppercase tracking-wider text-xs">Recent Operations Audit</h3>
+            <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Recent Operations Audit</h3>
           </div>
-          <div className="space-y-3.5 max-h-48 overflow-y-auto pr-2">
+          <div className="space-y-3 max-h-48 overflow-y-auto pr-2">
             {activities.map((act, idx) => (
-              <div key={idx} className="flex gap-2.5 items-start text-xs border-b border-blue-500/5 pb-2.5 last:border-0 last:pb-0">
-                <span className="text-blue-500 font-bold">»</span>
-                <p className="text-slate-400 leading-relaxed">{act}</p>
+              <div key={idx} className="flex gap-2.5 items-start text-xs border-b border-white/5 pb-2.5 last:border-0 last:pb-0">
+                <span className="text-cyan-400 font-bold">»</span>
+                <p className="text-slate-300 leading-relaxed">{act}</p>
               </div>
             ))}
           </div>
@@ -87,16 +87,16 @@ export default function Profile() {
         <GlassCard>
           <div className="flex items-center gap-2.5 mb-4">
             <Laptop size={18} className="text-blue-400" />
-            <h3 className="font-extrabold text-slate-200 uppercase tracking-wider text-xs">Active Session Terminals</h3>
+            <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Active Session Terminals</h3>
           </div>
           <div className="space-y-3">
             {sessions.map(s => (
-              <div key={s.id} className="flex justify-between items-center p-3 rounded-lg bg-black/25 border border-blue-500/5 text-xs">
+              <div key={s.id} className="flex justify-between items-center p-3.5 rounded-xl bg-slate-900/60 border border-white/5 text-xs">
                 <div>
-                  <p className="font-bold text-slate-300">{s.device}</p>
-                  <p className="font-mono text-slate-500 mt-1 text-[10px]">{s.ip}</p>
+                  <p className="font-semibold text-slate-200">{s.device}</p>
+                  <p className="font-mono text-cyan-300 mt-0.5 text-xs">{s.ip}</p>
                 </div>
-                <span className={`text-[10px] font-bold uppercase tracking-wider ${s.status === 'Active Now' ? 'text-emerald-400' : 'text-slate-500'}`}>
+                <span className={`text-[11px] font-semibold uppercase tracking-wider ${s.status === 'Active Now' ? 'text-emerald-400' : 'text-slate-400'}`}>
                   {s.status}
                 </span>
               </div>
@@ -107,20 +107,20 @@ export default function Profile() {
         <GlassCard>
           <div className="flex items-center gap-2.5 mb-4">
             <Shield size={18} className="text-emerald-400" />
-            <h3 className="font-extrabold text-slate-200 uppercase tracking-wider text-xs">Security MFA</h3>
+            <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Security MFA</h3>
           </div>
           <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 rounded-xl bg-black/25 border border-blue-500/5">
+            <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/5">
               <div>
-                <p className="text-xs font-bold text-slate-300">Two-Factor Authentication</p>
-                <p className="text-[10px] text-slate-500 mt-1">Enabled via TOTP Authenticator App</p>
+                <p className="text-xs font-semibold text-slate-200">Two-Factor Authentication</p>
+                <p className="text-xs text-slate-400 mt-0.5">Enabled via TOTP Authenticator App</p>
               </div>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Active</span>
+              <span className="px-2.5 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wide bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Active</span>
             </div>
           </div>
         </GlassCard>
 
-        <button className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-bold uppercase tracking-wider text-white transition-all shadow-lg shadow-blue-600/15">
+        <button className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-bold uppercase tracking-wider text-white transition-all shadow-lg shadow-blue-600/15 cursor-pointer">
           Update profile settings
         </button>
       </div>

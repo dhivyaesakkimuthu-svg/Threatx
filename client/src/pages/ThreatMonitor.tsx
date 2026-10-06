@@ -176,13 +176,13 @@ export default function ThreatMonitor() {
       <GlassCard className="py-4 border border-blue-500/10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="relative w-full md:w-80">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Filter by Username, IP, threat..."
-              className="w-full pl-9 pr-4 py-2 rounded-xl bg-white/5 border border-blue-500/10 text-xs focus:outline-none focus:border-blue-500/30"
+              className="w-full pl-9 pr-4 py-2 rounded-xl bg-white/5 border border-blue-500/10 text-xs text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-blue-500/30"
             />
           </div>
           <div className="flex flex-wrap items-center justify-between gap-3 w-full md:w-auto">
@@ -191,10 +191,10 @@ export default function ThreatMonitor() {
                 <button
                   key={level}
                   onClick={() => setFilter(level)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                     filter === level
-                      ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                      : 'text-slate-500 hover:text-slate-300 bg-white/5 border border-transparent'
+                      ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                      : 'text-slate-400 hover:text-slate-200 bg-white/5 border border-transparent'
                   }`}
                 >
                   {level}
@@ -202,13 +202,13 @@ export default function ThreatMonitor() {
               ))}
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-[10px] font-bold text-slate-500 uppercase flex items-center gap-1.5">
+              <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide flex items-center gap-1.5">
                 <LiveBadge active={true} label="" />
-                {filteredEvents.length} Active Stream
+                <span className="tabular-nums">{filteredEvents.length}</span> Active Stream
               </span>
               <button
                 onClick={fetchEvents}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white bg-white/5 transition-all"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white bg-white/5 transition-all cursor-pointer"
               >
                 <RefreshCw size={12} className={loading ? 'animate-spin' : ''} />
               </button>
@@ -230,7 +230,7 @@ export default function ThreatMonitor() {
               transition={{ duration: 0.25 }}
             >
               <GlassCard
-                className={`cursor-pointer transition-all hover:border-blue-500/20 ${event.acknowledged ? 'opacity-50' : ''}`}
+                className={`cursor-pointer transition-all hover:border-blue-500/25 ${event.acknowledged ? 'opacity-60' : ''}`}
                 onClick={() => setExpanded(expanded === event.id ? null : event.id)}
               >
                 <div className="flex items-start justify-between gap-4">
@@ -238,11 +238,11 @@ export default function ThreatMonitor() {
                     <ThreatTypeIcon type={event.threatType} size={18} />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap mb-1">
-                        <span className="font-extrabold text-sm text-slate-200">
+                        <span className="font-bold text-[13px] text-slate-100">
                           {threatLabels[event.threatType] || event.threatType}
                         </span>
                         <RiskBadge level={event.riskLevel} />
-                        <span className="text-[10px] text-slate-500 font-bold bg-white/5 px-2 py-0.5 rounded">
+                        <span className="text-[11px] text-slate-300 font-semibold bg-white/5 px-2 py-0.5 rounded tabular-nums">
                           Score: {event.riskScore}/100
                         </span>
                       </div>
@@ -258,14 +258,14 @@ export default function ThreatMonitor() {
                         />
                       </div>
 
-                      <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">{event.explanation}</p>
+                      <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">{event.explanation}</p>
                       
-                      <div className="flex flex-wrap gap-4 mt-3 text-[10px] text-slate-500 font-semibold uppercase tracking-wider">
-                        <span className="flex items-center gap-1"><User size={12} className="text-slate-600" /> {event.username}</span>
-                        <span className="flex items-center gap-1 font-mono text-xs normal-case">{event.ipAddress}</span>
-                        <span className="flex items-center gap-1"><Monitor size={12} className="text-slate-600" /> {event.device}</span>
-                        {event.location && <span className="flex items-center gap-1"><MapPin size={12} className="text-slate-600" /> {event.location}</span>}
-                        <span className="flex items-center gap-1"><Clock size={12} className="text-slate-600" /> {new Date(event.timestamp).toLocaleTimeString()}</span>
+                      <div className="flex flex-wrap gap-4 mt-3 text-[11px] text-slate-400 font-medium">
+                        <span className="flex items-center gap-1"><User size={13} className="text-slate-400" /> {event.username}</span>
+                        <span className="flex items-center gap-1 font-mono tabular-nums text-slate-300">{event.ipAddress}</span>
+                        <span className="flex items-center gap-1"><Monitor size={13} className="text-slate-400" /> {event.device}</span>
+                        {event.location && <span className="flex items-center gap-1"><MapPin size={13} className="text-slate-400" /> {event.location}</span>}
+                        <span className="flex items-center gap-1"><Clock size={13} className="text-slate-400" /> {new Date(event.timestamp).toLocaleTimeString()}</span>
                       </div>
                     </div>
                   </div>
@@ -275,7 +275,7 @@ export default function ThreatMonitor() {
                     {!event.acknowledged && event.riskLevel === 'High' && (
                       <button
                         onClick={(e) => { e.stopPropagation(); handleAcknowledge(event.id); }}
-                        className="px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/25 transition-all"
+                        className="px-3 py-1.5 rounded-lg text-[11px] font-semibold uppercase tracking-wider bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/25 transition-all cursor-pointer"
                       >
                         Acknowledge
                       </button>
@@ -287,16 +287,16 @@ export default function ThreatMonitor() {
                 {expanded === event.id && (
                   <div className="mt-4 pt-4 border-t border-blue-500/10 animate-fade-in space-y-4">
                     {event.filePath && (
-                      <div className="p-2.5 rounded-lg bg-black/30 border border-blue-500/5 font-mono text-xs text-slate-400 break-all">
+                      <div className="p-2.5 rounded-lg bg-black/30 border border-blue-500/5 font-mono text-xs text-slate-300 break-all">
                         Target File resource: {event.filePath}
                       </div>
                     )}
                     
                     <div>
-                      <h4 className="text-[10px] font-extrabold text-slate-500 uppercase tracking-widest mb-2">Automated Threat Recommendations</h4>
+                      <h4 className="text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2">Automated Threat Recommendations</h4>
                       <ul className="space-y-2">
                         {event.recommendedActions.map((action, i) => (
-                          <li key={i} className="flex items-center gap-2 text-xs text-slate-400">
+                          <li key={i} className="flex items-center gap-2 text-xs text-slate-300">
                             <span className="text-cyan-400 font-bold">»</span> {action}
                           </li>
                         ))}
@@ -306,13 +306,13 @@ export default function ThreatMonitor() {
                     <div className="flex gap-2 pt-2">
                       <button
                         onClick={(e) => { e.stopPropagation(); handleBlockUser(event.username); }}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-red-600 text-white hover:bg-red-500 transition-colors"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-red-600 text-white hover:bg-red-500 transition-colors cursor-pointer"
                       >
                         <ShieldX size={14} /> Block User Session
                       </button>
                       <button
                         onClick={(e) => { e.stopPropagation(); handleForceMFA(event.username); }}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white/5 text-slate-300 border border-blue-500/10 hover:bg-white/10 transition-colors"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white/5 text-slate-200 border border-blue-500/10 hover:bg-white/10 transition-colors cursor-pointer"
                       >
                         <Key size={14} /> Force MFA Check
                       </button>
@@ -326,8 +326,8 @@ export default function ThreatMonitor() {
 
         {filteredEvents.length === 0 && !loading && (
           <GlassCard className="text-center py-12 border border-blue-500/10">
-            <ShieldAlert size={40} className="mx-auto text-slate-700 mb-3" />
-            <p className="text-slate-400 text-sm font-semibold">No threat events matching your criteria</p>
+            <ShieldAlert size={40} className="mx-auto text-slate-500 mb-3" />
+            <p className="text-slate-300 text-sm font-semibold">No threat events matching your criteria</p>
           </GlassCard>
         )}
       </div>

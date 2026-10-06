@@ -21,25 +21,46 @@ const accentMap = {
 };
 
 export default function StatCard({ title, value, icon: Icon, trend, accent = 'blue' }: StatCardProps) {
-  const [displayValue, setDisplayValue] = useState<number | string>(typeof value === 'number' ? 0 : value);
+  const formatValue = (v: number | string): string => {
+    if (typeof v === 'number') {
+      if (!Number.isFinite(v) || isNaN(v)) return '0';
+      return v.toLocaleString();
+    }
+    if (v === null || v === undefined || v === 'NaN') return '0';
+    return String(v);
+  };
+
+  const [displayValue, setDisplayValue] = useState<string>(() => formatValue(value));
 
   useEffect(() => {
     if (typeof value === 'number') {
+      if (!Number.isFinite(value) || isNaN(value)) {
+        setDisplayValue('0');
+        return;
+      }
+      if (value <= 0) {
+        setDisplayValue('0');
+        return;
+      }
+
       let start = 0;
-      const duration = 800; // ms
-      const stepTime = Math.max(Math.floor(duration / value), 15);
+      const duration = 600; // ms
+      const steps = Math.min(value, 30);
+      const stepTime = Math.max(Math.floor(duration / steps), 16);
+      const increment = Math.max(1, Math.ceil(value / steps));
+
       const timer = setInterval(() => {
-        start += Math.ceil(value / (duration / stepTime));
+        start += increment;
         if (start >= value) {
           clearInterval(timer);
-          setDisplayValue(value);
+          setDisplayValue(value.toLocaleString());
         } else {
-          setDisplayValue(start);
+          setDisplayValue(start.toLocaleString());
         }
       }, stepTime);
       return () => clearInterval(timer);
     } else {
-      setDisplayValue(value);
+      setDisplayValue(formatValue(value));
     }
   }, [value]);
 
@@ -51,14 +72,14 @@ export default function StatCard({ title, value, icon: Icon, trend, accent = 'bl
     return (
       <div className="flex items-center gap-1.5 mt-2">
         {isUp ? (
-          <TrendingUp size={12} className="text-red-400 shrink-0" />
+          <TrendingUp size={13} className="text-red-400 shrink-0" />
         ) : isDown ? (
-          <TrendingDown size={12} className="text-emerald-400 shrink-0" />
+          <TrendingDown size={13} className="text-emerald-400 shrink-0" />
         ) : (
-          <ArrowRight size={12} className="text-slate-500 shrink-0" />
+          <ArrowRight size={13} className="text-slate-400 shrink-0" />
         )}
-        <span className={`text-xs font-semibold ${
-          isUp ? 'text-red-400/95' : isDown ? 'text-emerald-400/95' : 'text-slate-500'
+        <span className={`text-xs font-medium ${
+          isUp ? 'text-red-400' : isDown ? 'text-emerald-400' : 'text-slate-400'
         }`}>
           {trend}
         </span>
@@ -70,18 +91,18 @@ export default function StatCard({ title, value, icon: Icon, trend, accent = 'bl
     <motion.div
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -3, scale: 1.01 }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -2 }}
+      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
     >
       <GlassCard className="h-full border border-blue-500/10 hover:border-blue-500/25 transition-all overflow-hidden relative">
         <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/5 to-transparent rounded-full blur-2xl pointer-events-none" />
-        <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">{title}</p>
-            <p className="text-3xl font-extrabold tracking-tight text-slate-100">{displayValue}</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">{title}</p>
+            <p className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white tabular-nums leading-none mb-1">{displayValue}</p>
             {renderTrend()}
           </div>
-          <div className={`p-3 rounded-xl bg-gradient-to-br border ${accentMap[accent]}`}>
+          <div className={`p-2.5 rounded-xl bg-gradient-to-br border shrink-0 ${accentMap[accent]}`}>
             <Icon size={20} />
           </div>
         </div>

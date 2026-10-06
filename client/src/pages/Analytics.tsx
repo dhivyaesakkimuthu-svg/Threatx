@@ -75,13 +75,13 @@ export default function Analytics() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <GlassCard className="lg:col-span-2">
-          <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4">Threat Vectors breakdown</h3>
+          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-4">Threat Vectors breakdown</h3>
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={barData} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(59,130,246,0.06)" />
-              <XAxis type="number" tick={{ fill: '#64748b', fontSize: 10 }} axisLine={false} />
-              <YAxis dataKey="name" type="category" width={140} tick={{ fill: '#64748b', fontSize: 10 }} axisLine={false} />
-              <Tooltip contentStyle={{ background: '#0e1424', border: '1px solid rgba(59,130,246,0.2)', borderRadius: 12, fontSize: 12 }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+              <XAxis type="number" tick={{ fill: '#94a3b8', fontSize: 11 }} axisLine={false} />
+              <YAxis dataKey="name" type="category" width={140} tick={{ fill: '#cbd5e1', fontSize: 11 }} axisLine={false} />
+              <Tooltip contentStyle={{ background: '#0e1424', border: '1px solid rgba(59,130,246,0.25)', borderRadius: 12, fontSize: 12, color: '#f1f5f9' }} />
               <Bar dataKey="count" fill="#3b82f6" radius={[0, 4, 4, 0]} />
             </BarChart>
           </ResponsiveContainer>
@@ -89,12 +89,12 @@ export default function Analytics() {
 
         {/* Risk Radar widget */}
         <GlassCard className="flex flex-col justify-between">
-          <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-2">Multidimensional Radar</h3>
+          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-2">Multidimensional Radar</h3>
           <ResponsiveContainer width="100%" height={240}>
             <RadarChart cx="50%" cy="50%" outerRadius="75%" data={radarData}>
-              <PolarGrid stroke="rgba(59,130,246,0.1)" />
-              <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 9 }} />
-              <PolarRadiusAxis angle={30} domain={[0, 15]} tick={{ fill: '#64748b', fontSize: 8 }} />
+              <PolarGrid stroke="rgba(255,255,255,0.08)" />
+              <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 10 }} />
+              <PolarRadiusAxis angle={30} domain={[0, 15]} tick={{ fill: '#64748b', fontSize: 9 }} />
               <Radar name="Threat Level" dataKey="A" stroke="#06b6d4" fill="#06b6d4" fillOpacity={0.25} />
             </RadarChart>
           </ResponsiveContainer>
@@ -103,13 +103,13 @@ export default function Analytics() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <GlassCard className="lg:col-span-2">
-          <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4 font-mono">24-Hour Threat Frequency</h3>
+          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-4 font-mono">24-Hour Threat Frequency</h3>
           <ResponsiveContainer width="100%" height={260}>
             <LineChart data={stats?.threatTimeline ?? []}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(59,130,246,0.06)" />
-              <XAxis dataKey="time" tick={{ fill: '#64748b', fontSize: 9 }} axisLine={false} />
-              <YAxis tick={{ fill: '#64748b', fontSize: 10 }} axisLine={false} />
-              <Tooltip contentStyle={{ background: '#0e1424', border: '1px solid rgba(59,130,246,0.2)', borderRadius: 12, fontSize: 12 }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+              <XAxis dataKey="time" tick={{ fill: '#94a3b8', fontSize: 10 }} axisLine={false} />
+              <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} axisLine={false} />
+              <Tooltip contentStyle={{ background: '#0e1424', border: '1px solid rgba(59,130,246,0.25)', borderRadius: 12, fontSize: 12, color: '#f1f5f9' }} />
               <Line type="monotone" dataKey="count" stroke="#06b6d4" strokeWidth={2.5} dot={false} name="Total" />
               <Line type="monotone" dataKey="high" stroke="#ef4444" strokeWidth={2} dot={false} name="High" />
             </LineChart>
@@ -118,14 +118,14 @@ export default function Analytics() {
 
         {/* Heatmap-style calendar view */}
         <GlassCard>
-          <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4">Threat Heatmap (28 Days)</h3>
+          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-4">Threat Heatmap (28 Days)</h3>
           <div className="grid grid-cols-7 gap-1.5 justify-center">
             {calendarDays.map((day, i) => {
               const bg =
-                day.val === 0 ? 'bg-slate-900 border border-slate-800/50' :
-                day.val <= 3 ? 'bg-blue-950/60 text-blue-400 border border-blue-500/10' :
-                day.val <= 6 ? 'bg-amber-500/20 text-amber-400 border border-amber-500/20' :
-                'bg-red-500/20 text-red-400 border border-red-500/30';
+                day.val === 0 ? 'bg-slate-900 border border-slate-800/80 text-slate-400' :
+                day.val <= 3 ? 'bg-blue-950/70 text-blue-300 border border-blue-500/20' :
+                day.val <= 6 ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' :
+                'bg-red-500/25 text-red-300 border border-red-500/40';
               return (
                 <div
                   key={i}
@@ -137,13 +137,13 @@ export default function Analytics() {
               );
             })}
           </div>
-          <div className="flex justify-between items-center mt-4 text-[9px] text-slate-500 font-bold uppercase tracking-wider">
+          <div className="flex justify-between items-center mt-4 text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
             <span>Low risk</span>
             <div className="flex gap-1.5">
-              <span className="w-2.5 h-2.5 rounded bg-slate-900" />
-              <span className="w-2.5 h-2.5 rounded bg-blue-950" />
-              <span className="w-2.5 h-2.5 rounded bg-amber-500/20" />
-              <span className="w-2.5 h-2.5 rounded bg-red-500/20" />
+              <span className="w-2.5 h-2.5 rounded bg-slate-900 border border-slate-800" />
+              <span className="w-2.5 h-2.5 rounded bg-blue-950 border border-blue-500/30" />
+              <span className="w-2.5 h-2.5 rounded bg-amber-500/30 border border-amber-500/40" />
+              <span className="w-2.5 h-2.5 rounded bg-red-500/30 border border-red-500/50" />
             </div>
             <span>High risk</span>
           </div>
@@ -152,11 +152,11 @@ export default function Analytics() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <GlassCard className="lg:col-span-2">
-          <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4">User Risk Profiles</h3>
+          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-4">User Risk Profiles</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-left">
               <thead>
-                <tr className="text-slate-500 border-b border-blue-500/10 uppercase tracking-wider font-extrabold pb-3">
+                <tr className="text-slate-400 border-b border-white/10 uppercase tracking-wider font-semibold text-[11px] pb-3">
                   <th className="pb-3 pr-4">User</th>
                   <th className="pb-3 pr-4">High</th>
                   <th className="pb-3 pr-4">Medium</th>
@@ -171,11 +171,11 @@ export default function Analytics() {
                   const maxPossible = 100;
                   const percentage = Math.min(100, (score / maxPossible) * 100);
                   return (
-                    <tr key={u.user} className="border-b border-blue-500/5 last:border-0 hover:bg-white/[0.01]">
-                      <td className="py-3 pr-4 font-bold text-slate-300">{u.user}</td>
-                      <td className="py-3 pr-4 text-red-400 font-bold">{u.high}</td>
-                      <td className="py-3 pr-4 text-amber-400 font-bold">{u.medium}</td>
-                      <td className="py-3 pr-4 text-emerald-400 font-bold">{u.low}</td>
+                    <tr key={u.user} className="border-b border-white/5 last:border-0 hover:bg-white/[0.02] transition-colors">
+                      <td className="py-3 pr-4 font-semibold text-slate-200">{u.user}</td>
+                      <td className="py-3 pr-4 text-red-400 font-bold tabular-nums">{u.high}</td>
+                      <td className="py-3 pr-4 text-amber-400 font-bold tabular-nums">{u.medium}</td>
+                      <td className="py-3 pr-4 text-emerald-400 font-bold tabular-nums">{u.low}</td>
                       <td className="py-3 pr-4">
                         <div className="flex items-center gap-2">
                           <div className="w-24 h-1.5 bg-slate-800 rounded-full overflow-hidden">
@@ -184,10 +184,10 @@ export default function Analytics() {
                               style={{ width: `${percentage}%` }}
                             />
                           </div>
-                          <span className="text-[10px] text-slate-500 font-mono">{score}</span>
+                          <span className="text-xs text-slate-400 font-mono tabular-nums">{score}</span>
                         </div>
                       </td>
-                      <td className="py-3 font-extrabold text-slate-100">{u.total}</td>
+                      <td className="py-3 font-bold text-slate-100 tabular-nums">{u.total}</td>
                     </tr>
                   );
                 })}
@@ -198,12 +198,12 @@ export default function Analytics() {
 
         {/* Top IPs used in threats */}
         <GlassCard>
-          <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4">Top Offensive IP Addresses</h3>
-          <div className="space-y-4">
+          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-4">Top Offensive IP Addresses</h3>
+          <div className="space-y-3">
             {topIPs.map(({ ip, count }) => (
-              <div key={ip} className="flex justify-between items-center p-2.5 rounded-lg bg-black/25 border border-blue-500/5">
-                <span className="font-mono text-xs text-cyan-400 font-semibold">{ip}</span>
-                <span className="text-[10px] uppercase font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded border border-red-500/20">
+              <div key={ip} className="flex justify-between items-center p-2.5 rounded-xl bg-slate-900/60 border border-white/5">
+                <span className="font-mono text-xs text-cyan-300 font-semibold">{ip}</span>
+                <span className="text-[11px] uppercase font-semibold text-red-400 bg-red-500/10 px-2 py-0.5 rounded border border-red-500/20 tabular-nums">
                   {count} Attacks
                 </span>
               </div>

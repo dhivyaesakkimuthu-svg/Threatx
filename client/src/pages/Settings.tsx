@@ -30,31 +30,31 @@ export default function Settings() {
         <GlassCard>
           <div className="flex items-center gap-2.5 mb-4">
             <Shield size={18} className="text-blue-400" />
-            <h3 className="font-extrabold text-slate-200 uppercase tracking-wider text-xs">Detection Sensitivity</h3>
+            <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Detection Sensitivity</h3>
           </div>
           <div className="space-y-4">
             <div>
-              <label className="text-xs font-semibold text-slate-400">Risk Score Threshold (High)</label>
-              <input type="range" min="50" max="90" defaultValue="70" className="w-full mt-1.5 accent-blue-500" />
-              <div className="flex justify-between text-[10px] text-slate-600 font-mono"><span>50</span><span>70</span><span>90</span></div>
+              <label className="text-xs font-semibold text-slate-300">Risk Score Threshold (High)</label>
+              <input type="range" min="50" max="90" defaultValue="70" className="w-full mt-2 accent-cyan-400 cursor-pointer" />
+              <div className="flex justify-between text-xs text-slate-400 font-mono mt-1"><span>50</span><span>70</span><span>90</span></div>
             </div>
             <div>
-              <label className="text-xs font-semibold text-slate-400">Failed Login Threshold</label>
-              <select className="w-full mt-1.5 px-3 py-2.5 rounded-xl bg-black/40 border border-blue-500/15 text-xs text-slate-300 focus:outline-none">
+              <label className="text-xs font-semibold text-slate-300">Failed Login Threshold</label>
+              <select className="w-full mt-1.5 px-3 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700/60 text-xs text-slate-200 focus:outline-none focus:border-cyan-500/50 transition-colors">
                 <option>3 attempts</option>
                 <option>5 attempts</option>
                 <option>10 attempts</option>
               </select>
             </div>
             <div className="flex items-center justify-between py-1">
-              <span className="text-xs text-slate-400 font-semibold">Enable impossible travel detection</span>
+              <span className="text-xs text-slate-300 font-medium">Enable impossible travel detection</span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" defaultChecked className="sr-only peer" />
                 <div className="w-9 h-5 bg-slate-800 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-300 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-500"></div>
               </label>
             </div>
             <div className="flex items-center justify-between py-1">
-              <span className="text-xs text-slate-400 font-semibold">Monitor restricted folder access</span>
+              <span className="text-xs text-slate-300 font-medium">Monitor restricted folder access</span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" defaultChecked className="sr-only peer" />
                 <div className="w-9 h-5 bg-slate-800 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-300 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-500"></div>
@@ -66,25 +66,25 @@ export default function Settings() {
         <GlassCard>
           <div className="flex items-center gap-2.5 mb-4">
             <Bell size={18} className="text-cyan-400" />
-            <h3 className="font-extrabold text-slate-200 uppercase tracking-wider text-xs">Notifications</h3>
+            <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Notifications</h3>
           </div>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400 font-semibold flex items-center gap-2"><Mail size={14} className="text-slate-600" /> Email alerts for high-risk events</span>
+              <span className="text-xs text-slate-300 font-medium flex items-center gap-2"><Mail size={14} className="text-slate-400" /> Email alerts for high-risk events</span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" defaultChecked className="sr-only peer" />
                 <div className="w-9 h-5 bg-slate-800 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-300 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-500"></div>
               </label>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400 font-semibold">Slack webhook alert feed</span>
+              <span className="text-xs text-slate-300 font-medium">Slack webhook alert feed</span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" className="sr-only peer" />
                 <div className="w-9 h-5 bg-slate-800 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-300 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-500"></div>
               </label>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400 font-semibold">Auto-create incidents for high-risk</span>
+              <span className="text-xs text-slate-300 font-medium">Auto-create incidents for high-risk</span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" defaultChecked className="sr-only peer" />
                 <div className="w-9 h-5 bg-slate-800 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-300 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-500"></div>
@@ -97,16 +97,16 @@ export default function Settings() {
         <GlassCard className="lg:col-span-2">
           <div className="flex items-center gap-2.5 mb-4">
             <Key size={18} className="text-amber-400" />
-            <h3 className="font-extrabold text-slate-200 uppercase tracking-wider text-xs">Access Keys (API)</h3>
+            <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Access Keys (API)</h3>
           </div>
           <div className="space-y-3">
             {apiKeyList.map(item => (
-              <div key={item.id} className="flex justify-between items-center p-3 rounded-lg bg-black/35 border border-blue-500/5 text-xs">
+              <div key={item.id} className="flex justify-between items-center p-3.5 rounded-xl bg-slate-900/60 border border-white/5 text-xs">
                 <div>
-                  <p className="font-bold text-slate-200">{item.name}</p>
-                  <p className="font-mono text-slate-500 mt-1 text-[10px]">{item.key}</p>
+                  <p className="font-semibold text-slate-200">{item.name}</p>
+                  <p className="font-mono text-cyan-300 mt-1 text-xs">{item.key}</p>
                 </div>
-                <span className="text-[10px] text-slate-600 font-bold">Created: {item.created}</span>
+                <span className="text-xs text-slate-400 font-medium">Created: {item.created}</span>
               </div>
             ))}
           </div>
@@ -115,16 +115,16 @@ export default function Settings() {
         <GlassCard className="lg:col-span-2">
           <div className="flex items-center gap-2.5 mb-4">
             <Globe size={18} className="text-emerald-400" />
-            <h3 className="font-extrabold text-slate-200 uppercase tracking-wider text-xs">Organization settings</h3>
+            <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Organization settings</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs font-semibold text-slate-500 uppercase">Organization Name</label>
-              <input defaultValue="Acme Corporation" className="w-full mt-1.5 px-3 py-2.5 rounded-xl bg-black/40 border border-blue-500/15 text-xs text-slate-300 focus:outline-none" />
+              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Organization Name</label>
+              <input defaultValue="Acme Corporation" className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm text-slate-200 focus:outline-none focus:border-cyan-500/50 transition-colors" />
             </div>
             <div>
-              <label className="text-xs font-semibold text-slate-500 uppercase">System Timezone</label>
-              <select className="w-full mt-1.5 px-3 py-2.5 rounded-xl bg-black/40 border border-blue-500/15 text-xs text-slate-300 focus:outline-none">
+              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">System Timezone</label>
+              <select className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm text-slate-200 focus:outline-none focus:border-cyan-500/50 transition-colors">
                 <option>UTC+5:30 (IST)</option>
                 <option>UTC+0 (GMT)</option>
                 <option>UTC-5 (EST)</option>
@@ -133,7 +133,7 @@ export default function Settings() {
           </div>
           <button
             onClick={saveSettings}
-            className="mt-6 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-bold uppercase tracking-wider text-white transition-all shadow-lg shadow-blue-600/15"
+            className="mt-6 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-bold uppercase tracking-wider text-white transition-all shadow-lg shadow-blue-600/15 cursor-pointer"
           >
             Save settings config
           </button>

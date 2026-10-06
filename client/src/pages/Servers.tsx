@@ -234,7 +234,7 @@ export default function Servers() {
       </GlassCard>
 
       <div className="flex justify-between items-center">
-        <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-400">Monitored Infrastructure Nodes ({servers.length})</h3>
+        <h3 className="text-[13px] font-bold uppercase tracking-wider text-slate-200">Monitored Infrastructure Nodes ({servers.length})</h3>
         <Link
           to="/servers/add"
           className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-xs font-bold uppercase tracking-wider text-white hover:opacity-90 transition-opacity shadow-lg shadow-blue-600/15"
@@ -251,37 +251,37 @@ export default function Servers() {
               <div>
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-blue-500/10 shadow-[0_0_15px_rgba(59,130,246,0.1)]">
+                    <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.1)]">
                       <ServerIcon size={20} className="text-blue-400" />
                     </div>
                     <div>
-                      <h3 className="font-extrabold text-slate-200 truncate max-w-[150px]">{server.name}</h3>
-                      <p className="text-[10px] text-slate-500 font-mono tracking-tight">{server.hostname}</p>
+                      <h3 className="font-bold text-sm text-slate-100 truncate max-w-[150px]">{server.name}</h3>
+                      <p className="text-xs text-slate-400 font-mono tracking-tight">{server.hostname}</p>
                     </div>
                   </div>
-                  <button onClick={() => handleDelete(server.id)} className="p-1.5 text-slate-600 hover:text-red-400 hover:bg-white/5 rounded-lg transition-all">
+                  <button onClick={() => handleDelete(server.id)} className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-white/5 rounded-lg transition-all cursor-pointer">
                     <Trash2 size={16} />
                   </button>
                 </div>
 
                 <div className="space-y-2.5 text-xs">
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500 font-semibold uppercase text-[9px] tracking-wider">Node Status</span>
-                    <span className={`flex items-center gap-1.5 capitalize font-bold text-xs ${statusColors[server.status]}`}>
+                    <span className="text-slate-400 font-medium uppercase text-[11px] tracking-wide">Node Status</span>
+                    <span className={`flex items-center gap-1.5 capitalize font-semibold text-xs ${statusColors[server.status]}`}>
                       <Circle size={6} fill="currentColor" className="animate-pulse" /> {server.status}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500 font-semibold uppercase text-[9px] tracking-wider">Operating System</span>
-                    <span className="text-slate-300 font-semibold">{server.os}</span>
+                    <span className="text-slate-400 font-medium uppercase text-[11px] tracking-wide">Operating System</span>
+                    <span className="text-slate-200 font-semibold">{server.os}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500 font-semibold uppercase text-[9px] tracking-wider">Internal IP</span>
-                    <span className="text-slate-300 font-mono font-bold">{server.ipAddress || '—'}</span>
+                    <span className="text-slate-400 font-medium uppercase text-[11px] tracking-wide">Internal IP</span>
+                    <span className="text-slate-200 font-mono font-bold tabular-nums">{server.ipAddress || '—'}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500 font-semibold uppercase text-[9px] tracking-wider">Telemetry Agent</span>
-                    <span className="text-slate-300 font-semibold flex items-center gap-1">
+                    <span className="text-slate-400 font-medium uppercase text-[11px] tracking-wide">Telemetry Agent</span>
+                    <span className="text-slate-200 font-semibold flex items-center gap-1">
                       {server.agentVersion ? (
                         <>
                           <Activity size={12} className="text-emerald-400" />
@@ -296,12 +296,12 @@ export default function Servers() {
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500 font-semibold uppercase text-[9px] tracking-wider">Last Telemetry Ping</span>
-                    <span className="text-slate-400 font-bold">{getRelativeTime(server.lastSeen)}</span>
+                    <span className="text-slate-400 font-medium uppercase text-[11px] tracking-wide">Last Telemetry Ping</span>
+                    <span className="text-slate-300 font-semibold">{getRelativeTime(server.lastSeen)}</span>
                   </div>
                   <div className="flex justify-between items-center pt-2.5 border-t border-blue-500/5">
-                    <span className="text-slate-500 font-semibold uppercase text-[9px] tracking-wider">Detected Anomalies</span>
-                    <span className={`font-extrabold ${threats > 0 ? 'text-red-400 animate-pulse' : 'text-emerald-400'}`}>
+                    <span className="text-slate-400 font-medium uppercase text-[11px] tracking-wide">Detected Anomalies</span>
+                    <span className={`font-bold tabular-nums ${threats > 0 ? 'text-red-400 animate-pulse' : 'text-emerald-400'}`}>
                       {threats} Warnings
                     </span>
                   </div>
@@ -312,7 +312,7 @@ export default function Servers() {
               <div className="mt-5 pt-3 border-t border-blue-500/5">
                 <Link
                   to={`/threats`}
-                  className="w-full inline-flex items-center justify-center py-2 rounded-xl bg-white/5 border border-blue-500/10 hover:bg-white/10 hover:border-blue-500/25 transition-all text-xs font-bold text-slate-300"
+                  className="w-full inline-flex items-center justify-center py-2 rounded-xl bg-white/5 border border-blue-500/10 hover:bg-white/10 hover:border-blue-500/25 transition-all text-xs font-semibold text-slate-200"
                 >
                   Inspect Server Logs
                 </Link>
@@ -324,9 +324,9 @@ export default function Servers() {
 
       {servers.length === 0 && (
         <GlassCard className="text-center py-16 border border-blue-500/10">
-          <ServerIcon size={40} className="mx-auto text-slate-700 mb-3 animate-bounce" />
-          <p className="text-slate-400 font-bold mb-4">No server nodes mapped to the current dashboard environment</p>
-          <Link to="/servers/add" className="text-blue-400 hover:text-blue-300 text-xs font-extrabold uppercase tracking-wider">
+          <ServerIcon size={40} className="mx-auto text-slate-500 mb-3" />
+          <p className="text-slate-300 font-semibold mb-4">No server nodes mapped to the current dashboard environment</p>
+          <Link to="/servers/add" className="text-cyan-400 hover:text-cyan-300 text-xs font-bold uppercase tracking-wider">
             Register Monitored Endpoint →
           </Link>
         </GlassCard>

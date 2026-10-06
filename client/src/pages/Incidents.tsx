@@ -141,24 +141,24 @@ export default function Incidents() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <GlassCard className="py-3 border-l-4 border-l-red-500 flex items-center justify-between">
           <div>
-            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Open Incidents</p>
-            <p className="text-xl font-extrabold text-red-400 mt-1">{totalOpen}</p>
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Open Incidents</p>
+            <p className="text-2xl font-bold text-red-400 mt-1 tabular-nums">{totalOpen}</p>
           </div>
-          <AlertTriangle size={20} className="text-red-500/30" />
+          <AlertTriangle size={20} className="text-red-500/40" />
         </GlassCard>
         <GlassCard className="py-3 border-l-4 border-l-amber-500 flex items-center justify-between">
           <div>
-            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Investigating</p>
-            <p className="text-xl font-extrabold text-amber-400 mt-1">{totalInvestigating}</p>
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Investigating</p>
+            <p className="text-2xl font-bold text-amber-400 mt-1 tabular-nums">{totalInvestigating}</p>
           </div>
-          <Clock size={20} className="text-amber-500/30" />
+          <Clock size={20} className="text-amber-500/40" />
         </GlassCard>
         <GlassCard className="py-3 border-l-4 border-l-emerald-500 flex items-center justify-between">
           <div>
-            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Resolved Cases</p>
-            <p className="text-xl font-extrabold text-emerald-400 mt-1">{totalResolved}</p>
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Resolved Cases</p>
+            <p className="text-2xl font-bold text-emerald-400 mt-1 tabular-nums">{totalResolved}</p>
           </div>
-          <CheckCircle2 size={20} className="text-emerald-500/30" />
+          <CheckCircle2 size={20} className="text-emerald-500/40" />
         </GlassCard>
       </div>
 
@@ -167,10 +167,10 @@ export default function Incidents() {
           <button
             key={s || 'all'}
             onClick={() => setFilter(s)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold capitalize transition-all ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all cursor-pointer ${
               filter === s
-                ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30 shadow-inner'
-                : 'text-slate-500 hover:text-slate-300 bg-white/5 border border-transparent'
+                ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30 shadow-inner'
+                : 'text-slate-400 hover:text-slate-200 bg-white/5 border border-transparent'
             }`}
           >
             {s || 'All'}
@@ -191,7 +191,7 @@ export default function Incidents() {
                 transition={{ duration: 0.2 }}
               >
                 <GlassCard
-                  className={`cursor-pointer transition-all hover:border-blue-500/20 ${selected?.id === inc.id ? 'border-blue-500/30 shadow-lg' : ''}`}
+                  className={`cursor-pointer transition-all hover:border-blue-500/25 ${selected?.id === inc.id ? 'border-blue-500/35 shadow-lg' : ''}`}
                   onClick={() => openDetail(inc.id)}
                 >
                   <div className="flex items-start justify-between mb-2">
@@ -199,15 +199,15 @@ export default function Incidents() {
                       <AlertTriangle size={15} className="text-red-400 shrink-0" />
                       <RiskBadge level={inc.riskLevel} />
                     </div>
-                    <span className={`px-2 py-0.5 rounded-full text-[9px] font-extrabold border uppercase ${statusColors[inc.status]}`}>
+                    <span className={`px-2 py-0.5 rounded text-[11px] font-semibold border uppercase ${statusColors[inc.status]}`}>
                       {inc.status}
                     </span>
                   </div>
-                  <h3 className="font-bold text-sm text-slate-200 truncate">{inc.title}</h3>
-                  <p className="text-xs text-slate-400 line-clamp-2 mt-1 leading-relaxed">{inc.description}</p>
-                  <div className="flex items-center justify-between mt-3.5 pt-2 border-t border-blue-500/5 text-[9px] text-slate-500 font-semibold uppercase tracking-wider">
-                    <span className="flex items-center gap-1"><User size={12} className="text-slate-600" /> {inc.assignedTo}</span>
-                    <span className="flex items-center gap-1"><Clock size={12} className="text-slate-600" /> {new Date(inc.createdAt).toLocaleDateString()}</span>
+                  <h3 className="font-bold text-sm text-slate-100 truncate">{inc.title}</h3>
+                  <p className="text-xs text-slate-300 line-clamp-2 mt-1 leading-relaxed">{inc.description}</p>
+                  <div className="flex items-center justify-between mt-3.5 pt-2 border-t border-blue-500/5 text-[11px] text-slate-400 font-medium">
+                    <span className="flex items-center gap-1"><User size={12} className="text-slate-400" /> {inc.assignedTo}</span>
+                    <span className="flex items-center gap-1"><Clock size={12} className="text-slate-400" /> {new Date(inc.createdAt).toLocaleDateString()}</span>
                   </div>
                 </GlassCard>
               </motion.div>
@@ -215,7 +215,7 @@ export default function Incidents() {
           </AnimatePresence>
           {incidents.length === 0 && (
             <GlassCard className="text-center py-12 border border-blue-500/10">
-              <p className="text-slate-500 text-sm font-semibold">No incidents found in this filter state</p>
+              <p className="text-slate-300 text-sm font-semibold">No incidents found in this filter state</p>
             </GlassCard>
           )}
         </div>
@@ -226,10 +226,10 @@ export default function Incidents() {
             <GlassCard className="border border-blue-500/15">
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4 pb-4 border-b border-blue-500/10">
                 <div>
-                  <h3 className="text-lg font-extrabold text-slate-100">{selected.title}</h3>
+                  <h3 className="text-lg font-bold text-white">{selected.title}</h3>
                   <div className="flex items-center gap-2 mt-2">
                     <RiskBadge level={selected.riskLevel} />
-                    <span className={`px-2 py-0.5 rounded-full text-[9px] font-extrabold border uppercase ${statusColors[selected.status]}`}>
+                    <span className={`px-2 py-0.5 rounded text-[11px] font-semibold border uppercase ${statusColors[selected.status]}`}>
                       {selected.status}
                     </span>
                   </div>
@@ -237,11 +237,11 @@ export default function Incidents() {
 
                 {/* Analyst assignment selection */}
                 <div className="flex items-center gap-2">
-                  <UserCheck size={14} className="text-slate-500" />
+                  <UserCheck size={14} className="text-slate-400" />
                   <select
                     value={selected.assignedTo}
                     onChange={(e) => updateAssignment(e.target.value)}
-                    className="px-2.5 py-1 rounded bg-[#0a0e1a] border border-blue-500/15 text-xs text-slate-300 font-bold focus:outline-none"
+                    className="px-2.5 py-1 rounded bg-[#0a0e1a] border border-blue-500/15 text-xs text-slate-200 font-semibold focus:outline-none cursor-pointer"
                   >
                     {ANALYSTS.map(a => (
                       <option key={a} value={a}>{a}</option>
@@ -250,7 +250,7 @@ export default function Incidents() {
                 </div>
               </div>
 
-              <p className="text-xs text-slate-400 leading-relaxed mb-6 bg-black/20 p-3 rounded-lg border border-blue-500/5">{selected.description}</p>
+              <p className="text-xs text-slate-300 leading-relaxed mb-6 bg-black/20 p-3 rounded-lg border border-blue-500/5">{selected.description}</p>
 
               {/* AI Copilot Investigation Section */}
               <div className="mb-6 p-4 rounded-xl bg-gradient-to-br from-cyan-950/20 via-blue-950/20 to-purple-950/20 border border-cyan-500/20 shadow-[0_0_15px_rgba(6,182,212,0.05)]">

@@ -60,11 +60,11 @@ export default function AddServer() {
         {[1, 2, 3].map((s) => (
           <div key={s} className="flex-1 flex items-center gap-2">
             <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
-              step >= s ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25' : 'bg-slate-800 text-slate-500'
+              step >= s ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25' : 'bg-slate-800 text-slate-400 border border-slate-700/50'
             }`}>
               {s}
             </div>
-            <div className="text-[10px] uppercase font-bold tracking-wider text-slate-500">
+            <div className={`text-[11px] uppercase font-semibold tracking-wider ${step >= s ? 'text-slate-200' : 'text-slate-500'}`}>
               {s === 1 ? 'Details' : s === 2 ? 'Credentials' : 'Installation'}
             </div>
             {s < 3 && <div className={`flex-1 h-0.5 ${step > s ? 'bg-blue-600' : 'bg-slate-800'}`} />}
@@ -82,35 +82,35 @@ export default function AddServer() {
               exit={{ opacity: 0, x: 10 }}
             >
               <GlassCard>
-                <h3 className="font-extrabold text-sm uppercase tracking-wider text-slate-300 mb-4">Node Metadata Details</h3>
+                <h3 className="text-[13px] font-bold uppercase tracking-wider text-slate-200 mb-4">Node Metadata Details</h3>
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Server Name</label>
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Server Name</label>
                     <input
                       required
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       placeholder="Production Web Server"
-                      className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-blue-500/15 text-xs text-slate-300 focus:outline-none focus:border-blue-500/30"
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Hostname / FQDN</label>
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Hostname / FQDN</label>
                     <input
                       required
                       value={form.hostname}
                       onChange={(e) => setForm({ ...form, hostname: e.target.value })}
                       placeholder="prod-web-01.company.com"
-                      className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-blue-500/15 text-xs text-slate-300 focus:outline-none focus:border-blue-500/30"
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 transition-colors"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Operating System</label>
+                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Operating System</label>
                       <select
                         value={form.os}
                         onChange={(e) => setForm({ ...form, os: e.target.value })}
-                        className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-blue-500/15 text-xs text-slate-300 focus:outline-none focus:border-blue-500/30"
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm text-slate-200 focus:outline-none focus:border-cyan-500/50 transition-colors"
                       >
                         <option value="Ubuntu 22.04">Ubuntu 22.04</option>
                         <option value="Ubuntu 20.04">Ubuntu 20.04</option>
@@ -120,19 +120,19 @@ export default function AddServer() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">IP Address</label>
+                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">IP Address</label>
                       <input
                         value={form.ipAddress}
                         onChange={(e) => setForm({ ...form, ipAddress: e.target.value })}
                         placeholder="203.0.113.10"
-                        className="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-blue-500/15 text-xs text-slate-300 focus:outline-none focus:border-blue-500/30"
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-700/60 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 transition-colors"
                       />
                     </div>
                   </div>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-xs font-bold uppercase tracking-wider text-white hover:opacity-90 transition-opacity disabled:opacity-50 shadow-lg shadow-blue-600/15"
+                    className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-xs font-bold uppercase tracking-wider text-white hover:opacity-90 transition-opacity disabled:opacity-50 shadow-lg shadow-blue-600/15 cursor-pointer"
                   >
                     {loading ? 'Registering node...' : 'Generate API Credentials'}
                     <ArrowRight size={14} />
@@ -156,12 +156,12 @@ export default function AddServer() {
                     <Check size={20} className="text-emerald-400" />
                   </div>
                   <div>
-                    <h3 className="font-extrabold text-sm text-slate-200">Credentials Generated</h3>
-                    <p className="text-xs text-slate-500">Node API key generated successfully. Copy it now.</p>
+                    <h3 className="font-bold text-sm text-slate-100">Credentials Generated</h3>
+                    <p className="text-xs text-slate-400">Node API key generated successfully. Copy it now.</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 p-3 rounded-xl bg-black/40 border border-blue-500/10 mb-4">
+                <div className="flex items-center gap-2 p-3 rounded-xl bg-slate-900/80 border border-cyan-500/20 mb-4">
                   <Key size={16} className="text-cyan-400 shrink-0" />
                   <code className="text-xs font-mono text-cyan-300 flex-1 break-all">{apiKey}</code>
                   <button onClick={copyKey} className="p-1.5 text-slate-400 hover:text-white transition-colors cursor-pointer">
@@ -171,7 +171,7 @@ export default function AddServer() {
 
                 <button
                   onClick={() => setStep(3)}
-                  className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-xs font-bold uppercase tracking-wider text-white hover:opacity-90 transition-opacity shadow-lg shadow-blue-600/15"
+                  className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-xs font-bold uppercase tracking-wider text-white hover:opacity-90 transition-opacity shadow-lg shadow-blue-600/15 cursor-pointer"
                 >
                   Proceed to installation
                   <ArrowRight size={14} />
@@ -191,13 +191,13 @@ export default function AddServer() {
               <GlassCard>
                 <div className="flex items-center gap-2 mb-3">
                   <Terminal size={18} className="text-blue-400" />
-                  <h3 className="font-extrabold text-sm text-slate-200 uppercase tracking-wider">Install or Run Agent</h3>
+                  <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Install or Run Agent</h3>
                 </div>
-                <p className="text-xs text-slate-400 leading-relaxed mb-3">
+                <p className="text-xs text-slate-300 leading-relaxed mb-3">
                   Option A: Run the integrated Python Telemetry Agent for your server / simulator:
                 </p>
                 <div className="relative mb-4">
-                  <pre className="p-3.5 rounded-xl bg-black/40 border border-cyan-500/20 text-xs font-mono text-cyan-300 overflow-x-auto whitespace-pre-wrap select-all leading-normal">
+                  <pre className="p-3.5 rounded-xl bg-slate-950/80 border border-cyan-500/20 text-xs font-mono text-cyan-300 overflow-x-auto whitespace-pre-wrap select-all leading-normal">
                     {`python demo-server/theartx_agent.py --theartx-url http://localhost:3001 --api-key ${apiKey}`}
                   </pre>
                   <button
@@ -212,11 +212,11 @@ export default function AddServer() {
                   </button>
                 </div>
 
-                <p className="text-xs text-slate-400 leading-relaxed mb-3">
+                <p className="text-xs text-slate-300 leading-relaxed mb-3">
                   Option B: System binary installer script:
                 </p>
                 <div className="relative">
-                  <pre className="p-4 rounded-xl bg-black/40 border border-blue-500/10 text-xs font-mono text-slate-300 overflow-x-auto whitespace-pre-wrap select-all leading-normal">
+                  <pre className="p-4 rounded-xl bg-slate-950/80 border border-blue-500/15 text-xs font-mono text-slate-300 overflow-x-auto whitespace-pre-wrap select-all leading-normal">
                     {installCommand}
                   </pre>
                   <button
@@ -232,9 +232,9 @@ export default function AddServer() {
               <GlassCard className="border border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.05)]">
                 <div className="flex items-center gap-2 mb-3">
                   <Shield size={18} className="text-emerald-400 threat-pulse-active" />
-                  <h3 className="font-extrabold text-sm text-emerald-400 uppercase tracking-wider">Waiting for Telemetry...</h3>
+                  <h3 className="text-[13px] font-bold text-emerald-400 uppercase tracking-wider">Waiting for Telemetry...</h3>
                 </div>
-                <ul className="text-xs text-slate-400 space-y-2.5">
+                <ul className="text-xs text-slate-300 space-y-2.5">
                   <li className="flex items-start gap-2"><span className="text-emerald-400 font-bold">✓</span> API keys established</li>
                   <li className="flex items-start gap-2"><span className="text-blue-400 mt-0.5">•</span> Agent checks in automatically upon service install</li>
                   <li className="flex items-start gap-2"><span className="text-blue-400 mt-0.5">•</span> Encrypted TLS 1.3 telemetry streaming automatically</li>
@@ -244,13 +244,13 @@ export default function AddServer() {
               <div className="flex justify-between items-center pt-2">
                 <button
                   onClick={() => setStep(2)}
-                  className="inline-flex items-center gap-1 px-4 py-2.5 rounded-xl bg-white/5 border border-blue-500/10 text-xs font-bold text-slate-400 hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1 px-4 py-2.5 rounded-xl bg-white/5 border border-blue-500/10 text-xs font-semibold text-slate-300 hover:text-white transition-colors cursor-pointer"
                 >
                   <ArrowLeft size={14} /> Back
                 </button>
                 <button
                   onClick={() => navigate('/servers')}
-                  className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold uppercase tracking-wider text-white transition-all shadow-lg shadow-emerald-600/15"
+                  className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold uppercase tracking-wider text-white transition-all shadow-lg shadow-emerald-600/15 cursor-pointer"
                 >
                   Complete enlistment
                 </button>
