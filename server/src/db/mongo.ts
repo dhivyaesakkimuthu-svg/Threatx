@@ -7,18 +7,23 @@ export function isMongoConnected(): boolean {
 }
 
 export async function connectMongo(): Promise<boolean> {
+  if (process.env.USE_MONGODB !== 'true') {
+    isConnected = false;
+    console.log('[Storage] Using persistent JSON file storage (server/src/data/threatx.json)');
+    return false;
+  }
   const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/theadx';
   try {
     console.log(`[MongoDB] Attempting to connect to ${uri}...`);
     await mongoose.connect(uri, {
-      serverSelectionTimeoutMS: 2500, // Quick fallback if local MongoDB is not running
+      serverSelectionTimeoutMS: 2500,
     });
     isConnected = true;
     console.log('[MongoDB] Connected successfully to database');
     return true;
   } catch (err: any) {
     isConnected = false;
-    console.warn(`[MongoDB] Connection failed (${err.message}). Falling back safely to JSON file storage.`);
+    console.warn(`[MongoDB] Connection failed (${err.message}). Using persistent JSON file storage.`);
     return false;
   }
 }

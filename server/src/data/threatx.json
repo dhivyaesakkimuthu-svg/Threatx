@@ -1,4 +1,30 @@
 {
+  "users": [
+    {
+      "id": "58f4fce4-43ec-45d7-8e04-d215f42db7ae",
+      "email": "admin@theadx.local",
+      "name": "System Administrator",
+      "passwordHash": "$2b$10$q.6IYOtiIs4nx6hoqKSHWOnjy/qKhpQ.VAZTnf4hCgIbp8kpo8JlC",
+      "role": "admin",
+      "createdAt": "2026-10-06T16:55:03.698Z"
+    },
+    {
+      "id": "38eeb071-510b-48ff-8671-41067a512959",
+      "email": "admin@threatx.io",
+      "name": "Security Admin",
+      "passwordHash": "$2b$10$5RCVsQfx9HotDct4J08ni.XlkcxQMD1/3rfOvlbktA0cU6WxzM63u",
+      "role": "admin",
+      "createdAt": "2026-10-06T16:55:03.901Z"
+    },
+    {
+      "id": "a05b2cf6-5c8b-4ca5-87fe-a83f01e082fe",
+      "email": "mdsuhail270907@gmail.com",
+      "name": "md",
+      "passwordHash": "$2b$10$DXN5ARsz7eR1S/4iO/VTneMbtJbJewrjPrjUJRTgIeUNJEbIteJUS",
+      "role": "analyst",
+      "createdAt": "2026-10-06T17:04:50.039Z"
+    }
+  ],
   "servers": [
     {
       "id": "92415294-e5ba-49d2-916d-d0af289a8096",
@@ -21,7 +47,7 @@
       "os": "Ubuntu 22.04 LTS",
       "ipAddress": "203.0.113.10",
       "agentVersion": "1.2.0",
-      "lastSeen": "2026-10-01T16:53:23.105Z",
+      "lastSeen": "2026-10-06T17:05:10.638Z",
       "createdAt": "2026-09-01T16:41:12.092Z"
     },
     {
@@ -2782,6 +2808,138 @@
       "filePath": "/marketing/campaign-q3.pptx",
       "success": true,
       "timestamp": "2026-10-01T16:53:23.099Z"
+    },
+    {
+      "id": "f1c6d5ae-1500-4911-81d1-4a91e906e82c",
+      "serverId": "eaf4b81e-cb9e-4d21-87fe-48e7e7bd64a3",
+      "userId": "f178b8b9-20f9-422e-b87e-07697384159a",
+      "username": "unknown",
+      "eventType": "login",
+      "ipAddress": "0.0.0.0",
+      "device": "Unknown Device",
+      "userAgent": "",
+      "success": true,
+      "timestamp": "2026-10-06T17:00:21.148Z"
+    },
+    {
+      "id": "3a020de1-6d76-42a7-a7d6-7291ac6df3bd",
+      "serverId": "eaf4b81e-cb9e-4d21-87fe-48e7e7bd64a3",
+      "userId": "cd02aec8-cce1-477b-9bb3-5877a66c3e24",
+      "username": "unknown",
+      "eventType": "login",
+      "ipAddress": "0.0.0.0",
+      "device": "Unknown Device",
+      "userAgent": "",
+      "success": true,
+      "timestamp": "2026-10-06T17:00:28.196Z"
+    },
+    {
+      "id": "4e744a95-3082-44cc-9b00-ac90a0253b4d",
+      "serverId": "eaf4b81e-cb9e-4d21-87fe-48e7e7bd64a3",
+      "userId": "2194a7f1-2885-48c8-82f0-ddb52d85c106",
+      "username": "unknown",
+      "eventType": "login",
+      "ipAddress": "0.0.0.0",
+      "device": "Unknown Device",
+      "userAgent": "",
+      "success": true,
+      "timestamp": "2026-10-06T17:04:14.523Z"
+    },
+    {
+      "id": "9a246ff2-7ae2-49cf-b959-1f71e1534645",
+      "serverId": "eaf4b81e-cb9e-4d21-87fe-48e7e7bd64a3",
+      "userId": "72d42468-1f74-4c94-aa09-ab071d5a13e5",
+      "username": "unknown",
+      "eventType": "login",
+      "ipAddress": "0.0.0.0",
+      "device": "Unknown Device",
+      "userAgent": "",
+      "success": true,
+      "timestamp": "2026-10-06T17:04:21.578Z"
+    },
+    {
+      "id": "672985db-3075-44d3-a5c1-8d9f3f1f6374",
+      "serverId": "eaf4b81e-cb9e-4d21-87fe-48e7e7bd64a3",
+      "userId": "dcb9f5a7-89bf-4f52-82dc-6ab1aa4b68a3",
+      "username": "unknown",
+      "eventType": "login",
+      "ipAddress": "0.0.0.0",
+      "device": "Unknown Device",
+      "userAgent": "",
+      "success": true,
+      "timestamp": "2026-10-06T17:04:28.597Z"
+    },
+    {
+      "id": "2bda8b49-df9c-4f40-a89d-932d5773fa6c",
+      "serverId": "eaf4b81e-cb9e-4d21-87fe-48e7e7bd64a3",
+      "userId": "7ebd07c8-9914-4c1c-9a53-a6469e24aa3d",
+      "username": "unknown",
+      "eventType": "login",
+      "ipAddress": "0.0.0.0",
+      "device": "Unknown Device",
+      "userAgent": "",
+      "success": true,
+      "timestamp": "2026-10-06T17:04:35.603Z"
+    },
+    {
+      "id": "0e54ce0b-3fdc-47bd-920c-c678cda724ee",
+      "serverId": "eaf4b81e-cb9e-4d21-87fe-48e7e7bd64a3",
+      "userId": "419acf41-de9a-456c-9ebe-f0ce96b0051b",
+      "username": "unknown",
+      "eventType": "login",
+      "ipAddress": "0.0.0.0",
+      "device": "Unknown Device",
+      "userAgent": "",
+      "success": true,
+      "timestamp": "2026-10-06T17:04:42.611Z"
+    },
+    {
+      "id": "cee39513-6909-4412-898d-03fc8bf68396",
+      "serverId": "eaf4b81e-cb9e-4d21-87fe-48e7e7bd64a3",
+      "userId": "56022c7f-5d05-4987-b632-9104eeb3c6e3",
+      "username": "unknown",
+      "eventType": "login",
+      "ipAddress": "0.0.0.0",
+      "device": "Unknown Device",
+      "userAgent": "",
+      "success": true,
+      "timestamp": "2026-10-06T17:04:49.624Z"
+    },
+    {
+      "id": "d1826d94-ce2a-45e9-af9f-009fc46a822c",
+      "serverId": "eaf4b81e-cb9e-4d21-87fe-48e7e7bd64a3",
+      "userId": "8359eb7a-70f6-4217-8681-8d8b9a0ecbc2",
+      "username": "unknown",
+      "eventType": "login",
+      "ipAddress": "0.0.0.0",
+      "device": "Unknown Device",
+      "userAgent": "",
+      "success": true,
+      "timestamp": "2026-10-06T17:04:56.629Z"
+    },
+    {
+      "id": "da948429-01c2-4fe4-a644-e62a2a76280c",
+      "serverId": "eaf4b81e-cb9e-4d21-87fe-48e7e7bd64a3",
+      "userId": "d7bd1298-0612-4ced-b7ec-690f8f9e899c",
+      "username": "unknown",
+      "eventType": "login",
+      "ipAddress": "0.0.0.0",
+      "device": "Unknown Device",
+      "userAgent": "",
+      "success": true,
+      "timestamp": "2026-10-06T17:05:03.639Z"
+    },
+    {
+      "id": "a81a4a14-dc3a-436c-895a-b0ec7cdcfa77",
+      "serverId": "eaf4b81e-cb9e-4d21-87fe-48e7e7bd64a3",
+      "userId": "e83a44ff-b526-402c-940a-c2664654dcc3",
+      "username": "unknown",
+      "eventType": "login",
+      "ipAddress": "0.0.0.0",
+      "device": "Unknown Device",
+      "userAgent": "",
+      "success": true,
+      "timestamp": "2026-10-06T17:05:10.638Z"
     }
   ],
   "behaviorProfiles": [
@@ -2999,6 +3157,28 @@
           "lat": 30.2672,
           "lng": -97.7431
         }
+      }
+    },
+    {
+      "userId": "f178b8b9-20f9-422e-b87e-07697384159a",
+      "username": "unknown",
+      "knownIps": [
+        "0.0.0.0"
+      ],
+      "knownDevices": [
+        "Unknown Device"
+      ],
+      "typicalLoginHours": [
+        22
+      ],
+      "typicalLocations": [],
+      "failedLoginCount": 0,
+      "accessedFiles": [],
+      "restrictedAccessCount": 0,
+      "lastLogin": {
+        "ip": "0.0.0.0",
+        "device": "Unknown Device",
+        "timestamp": "2026-10-06T17:05:10.638Z"
       }
     }
   ],
