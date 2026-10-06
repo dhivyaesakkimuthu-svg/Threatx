@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import { getDb, persistDb } from '../db/store.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const router = Router();
 
-router.get('/stats', (_req, res) => {
+router.get('/stats', requireAuth, (_req, res) => {
   const db = getDb();
   const onlineServers = db.servers.filter((s) => s.status === 'online').length;
   const uniqueUsers = new Set(db.activityLogs.map((l) => l.userId)).size;
@@ -68,11 +69,11 @@ router.get('/stats', (_req, res) => {
   });
 });
 
-router.get('/alerts', (_req, res) => {
+router.get('/alerts', requireAuth, (_req, res) => {
   res.json(getDb().alerts);
 });
 
-router.patch('/alerts/:id/read', (req, res) => {
+router.patch('/alerts/:id/read', requireAuth, (req, res) => {
   const db = getDb();
   const alert = db.alerts.find((a) => a.id === req.params.id);
   if (!alert) return res.status(404).json({ error: 'Alert not found' });
@@ -81,7 +82,7 @@ router.patch('/alerts/:id/read', (req, res) => {
   res.json(alert);
 });
 
-router.post('/alerts/read-all', (_req, res) => {
+router.post('/alerts/read-all', requireAuth, (_req, res) => {
   const db = getDb();
   db.alerts.forEach((a) => {
     a.read = true;

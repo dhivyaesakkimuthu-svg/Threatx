@@ -11,6 +11,7 @@ import type {
 } from '../types.js';
 import { getDb, persistDb } from '../db/store.js';
 import { behaviorManager } from './behaviorProfile.js';
+import { emitThreat, emitAlert, emitIncident } from '../socket.js';
 
 const RESTRICTED_FOLDERS = ['/confidential', '/finance', '/hr/private', '/admin/secrets', '/etc', '/srv/app', '/var/www', '/home/admin'];
 const SENSITIVE_FILES = ['/confidential/', '/finance/reports/', '/hr/private/', '.env', 'passwd', 'ledger.csv', 'credentials.key', 'customer_export.csv', 'secrets/config.yaml'];
@@ -270,6 +271,7 @@ export class ThreatDetectionEngine {
   private persistThreat(event: ThreatEvent): void {
     const db = getDb();
     db.threatEvents.unshift(event);
+    emitThreat(event);
 
     if (event.riskLevel === 'High') {
       const alert: Alert = {
@@ -282,6 +284,7 @@ export class ThreatDetectionEngine {
         createdAt: event.timestamp,
       };
       db.alerts.unshift(alert);
+      emitAlert(alert);
 
       const incident: Incident = {
         id: uuidv4(),
@@ -305,6 +308,7 @@ export class ThreatDetectionEngine {
         relatedEvents: [event.id],
       };
       db.incidents.unshift(incident);
+      emitIncident(incident);
     }
 
     persistDb();

@@ -2,11 +2,13 @@ import { Router } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { getDb, persistDb } from '../db/store.js';
 import { threatEngine } from '../engine/threatDetection.js';
+import { validate, ingestPayloadSchema } from '../middleware/validate.js';
+import { requireAuth, requireRole } from '../middleware/auth.js';
 import type { ActivityLog } from '../types.js';
 
 const router = Router();
 
-router.get('/', (req, res) => {
+router.get('/', requireAuth, (req, res) => {
   const db = getDb();
   const { limit = '50', riskLevel } = req.query;
   let events = [...db.threatEvents];
@@ -18,7 +20,7 @@ router.get('/', (req, res) => {
   res.json(events.slice(0, parseInt(limit as string)));
 });
 
-router.get('/stats', (_req, res) => {
+router.get('/stats', requireAuth, (_req, res) => {
   const db = getDb();
   const counts: Record<string, number> = {};
   db.threatEvents.forEach((e) => {
@@ -27,14 +29,14 @@ router.get('/stats', (_req, res) => {
   res.json(counts);
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', requireAuth, (req, res) => {
   const db = getDb();
   const event = db.threatEvents.find((e) => e.id === req.params.id);
   if (!event) return res.status(404).json({ error: 'Event not found' });
   res.json(event);
 });
 
-router.patch('/:id/acknowledge', (req, res) => {
+router.patch('/:id/acknowledge', requireAuth, requireRole('admin', 'analyst'), (req, res) => {
   const db = getDb();
   const event = db.threatEvents.find((e) => e.id === req.params.id);
   if (!event) return res.status(404).json({ error: 'Event not found' });
@@ -43,7 +45,7 @@ router.patch('/:id/acknowledge', (req, res) => {
   res.json(event);
 });
 
-router.post('/ingest', (req, res) => {
+router.post('/ingest', validate(ingestPayloadSchema), (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader?.startsWith('Bearer ')) {
     return res.status(401).json({ error: 'Missing API key' });
@@ -76,6 +78,7 @@ router.post('/ingest', (req, res) => {
       filePath: raw.filePath,
       success: raw.success !== false,
       timestamp: raw.timestamp || new Date().toISOString(),
+      telemetry: raw.telemetry,
     };
     db.activityLogs.push(log);
     const threats = threatEngine.analyze(log, server);

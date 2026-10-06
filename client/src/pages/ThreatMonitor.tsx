@@ -6,6 +6,7 @@ import RiskBadge from '../components/ui/RiskBadge';
 import ThreatTypeIcon from '../components/ui/ThreatTypeIcon';
 import LiveBadge from '../components/ui/LiveBadge';
 import { api } from '../api/client';
+import { getSocket } from '../api/socket';
 import type { ThreatEvent, RiskLevel } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -67,10 +68,25 @@ export default function ThreatMonitor() {
     };
 
     load();
-    const interval = setInterval(load, 5000);
+
+    const socket = getSocket();
+
+    const handleThreatNew = (newThreat: ThreatEvent) => {
+      if (cancelled) return;
+      if (filter === 'All' || newThreat.riskLevel === filter) {
+        setEvents((prev) => [newThreat, ...prev.filter((e) => e.id !== newThreat.id)]);
+      }
+    };
+
+    socket.on('threat:new', handleThreatNew);
+
+    // Fallback 30s background poll
+    const fallbackInterval = setInterval(load, 30000);
+
     return () => {
       cancelled = true;
-      clearInterval(interval);
+      clearInterval(fallbackInterval);
+      socket.off('threat:new', handleThreatNew);
     };
   }, [filter]);
 

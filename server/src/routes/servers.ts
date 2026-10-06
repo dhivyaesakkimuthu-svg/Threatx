@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import crypto from 'crypto';
 import { getDb, persistDb } from '../db/store.js';
+import { validate, createServerSchema } from '../middleware/validate.js';
+import { requireAuth, requireRole } from '../middleware/auth.js';
 
 const router = Router();
 
@@ -9,13 +11,13 @@ function generateApiKey(): string {
   return `tx_${crypto.randomBytes(24).toString('hex')}`;
 }
 
-router.get('/', (_req, res) => {
+router.get('/', requireAuth, (_req, res) => {
   const db = getDb();
   const servers = db.servers.map(({ apiKey: _, ...rest }) => rest);
   res.json(servers);
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', requireAuth, (req, res) => {
   const db = getDb();
   const server = db.servers.find((s) => s.id === req.params.id);
   if (!server) return res.status(404).json({ error: 'Server not found' });
@@ -23,11 +25,8 @@ router.get('/:id', (req, res) => {
   res.json(rest);
 });
 
-router.post('/', (req, res) => {
+router.post('/', requireAuth, requireRole('admin', 'analyst'), validate(createServerSchema), (req, res) => {
   const { name, hostname, os, ipAddress } = req.body;
-  if (!name || !hostname) {
-    return res.status(400).json({ error: 'Name and hostname are required' });
-  }
   const db = getDb();
   const apiKey = generateApiKey();
   const server = {
@@ -47,7 +46,7 @@ router.post('/', (req, res) => {
   res.status(201).json(server);
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', requireAuth, requireRole('admin'), (req, res) => {
   const db = getDb();
   const idx = db.servers.findIndex((s) => s.id === req.params.id);
   if (idx < 0) return res.status(404).json({ error: 'Server not found' });
@@ -56,7 +55,7 @@ router.delete('/:id', (req, res) => {
   res.json({ success: true });
 });
 
-router.post('/:id/regenerate-key', (req, res) => {
+router.post('/:id/regenerate-key', requireAuth, requireRole('admin'), (req, res) => {
   const db = getDb();
   const server = db.servers.find((s) => s.id === req.params.id);
   if (!server) return res.status(404).json({ error: 'Server not found' });

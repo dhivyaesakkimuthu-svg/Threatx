@@ -1,8 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
+import bcrypt from 'bcryptjs';
 import { getDb, persistDb } from './db/store.js';
 import { threatEngine } from './engine/threatDetection.js';
 import { behaviorManager } from './engine/behaviorProfile.js';
-import type { ActivityLog } from './types.js';
+import type { ActivityLog, User } from './types.js';
 
 const DEMO_USERS = [
   { userId: 'u1', username: 'alice.johnson', ip: '192.168.1.10', device: 'MacBook Pro', city: 'New York', country: 'US', lat: 40.7128, lng: -74.006 },
@@ -14,6 +15,38 @@ const DEMO_USERS = [
 
 export function seedDemoData(): void {
   const db = getDb();
+  if (!db.users) db.users = [];
+
+  // Seed default admin users
+  const adminLocalEmail = 'admin@theadx.local';
+  if (!db.users.some((u) => u.email === adminLocalEmail)) {
+    const adminUser: User = {
+      id: uuidv4(),
+      email: adminLocalEmail,
+      name: 'System Administrator',
+      passwordHash: bcrypt.hashSync('admin123', 10),
+      role: 'admin',
+      createdAt: new Date().toISOString(),
+    };
+    db.users.push(adminUser);
+    persistDb();
+  }
+
+  const adminEmail = 'admin@threatx.io';
+  if (!db.users.some((u) => u.email === adminEmail)) {
+    const adminUser: User = {
+      id: uuidv4(),
+      email: adminEmail,
+      name: 'Security Admin',
+      passwordHash: bcrypt.hashSync('admin123', 10),
+      role: 'admin',
+      createdAt: new Date().toISOString(),
+    };
+    db.users.push(adminUser);
+    persistDb();
+  }
+
+  console.log('[Auth] Default Admin Account: admin@theadx.local / admin123 (WARNING: change in production)');
 
   const demoTargetKey = 'tx_227c2920cc9599872b69f6fcf5db4e7a877ff217a8476e0b';
   const hasDemoTarget = db.servers.some((s) => s.apiKey === demoTargetKey);

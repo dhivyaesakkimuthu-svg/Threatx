@@ -84,3 +84,16 @@ export interface DashboardStats {
   recentLogins: LoginActivity[];
   threatTimeline: { time: string; count: number; high: number; medium: number; low: number }[];
 }
+
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: 'admin' | 'analyst' | 'viewer';
+}
+
+export interface AuthResponse {
+  token: string;
+  user: User;
+}
+

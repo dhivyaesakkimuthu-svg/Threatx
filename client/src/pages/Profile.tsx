@@ -3,14 +3,20 @@ import { useState, useEffect } from 'react';
 import Header from '../components/layout/Header';
 import GlassCard from '../components/ui/GlassCard';
 import { api } from '../api/client';
+import { useAuth } from '../context/AuthContext';
 
 export default function Profile() {
-  const [name, setName] = useState('Admin User');
+  const { user } = useAuth();
+  const [name, setName] = useState(user?.name || 'Security Admin');
   const [activities, setActivities] = useState<string[]>([]);
   const [sessions] = useState([
     { id: 's1', device: 'Chrome / Windows 11', ip: '192.168.1.120', status: 'Active Now' },
     { id: 's2', device: 'Safari / iPhone 15', ip: '172.16.2.40', status: '2 hours ago' },
   ]);
+
+  useEffect(() => {
+    if (user?.name) setName(user.name);
+  }, [user]);
 
   // Generate initials for avatar representation
   const getInitials = (n: string) => {
@@ -33,13 +39,15 @@ export default function Profile() {
         <GlassCard>
           <div className="flex items-center gap-4 mb-6">
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-2xl font-black text-white shadow-lg shadow-blue-500/20 border border-blue-400/20">
-              {getInitials(name)}
+              {getInitials(name || 'Admin')}
             </div>
             <div>
               <h3 className="text-lg font-extrabold text-slate-200">{name}</h3>
-              <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Security Administrator</p>
+              <p className="text-xs text-cyan-400 font-semibold uppercase tracking-wider">
+                {user?.role || 'admin'} role
+              </p>
               <p className="text-xs text-slate-400 flex items-center gap-1 mt-1 font-mono">
-                <Mail size={12} className="text-slate-500" /> admin@company.com
+                <Mail size={12} className="text-slate-500" /> {user?.email || 'admin@threatx.io'}
               </p>
             </div>
           </div>
@@ -54,7 +62,7 @@ export default function Profile() {
             </div>
             <div>
               <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Role Assignment</label>
-              <input defaultValue="Security Administrator" disabled className="w-full mt-1.5 px-3 py-2.5 rounded-xl bg-black/40 border border-blue-500/15 text-xs text-slate-300 opacity-50 cursor-not-allowed" />
+              <input value={user?.role ? `${user.role.toUpperCase()} (Threat Analyst)` : 'ADMIN (Security Administrator)'} disabled className="w-full mt-1.5 px-3 py-2.5 rounded-xl bg-black/40 border border-blue-500/15 text-xs text-slate-300 opacity-50 cursor-not-allowed" />
             </div>
           </div>
         </GlassCard>

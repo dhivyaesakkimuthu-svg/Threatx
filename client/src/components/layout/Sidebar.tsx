@@ -4,9 +4,10 @@ import { motion } from 'framer-motion';
 import {
   LayoutDashboard, Server, ShieldAlert, AlertTriangle,
   BarChart3, Bell, FileText, Settings, User, ChevronLeft, ChevronRight,
-  Shield,
+  Shield, LogOut,
 } from 'lucide-react';
 import { api } from '../../api/client';
+import { useAuth } from '../../context/AuthContext';
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
@@ -27,6 +28,7 @@ interface SidebarProps {
 
 export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
   const [unreadCount, setUnreadCount] = useState(0);
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const fetchUnread = () => {
@@ -107,12 +109,41 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
         ))}
       </nav>
 
-      <button
-        onClick={onToggle}
-        className="mx-3 mb-4 p-2 rounded-xl text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-all flex items-center justify-center"
-      >
-        {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-      </button>
+      {/* User profile & Logout Footer */}
+      <div className="p-3 border-t border-blue-500/10 space-y-1">
+        {!collapsed && user && (
+          <div className="px-3 py-2 rounded-xl bg-blue-500/5 border border-blue-500/10 flex items-center justify-between">
+            <div className="min-w-0">
+              <p className="text-xs font-bold text-slate-300 truncate">{user.name}</p>
+              <p className="text-[10px] text-cyan-400 uppercase font-mono">{user.role}</p>
+            </div>
+            <button
+              onClick={logout}
+              title="Sign Out"
+              className="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors"
+            >
+              <LogOut size={16} />
+            </button>
+          </div>
+        )}
+        {collapsed && (
+          <button
+            onClick={logout}
+            title="Sign Out"
+            className="w-full p-2.5 rounded-xl text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition-colors flex items-center justify-center"
+          >
+            <LogOut size={18} />
+          </button>
+        )}
+
+        <button
+          onClick={onToggle}
+          className="w-full p-2 rounded-xl text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-all flex items-center justify-center"
+        >
+          {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+        </button>
+      </div>
     </motion.aside>
   );
 }
+

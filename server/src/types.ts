@@ -36,6 +36,16 @@ export interface ActivityLog {
   filePath?: string;
   success: boolean;
   timestamp: string;
+  telemetry?: {
+    cpuPercent?: number;
+    memoryPercent?: number;
+    diskPercent?: number;
+    activeProcessCount?: number;
+    uptimeSeconds?: number;
+    activeSessions?: any[];
+    systemSessions?: any[];
+    blockedUsers?: string[];
+  } | Record<string, any>;
 }
 
 export interface UserBehaviorProfile {
@@ -122,7 +132,26 @@ export interface DashboardStats {
   threatTimeline: { time: string; count: number; high: number; medium: number; low: number }[];
 }
 
+export type UserRole = 'admin' | 'analyst' | 'viewer';
+
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  passwordHash: string;
+  role: UserRole;
+  createdAt: string;
+}
+
+export interface AuthUser {
+  id: string;
+  email: string;
+  name: string;
+  role: UserRole;
+}
+
 export interface Database {
+  users?: User[];
   servers: Server[];
   activityLogs: ActivityLog[];
   behaviorProfiles: UserBehaviorProfile[];
@@ -130,3 +159,4 @@ export interface Database {
   incidents: Incident[];
   alerts: Alert[];
 }
+

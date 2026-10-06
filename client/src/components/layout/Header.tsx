@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
-import { Bell, Search, ShieldAlert, Check } from 'lucide-react';
+import { Bell, Search, ShieldAlert, Check, LogOut } from 'lucide-react';
 import { api } from '../../api/client';
+import { useAuth } from '../../context/AuthContext';
 import type { Alert } from '../../types';
 
 interface HeaderProps {
@@ -12,6 +13,7 @@ export default function Header({ title, subtitle }: HeaderProps) {
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { user, logout } = useAuth();
 
   const fetchAlerts = () => {
     api.getAlerts().then(setAlerts).catch(console.error);
@@ -40,6 +42,12 @@ export default function Header({ title, subtitle }: HeaderProps) {
     e.stopPropagation();
     await api.markAlertRead(id);
     fetchAlerts();
+  };
+
+  const getInitial = () => {
+    if (user?.name) return user.name.charAt(0).toUpperCase();
+    if (user?.email) return user.email.charAt(0).toUpperCase();
+    return 'A';
   };
 
   return (
@@ -122,10 +130,24 @@ export default function Header({ title, subtitle }: HeaderProps) {
           )}
         </div>
 
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-sm font-bold shadow-lg shadow-blue-500/20 border border-blue-400/20">
-          A
+        {/* User badge & Logout */}
+        <div className="flex items-center gap-2 pl-2 border-l border-white/10">
+          <div
+            title={user?.email || 'Admin'}
+            className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-sm font-bold text-white shadow-lg shadow-blue-500/20 border border-blue-400/20"
+          >
+            {getInitial()}
+          </div>
+          <button
+            onClick={logout}
+            title="Sign Out"
+            className="p-2 rounded-xl bg-white/5 hover:bg-red-500/10 border border-blue-500/10 hover:border-red-500/30 text-slate-400 hover:text-red-400 transition-all"
+          >
+            <LogOut size={16} />
+          </button>
         </div>
       </div>
     </header>
   );
 }
+

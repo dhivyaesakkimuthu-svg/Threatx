@@ -1,135 +1,144 @@
-# TheadX — AI-Powered Cybersecurity Platform
+# TheadX — Enterprise AI-Powered Cybersecurity Platform
 
-Enterprise-grade SaaS security dashboard with real-time threat detection, behavioral analysis, and incident management.
+Enterprise SaaS Security Operations Center (SOC) dashboard featuring real-time AI-assisted threat detection, behavioral baseline profiling, incident response workflows, hardware telemetry streaming, and Gemini AI investigation assistance.
 
-## Features
+---
 
-### Security Dashboard
-- Total Servers, Active Users, Live Threats, Security Score
-- Risk Distribution charts (Low / Medium / High)
-- Recent Login Activity feed
-- 24-hour Threat Timeline
+## 🛠️ Upgraded Tech Stack
 
-### AI Threat Detection Engine
-Continuously analyzes server activity logs and detects:
-- Unknown IP logins
-- Unusual login times
-- New/unrecognized devices
-- Brute-force (failed login attempts)
-- Impossible travel (geolocation anomalies)
-- Unauthorized access to confidential files
-- Restricted folder access
-- Mass downloading of sensitive files
+| Layer | Technologies |
+|---|---|
+| **Frontend** | React 19, TypeScript, Vite, Tailwind CSS 4, React Router, **Axios** (JWT interceptors), Recharts, Lucide React, Framer Motion |
+| **Real-Time** | **Socket.IO** (instant threat, alert, and incident event streaming) |
+| **Backend** | Node.js, Express 5, TypeScript, REST APIs |
+| **Database** | **MongoDB + Mongoose** (with resilient auto-fallback to local JSON store), MongoDB Compass compatible |
+| **Demo & Telemetry** | **Python 3.10 + Flask** (`demo-server-python`), hardware resource telemetry (`psutil`: CPU, RAM, Disk, Active Process & Session tracking), Node.js demo-server |
+| **Security & Auth** | **JWT Authentication**, **bcryptjs** password hashing, **Role-Based Access Control (RBAC)** (`admin`, `analyst`, `viewer`), **Helmet** headers, **Rate Limiting** (`express-rate-limit`), **Zod** schema validation, **Audit Logging** (`server/data/audit.log`) |
+| **AI & Intelligence** | **Google Gemini AI** (`@google/generative-ai`), Rule-based anomaly engine (8 detectors), Behavioral baseline profiling, Explainable threat scoring (0–100) |
 
-Each event receives a **risk score (0–100)** and classification (**Low / Medium / High**). High-risk events auto-create incidents and alerts.
+---
 
-### Pages
-| Page | Description |
-|------|-------------|
-| Dashboard | Real-time security overview with charts |
-| Servers | Manage monitored infrastructure |
-| Add Server | Generate API keys & install monitoring agent |
-| Threat Monitor | Live events with risk badges & recommended actions |
-| Incidents | Investigation history & threat reports |
-| Analytics | Threat type distribution & user risk profiles |
-| Alerts | High-risk notification center |
-| Reports | Export security reports |
-| Settings | Detection sensitivity & notifications |
-| Profile | Account management |
+## 🚀 Quick Start
 
-## Quick Start
+### 1. Prerequisites
+- Node.js 18+ & npm
+- Python 3.9+ & pip
+- MongoDB (optional — if MongoDB is offline, server safely falls back to local JSON persistence)
+
+### 2. Install Dependencies
 
 ```bash
-# Install root dependencies
+# Root & JS dependencies
 npm install
-
-# Install client, server & demo-server dependencies
 cd client && npm install && cd ..
 cd server && npm install && cd ..
 cd demo-server && npm install && cd ..
 
-# Run backend, frontend, and demo telemetry server concurrently
+# Python Demo Server dependencies
+cd demo-server-python
+pip install -r requirements.txt
+cd ..
+```
+
+### 3. Environment Setup
+
+Copy example environments if not already present:
+```bash
+# Server environment
+cp server/.env.example server/.env
+
+# Python Demo Node environment
+cp demo-server-python/.env.example demo-server-python/.env
+```
+
+Key environment variables in `server/.env`:
+- `PORT=3001`
+- `MONGODB_URI=mongodb://localhost:27017/theadx`
+- `JWT_SECRET=threatx_super_secret_jwt_key_2026`
+- `GEMINI_API_KEY=your_gemini_api_key_here` (get from [Google AI Studio](https://aistudio.google.com/))
+
+### 4. Running the Platform
+
+#### Standard Dev Mode (Backend + Frontend + Node Demo)
+```bash
 npm run dev
 ```
 
-- **Frontend Dashboard:** http://localhost:5173
-- **Backend API:** http://localhost:3001
-- **Demo Server:** Continuously pushes simulated telemetry to backend
-
-Demo data is seeded automatically on first server start.
-
-## Demo Server
-
-The `demo-server/` service simulates a live monitored machine generating background user activities and anomalous attack events:
-
-- **Monitored Node Simulation:** Continuously generates realistic user logins, logouts, file access, and downloads across 5 employee profiles.
-- **Pre-Shared API Authentication:** Uses the seeded key `tx_demo_key_for_testing_only` to authenticate with `POST /api/events/ingest`.
-- **Telemetry Frequency:** Emits an event every ~7 seconds (`EVENT_INTERVAL_MS=7000`), with ~15% being security anomalies (`ANOMALY_RATE=0.15`).
-- **Simulated Anomalies:** Generates unknown IP logins, foreign impossible travel, unrecognized devices, restricted file accesses, mass download bursts, and brute-force attacks.
-- **Dashboard Visibility:** Appears in the **Servers** page automatically as enrolled infrastructure. Detected threats appear live on the **Threat Monitor** and **Dashboard** within 5 seconds.
-- **Configuration:** To adjust emission rate or anomaly frequency, edit [demo-server/.env](file:///c:/Users/Mohamed%20Suhail/Downloads/Threatx-main/Threatx-main/demo-server/.env).
-
-## Agent Integration
-
-Send activity logs to the API:
-
+#### Full Upgraded Dev Mode (Backend + Frontend + Python Flask Demo Server)
 ```bash
-curl -X POST http://localhost:3001/api/events/ingest \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "username": "john.doe",
-    "userId": "u123",
-    "eventType": "login",
-    "ipAddress": "192.168.1.50",
-    "device": "MacBook Pro",
-    "location": { "lat": 40.71, "lng": -74.00, "city": "New York", "country": "US" },
-    "success": true
-  }'
+npm run dev:full
 ```
 
-## Verification
+- **Frontend Dashboard:** [http://localhost:5173](http://localhost:5173)
+- **Backend API:** [http://localhost:3001](http://localhost:3001)
+- **Python Telemetry Agent:** [http://localhost:5001](http://localhost:5001)
 
-Test the AI engine end-to-end with a live ingest:
+---
 
+## 🔐 Authentication & RBAC
+
+TheadX uses standard JWT authentication with role-based authorization.
+
+### Default Admin Credentials
+- **Email:** `admin@theadx.local` *(or `admin@threatx.io`)*
+- **Password:** `admin123`
+- **Role:** `admin`
+
+### Roles & Permissions
+- `admin`: Full platform control (server provisioning, key regeneration, user management, incident management, note commits).
+- `analyst`: Triage threats, update incident status, commit investigation notes, invoke Gemini AI investigations.
+- `viewer`: Read-only access to dashboard, servers, reports, and threat streams.
+
+---
+
+## 🛡️ Security Hardening
+
+1. **Helmet HTTP Headers**: Enforces strict CSP, HSTS, no-sniff, and frameguard protections.
+2. **Dual-Tier Rate Limiting**:
+   - Standard `/api/*`: 100 requests / 15 minutes per IP.
+   - Telemetry Ingest `/api/events/ingest`: 1,000 requests / 15 minutes per IP.
+3. **Zod Input Validation**: Strict validation schemas on ingest, server creation, incident patches, and user notes.
+4. **Audit Logging**: Every state-changing request (`POST`, `PATCH`, `DELETE`) is appended to `server/data/audit.log` with timestamp, authenticated user ID, action, endpoint, and source IP.
+
+---
+
+## 🤖 Gemini AI Investigation Assistant
+
+- **Endpoint**: `POST /api/assistant/incident/:id`
+- **SOC AI Copilot**: Located in the **Incidents** detail view.
+- **Output**: Generates structured executive summaries, likely root causes, confidence ratings, and actionable containment playbooks.
+- **Smart In-Memory Caching**: Responses are cached in memory for 10 minutes to conserve API quota and prevent redundant requests.
+- **Graceful Fallback**: If `GEMINI_API_KEY` is not configured, a rule-based SOC fallback playbook is returned without crashing.
+
+---
+
+## ⚡ Socket.IO Real-Time Streaming
+
+The platform replaces HTTP polling with bi-directional Socket.IO streaming:
+- `threat:new`: Broadcast whenever an anomalous activity triggers detection rules.
+- `alert:new`: Broadcast when high-severity threat thresholds are met.
+- `incident:new`: Broadcast when automatic incidents are spawned.
+- Dashboard and Threat Monitor views update instantly with a 30-second fallback background poll.
+
+---
+
+## 🖥️ Monitored Node & Telemetry (Python Flask)
+
+The `demo-server-python/` node tracks server hardware metrics and generates realistic user activity:
+- Collects live **CPU %**, **RAM %**, **Disk %**, **Process counts**, and **User sessions** using `psutil`.
+- Runs a 7-second simulation loop with 95% baseline and 5% security anomaly distribution.
+- Endpoints:
+  - `GET /health`: Health status and telemetry payload.
+  - `GET /telemetry`: Live hardware snapshot.
+  - `POST /block-user`: Remotely revoke active user sessions.
+  - `POST /simulate-attack`: Trigger on-demand attack scenarios (`unknown_ip`, `credential_stuffing`, `mass_download`, etc.).
+
+---
+
+## 📦 Build Verification
+
+To compile and verify all workspaces:
 ```bash
-curl -X POST http://localhost:3001/api/events/ingest \
-  -H "Authorization: Bearer tx_demo_key_for_testing_only" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "username": "alice.johnson",
-    "userId": "u1",
-    "eventType": "login",
-    "ipAddress": "133.242.18.1",
-    "device": "Xiaomi Phone",
-    "location": { "lat": 35.6762, "lng": 139.6503, "city": "Tokyo", "country": "JP" },
-    "success": true
-  }'
+npm run build
 ```
-
-**Expected response:** 3 threats detected — `unknown_ip` (Medium), `new_device` (Medium), `impossible_travel` (High). High-risk detections auto-create an incident and alert visible in the UI within 5 seconds.
-
-The `tx_demo_key_for_testing_only` key is seeded on first server boot. In production, each enrolled server gets a unique key via `POST /api/servers`.
-
-## Tech Stack
-
-- **Frontend:** React, TypeScript, Tailwind CSS, Recharts, Framer Motion
-- **Backend:** Node.js, Express, TypeScript
-- **Storage:** JSON file persistence
-- **AI Engine:** Behavioral profiling + rule-based anomaly detection
-
-## Project Structure
-
-```
-ThreatX/
-├── client/          # React frontend (Vite)
-├── server/          # Express API & AI threat detection engine
-│   ├── src/
-│   │   ├── engine/  # AI threat detection & behavior profiles
-│   │   ├── routes/  # REST API endpoints
-│   │   └── db/      # JSON file storage
-│   └── data/        # Persistent data (auto-created)
-├── demo-server/     # Simulated monitored machine & telemetry generator
-│   └── src/         # Event generator, user profiles & ingest loop
-└── package.json     # Root scripts & multi-service orchestrator
-```
+Builds `client` (Vite + TypeScript), `server` (TypeScript), and `demo-server` with **0 errors**.

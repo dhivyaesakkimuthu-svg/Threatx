@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { getDb, persistDb } from '../db/store.js';
 import { threatEngine } from '../engine/threatDetection.js';
 import { behaviorManager } from '../engine/behaviorProfile.js';
+import { requireAuth, requireRole } from '../middleware/auth.js';
 import type { ActivityLog, Server, ThreatEvent } from '../types.js';
 
 const router = Router();
@@ -206,7 +207,7 @@ router.post('/ingest', async (req, res) => {
 /**
  * Health and status probe for the demo target server
  */
-router.get('/status', async (_req, res) => {
+router.get('/status', requireAuth, async (_req, res) => {
   const db = getDb();
   const demoServer = db.servers.find(
     (s) => s.apiKey === DEMO_SERVER_API_KEY || s.name.includes('OmniCorp') || s.hostname.includes('omnicorp')
@@ -244,7 +245,7 @@ router.get('/status', async (_req, res) => {
 /**
  * Forward remote mitigation action from ThreatX UI directly to Demo Target Server
  */
-router.post('/block-user', async (req, res) => {
+router.post('/block-user', requireAuth, requireRole('admin', 'analyst'), async (req, res) => {
   const { username } = req.body;
   if (!username) {
     return res.status(400).json({ error: 'Username is required' });

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Server as ServerIcon, Users, ShieldAlert, ShieldCheck } from 'lucide-react';
+import { Server as ServerIcon, Users, ShieldAlert, ShieldCheck, Cpu, HardDrive, Activity, Radio } from 'lucide-react';
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
 } from 'recharts';
@@ -11,6 +11,7 @@ import SecurityScoreRing from '../components/ui/SecurityScoreRing';
 import ThreatTypeIcon from '../components/ui/ThreatTypeIcon';
 import LiveBadge from '../components/ui/LiveBadge';
 import { api } from '../api/client';
+import { getSocket } from '../api/socket';
 import type { DashboardStats, ThreatEvent, Server } from '../types';
 import { motion } from 'framer-motion';
 
@@ -30,6 +31,8 @@ export default function Dashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [recentThreats, setRecentThreats] = useState<ThreatEvent[]>([]);
   const [servers, setServers] = useState<Server[]>([]);
+  const [telemetry, setTelemetry] = useState<any | null>(null);
+  const [nodeOnline, setNodeOnline] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -54,7 +57,7 @@ export default function Dashboard() {
   useEffect(() => {
     let cancelled = false;
 
-    const poll = async () => {
+    const fetchAll = async () => {
       try {
         const [s, e, srv] = await Promise.all([
           api.getDashboardStats(),
@@ -77,11 +80,61 @@ export default function Dashboard() {
       }
     };
 
-    poll();
-    const interval = setInterval(poll, 5000);
+    fetchAll();
+
+    const fetchTelemetry = async () => {
+      try {
+        const res = await fetch('http://localhost:5001/telemetry');
+        if (res.ok) {
+          const data = await res.json();
+          if (!cancelled) {
+            setTelemetry(data);
+            setNodeOnline(true);
+          }
+        } else {
+          if (!cancelled) setNodeOnline(false);
+        }
+      } catch {
+        if (!cancelled) setNodeOnline(false);
+      }
+    };
+
+    fetchTelemetry();
+    const teleInterval = setInterval(fetchTelemetry, 5000);
+
+    // Socket.IO real-time listeners
+    const socket = getSocket();
+
+    const handleThreatNew = (newThreat: ThreatEvent) => {
+      if (cancelled) return;
+      setRecentThreats((prev) => [newThreat, ...prev.filter((t) => t.id !== newThreat.id)].slice(0, 5));
+      api.getDashboardStats().then((s) => !cancelled && setStats(s)).catch(console.error);
+    };
+
+    const handleAlertNew = () => {
+      if (cancelled) return;
+      api.getDashboardStats().then((s) => !cancelled && setStats(s)).catch(console.error);
+    };
+
+    const handleIncidentNew = () => {
+      if (cancelled) return;
+      api.getDashboardStats().then((s) => !cancelled && setStats(s)).catch(console.error);
+    };
+
+    socket.on('threat:new', handleThreatNew);
+    socket.on('alert:new', handleAlertNew);
+    socket.on('incident:new', handleIncidentNew);
+
+    // Fallback 30s background poll
+    const fallbackInterval = setInterval(fetchAll, 30000);
+
     return () => {
       cancelled = true;
-      clearInterval(interval);
+      clearInterval(fallbackInterval);
+      clearInterval(teleInterval);
+      socket.off('threat:new', handleThreatNew);
+      socket.off('alert:new', handleAlertNew);
+      socket.off('incident:new', handleIncidentNew);
     };
   }, []);
 
@@ -161,6 +214,90 @@ export default function Dashboard() {
                 <span className="truncate max-w-[120px]">{srv.name}</span>
               </div>
             ))}
+          </div>
+        </div>
+      </GlassCard>
+
+      {/* Live Demo Server Hardware & Session Telemetry */}
+      <GlassCard className="border border-cyan-500/15 bg-gradient-to-r from-slate-950/40 via-cyan-950/10 to-slate-950/40">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-3 mb-3 border-b border-cyan-500/10">
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+              <Radio size={15} className={nodeOnline ? 'animate-pulse text-cyan-400' : 'text-slate-500'} />
+            </div>
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-cyan-200">
+                Monitored Node Telemetry (Flask Agent)
+              </h3>
+              <p className="text-[10px] text-slate-400 font-mono">
+                {telemetry?.hostname ?? 'theadx-node-01'} · Port 5001
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <span
+              className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase border flex items-center gap-1.5 ${
+                nodeOnline
+                  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.15)]'
+                  : 'bg-amber-500/10 text-amber-400 border-amber-500/30'
+              }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${nodeOnline ? 'bg-emerald-400 animate-ping' : 'bg-amber-400'}`} />
+              {nodeOnline ? 'Daemon Online' : 'Standby / Offline'}
+            </span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="p-3 rounded-xl bg-black/20 border border-cyan-500/10">
+            <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1.5">
+              <span className="flex items-center gap-1 font-semibold"><Cpu size={13} className="text-cyan-400" /> CPU Load</span>
+              <span className="font-mono text-cyan-300 font-bold">{telemetry?.cpuPercent ?? 0}%</span>
+            </div>
+            <div className="w-full bg-slate-800/80 rounded-full h-1.5 overflow-hidden">
+              <div
+                className={`h-full transition-all duration-500 ${
+                  (telemetry?.cpuPercent ?? 0) > 75 ? 'bg-red-500' : (telemetry?.cpuPercent ?? 0) > 50 ? 'bg-amber-400' : 'bg-cyan-400'
+                }`}
+                style={{ width: `${Math.min(100, telemetry?.cpuPercent ?? 0)}%` }}
+              />
+            </div>
+          </div>
+
+          <div className="p-3 rounded-xl bg-black/20 border border-cyan-500/10">
+            <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1.5">
+              <span className="flex items-center gap-1 font-semibold"><Activity size={13} className="text-purple-400" /> Memory (RAM)</span>
+              <span className="font-mono text-purple-300 font-bold">{telemetry?.memoryPercent ?? 0}%</span>
+            </div>
+            <div className="w-full bg-slate-800/80 rounded-full h-1.5 overflow-hidden">
+              <div
+                className="h-full bg-purple-400 transition-all duration-500"
+                style={{ width: `${Math.min(100, telemetry?.memoryPercent ?? 0)}%` }}
+              />
+            </div>
+          </div>
+
+          <div className="p-3 rounded-xl bg-black/20 border border-cyan-500/10">
+            <div className="flex items-center justify-between text-[11px] text-slate-400 mb-1.5">
+              <span className="flex items-center gap-1 font-semibold"><HardDrive size={13} className="text-blue-400" /> Disk Usage</span>
+              <span className="font-mono text-blue-300 font-bold">{telemetry?.diskPercent ?? 0}%</span>
+            </div>
+            <div className="w-full bg-slate-800/80 rounded-full h-1.5 overflow-hidden">
+              <div
+                className="h-full bg-blue-400 transition-all duration-500"
+                style={{ width: `${Math.min(100, telemetry?.diskPercent ?? 0)}%` }}
+              />
+            </div>
+          </div>
+
+          <div className="p-3 rounded-xl bg-black/20 border border-cyan-500/10 flex flex-col justify-between">
+            <div className="flex items-center justify-between text-[11px] text-slate-400">
+              <span className="flex items-center gap-1 font-semibold"><Users size={13} className="text-emerald-400" /> Active Sessions</span>
+              <span className="font-mono text-emerald-300 font-bold">{telemetry?.activeSessionCount ?? 0}</span>
+            </div>
+            <p className="text-[10px] text-slate-500 mt-2 font-mono truncate">
+              Processes: {telemetry?.activeProcessCount ?? '—'}
+            </p>
           </div>
         </div>
       </GlassCard>

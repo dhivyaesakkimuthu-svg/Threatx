@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { AlertTriangle, Clock, User, ChevronRight, CheckCircle2, UserCheck } from 'lucide-react';
+import { AlertTriangle, Clock, User, ChevronRight, CheckCircle2, UserCheck, Sparkles, Bot } from 'lucide-react';
 import Header from '../components/layout/Header';
 import GlassCard from '../components/ui/GlassCard';
 import RiskBadge from '../components/ui/RiskBadge';
@@ -24,6 +24,8 @@ export default function Incidents() {
   const [filter, setFilter] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiReport, setAiReport] = useState<any | null>(null);
 
   const fetchIncidents = async () => {
     setLoading(true);
@@ -46,6 +48,22 @@ export default function Incidents() {
   const openDetail = async (id: string) => {
     const detail = await api.getIncident(id);
     setSelected(detail);
+    setAiReport(null);
+  };
+
+  const runAiInvestigation = async () => {
+    if (!selected) return;
+    setAiLoading(true);
+    try {
+      const res = await api.analyzeIncidentAssistant(selected.id);
+      if (res.analysis) {
+        setAiReport(res.analysis);
+      }
+    } catch (err) {
+      console.error('[Incidents] AI assistant error:', err);
+    } finally {
+      setAiLoading(false);
+    }
   };
 
   const addNote = async () => {
@@ -233,6 +251,86 @@ export default function Incidents() {
               </div>
 
               <p className="text-xs text-slate-400 leading-relaxed mb-6 bg-black/20 p-3 rounded-lg border border-blue-500/5">{selected.description}</p>
+
+              {/* AI Copilot Investigation Section */}
+              <div className="mb-6 p-4 rounded-xl bg-gradient-to-br from-cyan-950/20 via-blue-950/20 to-purple-950/20 border border-cyan-500/20 shadow-[0_0_15px_rgba(6,182,212,0.05)]">
+                <div className="flex items-center justify-between gap-3 mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                      <Sparkles size={13} />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-extrabold text-cyan-200 tracking-wide">SOC AI Copilot (Gemini)</h4>
+                      <p className="text-[10px] text-slate-400">Autonomous deep-threat analysis & playbooks</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={runAiInvestigation}
+                    disabled={aiLoading}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-300 text-xs font-bold transition-all disabled:opacity-50 cursor-pointer shadow-[0_0_10px_rgba(6,182,212,0.15)]"
+                  >
+                    {aiLoading ? (
+                      <>
+                        <div className="w-3.5 h-3.5 border-2 border-cyan-400/40 border-t-cyan-300 rounded-full animate-spin" />
+                        <span>Analyzing...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Bot size={13} />
+                        <span>{aiReport ? 'Re-Analyze with AI' : 'AI Investigation Assistant'}</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {aiReport && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="space-y-3 pt-3 border-t border-cyan-500/15"
+                  >
+                    <div className="bg-black/30 p-3 rounded-lg border border-cyan-500/10">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-400">Incident Assessment Summary</span>
+                        <div className="flex items-center gap-2">
+                          {aiReport.cached && (
+                            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-blue-900/30 text-blue-300 border border-blue-500/20">
+                              CACHED
+                            </span>
+                          )}
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-900/40 text-cyan-300 border border-cyan-500/30 font-bold uppercase">
+                            Score: {aiReport.confidenceScore ?? 90}%
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-slate-300 leading-relaxed">{aiReport.summary}</p>
+                    </div>
+
+                    {aiReport.likelyCause && (
+                      <div className="bg-black/20 p-2.5 rounded-lg border border-blue-500/10 text-xs">
+                        <span className="text-[10px] font-extrabold uppercase text-blue-400 block mb-1">Likely Root Cause</span>
+                        <p className="text-slate-400 leading-relaxed">{aiReport.likelyCause}</p>
+                      </div>
+                    )}
+
+                    {aiReport.suggestedActions && aiReport.suggestedActions.length > 0 && (
+                      <div className="bg-black/20 p-2.5 rounded-lg border border-emerald-500/10 text-xs">
+                        <span className="text-[10px] font-extrabold uppercase text-emerald-400 block mb-1.5">Suggested Containment Actions</span>
+                        <ul className="space-y-1.5">
+                          {aiReport.suggestedActions.map((action: string, idx: number) => (
+                            <li key={idx} className="flex items-start gap-2 text-slate-300">
+                              <span className="w-4 h-4 rounded bg-emerald-500/20 text-emerald-400 text-[9px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                                {idx + 1}
+                              </span>
+                              <span className="leading-snug">{action}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </motion.div>
+                )}
+              </div>
 
               {/* Status Action Buttons */}
               <div className="mb-6">
