@@ -15,7 +15,9 @@ import {
 import type { Database } from '../src/types.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const JSON_PATH = path.join(__dirname, '..', 'data', 'threatx.json');
+const srcDataPath = path.join(__dirname, '..', 'src', 'data', 'threatx.json');
+const rootDataPath = path.join(__dirname, '..', 'data', 'threatx.json');
+const JSON_PATH = fs.existsSync(srcDataPath) ? srcDataPath : rootDataPath;
 
 async function migrate() {
   console.log('--- Starting ThreatX JSON to MongoDB Migration ---');
