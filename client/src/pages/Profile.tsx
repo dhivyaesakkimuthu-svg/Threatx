@@ -71,7 +71,7 @@ export default function Profile() {
         <GlassCard>
           <div className="flex items-center gap-2.5 mb-4">
             <Activity size={18} className="text-cyan-400" />
-            <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Recent Operations Audit</h3>
+            <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider">Recent Operations Audit</h3>
           </div>
           <div className="space-y-3 max-h-48 overflow-y-auto pr-2">
             {activities.map((act, idx) => (
@@ -87,7 +87,7 @@ export default function Profile() {
         <GlassCard>
           <div className="flex items-center gap-2.5 mb-4">
             <Laptop size={18} className="text-blue-400" />
-            <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Active Session Terminals</h3>
+            <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider">Active Session Terminals</h3>
           </div>
           <div className="space-y-3">
             {sessions.map(s => (
@@ -107,7 +107,7 @@ export default function Profile() {
         <GlassCard>
           <div className="flex items-center gap-2.5 mb-4">
             <Shield size={18} className="text-emerald-400" />
-            <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Security MFA</h3>
+            <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider">Security MFA</h3>
           </div>
           <div className="space-y-3">
             <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-white/5">

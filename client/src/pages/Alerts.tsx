@@ -138,7 +138,7 @@ export default function Alerts() {
 
           return (
             <div key={group} className="space-y-3">
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 border-b border-white/5 pb-2">
+              <h3 className="text-[13px] font-semibold uppercase tracking-wider text-slate-200 border-b border-white/5 pb-2">
                 {group} Notifications
               </h3>
               <div className="space-y-3">

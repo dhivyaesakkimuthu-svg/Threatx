@@ -75,7 +75,7 @@ export default function Analytics() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <GlassCard className="lg:col-span-2">
-          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-4">Threat Vectors breakdown</h3>
+          <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider mb-4">Threat Vectors breakdown</h3>
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={barData} layout="vertical">
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
@@ -89,7 +89,7 @@ export default function Analytics() {
 
         {/* Risk Radar widget */}
         <GlassCard className="flex flex-col justify-between">
-          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-2">Multidimensional Radar</h3>
+          <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider mb-2">Multidimensional Radar</h3>
           <ResponsiveContainer width="100%" height={240}>
             <RadarChart cx="50%" cy="50%" outerRadius="75%" data={radarData}>
               <PolarGrid stroke="rgba(255,255,255,0.08)" />
@@ -103,7 +103,7 @@ export default function Analytics() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <GlassCard className="lg:col-span-2">
-          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-4 font-mono">24-Hour Threat Frequency</h3>
+          <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider mb-4 font-mono">24-Hour Threat Frequency</h3>
           <ResponsiveContainer width="100%" height={260}>
             <LineChart data={stats?.threatTimeline ?? []}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
@@ -118,7 +118,7 @@ export default function Analytics() {
 
         {/* Heatmap-style calendar view */}
         <GlassCard>
-          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-4">Threat Heatmap (28 Days)</h3>
+          <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider mb-4">Threat Heatmap (28 Days)</h3>
           <div className="grid grid-cols-7 gap-1.5 justify-center">
             {calendarDays.map((day, i) => {
               const bg =
@@ -152,7 +152,7 @@ export default function Analytics() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <GlassCard className="lg:col-span-2">
-          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-4">User Risk Profiles</h3>
+          <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider mb-4">User Risk Profiles</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-xs text-left">
               <thead>
@@ -198,7 +198,7 @@ export default function Analytics() {
 
         {/* Top IPs used in threats */}
         <GlassCard>
-          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-4">Top Offensive IP Addresses</h3>
+          <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider mb-4">Top Offensive IP Addresses</h3>
           <div className="space-y-3">
             {topIPs.map(({ ip, count }) => (
               <div key={ip} className="flex justify-between items-center p-2.5 rounded-xl bg-slate-900/60 border border-white/5">

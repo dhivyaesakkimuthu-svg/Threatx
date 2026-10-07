@@ -17,6 +17,9 @@ import { motion } from 'framer-motion';
 
 const RISK_COLORS = ['#22c55e', '#f59e0b', '#ef4444'];
 
+const safeNumber = (v: unknown, fallback = 0): number =>
+  typeof v === 'number' && Number.isFinite(v) && !isNaN(v) ? v : fallback;
+
 // Simple SVG World Map Cities Data
 const mapCities = [
   { name: 'London', x: 140, y: 48, threats: 4 },
@@ -33,6 +36,7 @@ export default function Dashboard() {
   const [servers, setServers] = useState<Server[]>([]);
   const [telemetry, setTelemetry] = useState<any | null>(null);
   const [nodeOnline, setNodeOnline] = useState<boolean>(false);
+  const [telemetryLoading, setTelemetryLoading] = useState<boolean>(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -96,11 +100,13 @@ export default function Dashboard() {
         }
       } catch {
         if (!cancelled) setNodeOnline(false);
+      } finally {
+        if (!cancelled) setTelemetryLoading(false);
       }
     };
 
     fetchTelemetry();
-    const teleInterval = setInterval(fetchTelemetry, 5000);
+    const teleInterval = setInterval(fetchTelemetry, 10000);
 
     // Socket.IO real-time listeners
     const socket = getSocket();
@@ -211,28 +217,28 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <StatCard
           title="Total Infrastructure"
-          value={stats ? (Number.isFinite(stats.totalServers) ? stats.totalServers : 0) : '—'}
+          value={stats ? safeNumber(stats.totalServers, 0) : 0}
           icon={ServerIcon}
           accent="blue"
           trend="Active Nodes"
         />
         <StatCard
           title="Active User Sessions"
-          value={stats ? (Number.isFinite(stats.activeUsers) ? stats.activeUsers : 0) : '—'}
+          value={stats ? safeNumber(stats.activeUsers, 0) : 0}
           icon={Users}
           accent="cyan"
           trend="Under Analysis"
         />
         <StatCard
           title="Live Threats"
-          value={stats ? (Number.isFinite(stats.liveThreats) ? stats.liveThreats : 0) : '—'}
+          value={stats ? safeNumber(stats.liveThreats, 0) : 0}
           icon={ShieldAlert}
           accent="red"
           trend="Awaiting Triage"
         />
         <StatCard
           title="Risk Analysis Score"
-          value={stats ? `${(Number.isFinite(stats.securityScore) ? stats.securityScore : 0).toFixed(1)}%` : '—'}
+          value={stats ? `${safeNumber(stats.securityScore, 100).toFixed(1)}%` : '100.0%'}
           icon={ShieldCheck}
           accent="green"
           trend="System Rating"
@@ -243,7 +249,7 @@ export default function Dashboard() {
       <GlassCard className="py-4 border border-blue-500/10">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
-            <h4 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-1">Infrastructure Health Feed</h4>
+            <h4 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider mb-1">Infrastructure Health Feed</h4>
             <div className="flex items-center gap-1.5">
               <span className="text-sm font-semibold text-slate-300 tabular-nums">
                 {servers.filter((s) => s.status === 'online').length} / {servers.length}
@@ -279,7 +285,7 @@ export default function Dashboard() {
             </div>
             <div>
               <h3 className="text-[13px] font-bold uppercase tracking-wider text-slate-200">
-                Monitored Node Telemetry (Flask Agent)
+                Monitored Node Telemetry (Python Agent)
               </h3>
               <p className="text-xs text-slate-400 font-mono">
                 {telemetry?.hostname ?? 'theadx-node-01'} · Port 5001
@@ -287,32 +293,49 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span
-              className={`px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase border flex items-center gap-1.5 ${
-                nodeOnline
-                  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
-                  : 'bg-slate-800/80 text-slate-400 border-slate-700/60'
-              }`}
-            >
-              <span className={`w-1.5 h-1.5 rounded-full ${nodeOnline ? 'bg-emerald-400 animate-ping' : 'bg-slate-500'}`} />
-              {nodeOnline ? 'Telemetry Streaming' : 'Awaiting Telemetry Source (:5001)'}
-            </span>
+            {telemetryLoading && !telemetry ? (
+              <span className="px-2.5 py-1 rounded-full text-[11px] font-medium tracking-wide bg-slate-800/60 text-slate-400 border border-slate-700/50 flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 border-2 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin" />
+                Connecting
+              </span>
+            ) : nodeOnline ? (
+              <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase border flex items-center gap-1.5 bg-emerald-500/10 text-emerald-400 border-emerald-500/30">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                Telemetry Streaming
+              </span>
+            ) : (
+              <span className="px-2.5 py-1 rounded-full text-[11px] font-medium tracking-wide bg-slate-800/60 text-slate-400 border border-slate-700/50 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-500" />
+                Telemetry source offline
+              </span>
+            )}
           </div>
         </div>
 
-        {nodeOnline && telemetry ? (
+        {telemetryLoading && !telemetry ? (
+          <div className="flex items-center justify-center py-6 gap-2 text-xs text-slate-400">
+            <div className="w-4 h-4 border-2 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin" />
+            <span>Connecting to telemetry daemon on port 5001...</span>
+          </div>
+        ) : nodeOnline && telemetry ? (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="p-3 rounded-xl bg-black/20 border border-cyan-500/10">
               <div className="flex items-center justify-between text-xs text-slate-300 mb-1.5">
                 <span className="flex items-center gap-1 font-medium"><Cpu size={13} className="text-cyan-400" /> CPU Load</span>
-                <span className="font-mono text-cyan-300 font-bold tabular-nums">{Number(telemetry.cpuPercent ?? 0).toFixed(1)}%</span>
+                <span className="font-mono text-cyan-300 font-bold tabular-nums">
+                  {Number(telemetry.cpu_percent ?? telemetry.cpuPercent ?? 0).toFixed(1)}%
+                </span>
               </div>
               <div className="w-full bg-slate-800/80 rounded-full h-1.5 overflow-hidden">
                 <div
                   className={`h-full transition-all duration-500 ${
-                    (telemetry.cpuPercent ?? 0) > 75 ? 'bg-red-500' : (telemetry.cpuPercent ?? 0) > 50 ? 'bg-amber-400' : 'bg-cyan-400'
+                    Number(telemetry.cpu_percent ?? telemetry.cpuPercent ?? 0) > 75
+                      ? 'bg-red-500'
+                      : Number(telemetry.cpu_percent ?? telemetry.cpuPercent ?? 0) > 50
+                      ? 'bg-amber-400'
+                      : 'bg-cyan-400'
                   }`}
-                  style={{ width: `${Math.min(100, Math.max(0, telemetry.cpuPercent ?? 0))}%` }}
+                  style={{ width: `${Math.min(100, Math.max(0, Number(telemetry.cpu_percent ?? telemetry.cpuPercent ?? 0)))}%` }}
                 />
               </div>
             </div>
@@ -320,12 +343,14 @@ export default function Dashboard() {
             <div className="p-3 rounded-xl bg-black/20 border border-cyan-500/10">
               <div className="flex items-center justify-between text-xs text-slate-300 mb-1.5">
                 <span className="flex items-center gap-1 font-medium"><Activity size={13} className="text-purple-400" /> Memory (RAM)</span>
-                <span className="font-mono text-purple-300 font-bold tabular-nums">{Number(telemetry.memoryPercent ?? 0).toFixed(1)}%</span>
+                <span className="font-mono text-purple-300 font-bold tabular-nums">
+                  {Number(telemetry.memory_percent ?? telemetry.memoryPercent ?? 0).toFixed(1)}%
+                </span>
               </div>
               <div className="w-full bg-slate-800/80 rounded-full h-1.5 overflow-hidden">
                 <div
                   className="h-full bg-purple-400 transition-all duration-500"
-                  style={{ width: `${Math.min(100, Math.max(0, telemetry.memoryPercent ?? 0))}%` }}
+                  style={{ width: `${Math.min(100, Math.max(0, Number(telemetry.memory_percent ?? telemetry.memoryPercent ?? 0)))}%` }}
                 />
               </div>
             </div>
@@ -333,12 +358,14 @@ export default function Dashboard() {
             <div className="p-3 rounded-xl bg-black/20 border border-cyan-500/10">
               <div className="flex items-center justify-between text-xs text-slate-300 mb-1.5">
                 <span className="flex items-center gap-1 font-medium"><HardDrive size={13} className="text-blue-400" /> Disk Usage</span>
-                <span className="font-mono text-blue-300 font-bold tabular-nums">{Number(telemetry.diskPercent ?? 0).toFixed(1)}%</span>
+                <span className="font-mono text-blue-300 font-bold tabular-nums">
+                  {Number(telemetry.disk_percent ?? telemetry.diskPercent ?? 0).toFixed(1)}%
+                </span>
               </div>
               <div className="w-full bg-slate-800/80 rounded-full h-1.5 overflow-hidden">
                 <div
                   className="h-full bg-blue-400 transition-all duration-500"
-                  style={{ width: `${Math.min(100, Math.max(0, telemetry.diskPercent ?? 0))}%` }}
+                  style={{ width: `${Math.min(100, Math.max(0, Number(telemetry.disk_percent ?? telemetry.diskPercent ?? 0)))}%` }}
                 />
               </div>
             </div>
@@ -346,21 +373,23 @@ export default function Dashboard() {
             <div className="p-3 rounded-xl bg-black/20 border border-cyan-500/10 flex flex-col justify-between">
               <div className="flex items-center justify-between text-xs text-slate-300">
                 <span className="flex items-center gap-1 font-medium"><Users size={13} className="text-emerald-400" /> Active Sessions</span>
-                <span className="font-mono text-emerald-300 font-bold tabular-nums">{telemetry.activeSessionCount ?? 0}</span>
+                <span className="font-mono text-emerald-300 font-bold tabular-nums">
+                  {telemetry.logged_in_sessions ?? telemetry.activeSessionCount ?? 0}
+                </span>
               </div>
               <p className="text-xs text-slate-400 mt-2 font-mono truncate">
-                Processes: {telemetry.activeProcessCount ?? '—'}
+                Processes: {telemetry.process_count ?? telemetry.activeProcessCount ?? '—'}
               </p>
             </div>
           </div>
         ) : (
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3.5 rounded-xl bg-slate-900/40 border border-cyan-500/10 text-xs text-slate-400">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-xs text-slate-400">
             <div className="flex items-center gap-2.5">
-              <Radio size={16} className="text-slate-400 shrink-0" />
-              <span>Telemetry source offline (Agent on port 5001 not detected) — Awaiting live telemetry stream...</span>
+              <Radio size={16} className="text-slate-500 shrink-0" />
+              <span>Telemetry daemon is not connected on port 5001</span>
             </div>
-            <span className="text-xs font-mono text-slate-400 font-semibold uppercase tracking-wider">
-              HTTP :5001/telemetry
+            <span className="px-2.5 py-1 rounded-full text-[11px] font-medium tracking-wide bg-slate-800/60 text-slate-400 border border-slate-700/50">
+              Telemetry source offline
             </span>
           </div>
         )}
@@ -371,7 +400,7 @@ export default function Dashboard() {
         <GlassCard className="lg:col-span-2 flex flex-col justify-between relative overflow-hidden">
           <div className="flex justify-between items-center mb-4">
             <div>
-              <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Threat Timeline (24h)</h3>
+              <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider">Threat Timeline (24h)</h3>
               <p className="text-xs text-slate-400">Hourly anomaly density across 24 hours</p>
             </div>
             <LiveBadge active={stats ? stats.liveThreats > 0 : false} label="Live Feed" />
@@ -419,8 +448,8 @@ export default function Dashboard() {
 
         {/* Security Score Ring */}
         <GlassCard className="flex flex-col items-center justify-center p-6 text-center">
-          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-4 self-start">Risk posture</h3>
-          <SecurityScoreRing score={stats?.securityScore ?? 100} size={150} strokeWidth={12} />
+          <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider mb-4 self-start">Risk posture</h3>
+          <SecurityScoreRing score={safeNumber(stats?.securityScore, 100)} size={150} strokeWidth={12} />
 
           <div className="flex justify-center gap-4 mt-6 w-full pt-4 border-t border-blue-500/10">
             {['Low', 'Medium', 'High'].map((label, i) => (
@@ -441,7 +470,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* World map location of threats */}
         <GlassCard className="lg:col-span-2">
-          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-3">Threat Origins (Map)</h3>
+          <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider mb-3">Threat Origins (Map)</h3>
           <div className="relative border border-blue-500/10 rounded-xl bg-slate-950/40 overflow-hidden flex items-center justify-center h-56 p-4">
             <svg viewBox="0 0 360 180" className="w-full h-full opacity-80">
               {/* Subtle world map grid and latitude lines */}
@@ -501,7 +530,7 @@ export default function Dashboard() {
         {/* Top Threat Actors / Recent Logins */}
         <GlassCard>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Recent Access Log</h3>
+            <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider">Recent Access Log</h3>
             <span className="text-[11px] text-slate-400 font-semibold uppercase tracking-wide">Auth Audit</span>
           </div>
           <div className="space-y-3 max-h-56 overflow-y-auto">
@@ -539,10 +568,10 @@ export default function Dashboard() {
               );
             })}
             {cleanLogins.length === 0 && (
-              <div className="flex flex-col items-center justify-center py-8 text-center">
-                <ShieldCheck size={28} className="text-slate-500 mb-2" />
-                <p className="text-xs font-semibold text-slate-300">No access events recorded yet</p>
-                <p className="text-xs text-slate-400 mt-0.5">Live authentication activity will stream here in real-time</p>
+              <div className="flex flex-col items-center justify-center py-6 text-center">
+                <ShieldCheck size={24} className="text-slate-500 mb-1.5" />
+                <p className="text-xs font-semibold text-slate-300">No access events yet</p>
+                <p className="text-xs text-slate-400 mt-0.5">Events will appear here as they arrive</p>
               </div>
             )}
           </div>
@@ -552,7 +581,7 @@ export default function Dashboard() {
       {/* Latest Threats Detail Stream */}
       <GlassCard className="border border-red-500/10 hover:border-red-500/20">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Active Threat Stream</h3>
+          <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider">Active Threat Stream</h3>
           <LiveBadge active={true} label="Live Feed" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">

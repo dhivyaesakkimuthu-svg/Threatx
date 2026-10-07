@@ -1,23 +1,40 @@
-# TheadX Python Flask Monitored Node & Telemetry Generator
+# ThreatX Python Telemetry Demo Server
 
-Simulates an enrolled monitored server running a Python agent with hardware resource tracking (CPU, RAM, Disk, Active Sessions) and automated security event generator.
+Monitored host telemetry collector and event simulation server for ThreatX, powered by Python Flask and `psutil`.
 
-## Requirements
-- Python 3.9+
-- Flask
-- Requests
-- Psutil (optional, provides real hardware metrics)
-- Python-dotenv
+## Prerequisites
+- Python 3.10+
+- pip
 
-## Setup & Running
+## Installation
 
 ```bash
-# Install dependencies
 pip install -r requirements.txt
-
-# Start Flask server and telemetry daemon
-python app.py
 ```
 
-Runs on http://localhost:5001.
-Pushes events directly to the ThreatX backend at http://localhost:3001/api/events/ingest using `tx_demo_key_for_testing_only`.
+## Running the Server
+
+```bash
+# Using Flask CLI
+python -m flask --app app.main run --port 5001
+
+# Or running directly
+python app/main.py
+```
+
+## Environment Variables
+
+| Variable | Default | Description |
+|---|---|---|
+| `THEADX_URL` | `http://localhost:3001` | ThreatX backend ingest URL |
+| `DEMO_API_KEY` | `tx_demo_key_for_testing_only` | Server API authentication key |
+| `EVENT_INTERVAL` | `7` | Seconds between telemetry events |
+| `ANOMALY_RATE` | `0.05` | Anomaly generation probability (5%) |
+| `PORT` | `5001` | Local Flask HTTP listening port |
+
+## Endpoints
+
+- `GET /health` - Healthcheck and telemetry payload
+- `GET /telemetry` - Live CPU, memory, disk, and session telemetry
+- `GET /users` - List of configured demo user profiles
+- `POST /trigger` - Manually trigger an on-demand security anomaly

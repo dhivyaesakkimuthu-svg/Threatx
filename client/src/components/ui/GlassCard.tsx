@@ -8,7 +8,7 @@ interface GlassCardProps {
 
 export default function GlassCard({ children, className = '', onClick }: GlassCardProps) {
   return (
-    <div className={`glass-card p-5 ${className}`} onClick={onClick}>
+    <div className={`glass-card p-5 lg:p-6 ${className}`} onClick={onClick}>
       {children}
     </div>
   );

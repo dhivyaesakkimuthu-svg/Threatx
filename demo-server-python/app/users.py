@@ -1,5 +1,5 @@
 """
-Demo users definition for TheadX telemetry simulation
+Demo users definition for TheadX telemetry simulation matching server/src/seed.ts and demo-server/src/users.ts.
 """
 
 USERS = [

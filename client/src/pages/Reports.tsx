@@ -124,7 +124,7 @@ export default function Reports() {
       {/* Security Posture Summary */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <GlassCard className="lg:col-span-2 border border-white/10 flex flex-col justify-between">
-          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-4">Security posture summary</h3>
+          <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider mb-4">Security posture summary</h3>
           <div className="flex items-start gap-4 p-4 rounded-xl bg-slate-950/40 border border-white/5">
             <ShieldCheck size={36} className={`shrink-0 ${posture.color}`} />
             <div>
@@ -149,7 +149,7 @@ export default function Reports() {
         </GlassCard>
 
         <GlassCard className="flex flex-col justify-between">
-          <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-4">Key Metrics</h3>
+          <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider mb-4">Key Metrics</h3>
           <div className="space-y-4">
             <div className="flex justify-between items-center text-xs">
               <span className="text-slate-400 font-medium">Incident MTTR</span>
@@ -169,7 +169,7 @@ export default function Reports() {
 
       {/* Reports preview */}
       <GlassCard>
-        <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider mb-4">Report Preview (Recent logs)</h3>
+        <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider mb-4">Report Preview (Recent logs)</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
             <thead>

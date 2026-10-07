@@ -21,25 +21,23 @@ const accentMap = {
 };
 
 export default function StatCard({ title, value, icon: Icon, trend, accent = 'blue' }: StatCardProps) {
-  const formatValue = (v: number | string): string => {
+  const formatValue = (v: number | string | null | undefined): string => {
     if (typeof v === 'number') {
       if (!Number.isFinite(v) || isNaN(v)) return '0';
       return v.toLocaleString();
     }
-    if (v === null || v === undefined || v === 'NaN') return '0';
-    return String(v);
+    if (v === null || v === undefined) return '0';
+    const str = String(v).trim();
+    if (str === '' || str.includes('NaN') || str === 'null' || str === 'undefined') return '0';
+    return str;
   };
 
   const [displayValue, setDisplayValue] = useState<string>(() => formatValue(value));
 
   useEffect(() => {
     if (typeof value === 'number') {
-      if (!Number.isFinite(value) || isNaN(value)) {
-        setDisplayValue('0');
-        return;
-      }
-      if (value <= 0) {
-        setDisplayValue('0');
+      if (!Number.isFinite(value) || isNaN(value) || value <= 0) {
+        setDisplayValue(formatValue(value));
         return;
       }
 
@@ -98,8 +96,8 @@ export default function StatCard({ title, value, icon: Icon, trend, accent = 'bl
         <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/5 to-transparent rounded-full blur-2xl pointer-events-none" />
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">{title}</p>
-            <p className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white tabular-nums leading-none mb-1">{displayValue}</p>
+            <p className="text-[13px] font-semibold uppercase tracking-wider text-slate-200 mb-2">{title}</p>
+            <p className="text-3xl lg:text-4xl font-bold tracking-tight text-white tabular-nums leading-none mb-1">{displayValue}</p>
             {renderTrend()}
           </div>
           <div className={`p-2.5 rounded-xl bg-gradient-to-br border shrink-0 ${accentMap[accent]}`}>

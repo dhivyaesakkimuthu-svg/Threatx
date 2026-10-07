@@ -82,7 +82,7 @@ export default function AddServer() {
               exit={{ opacity: 0, x: 10 }}
             >
               <GlassCard>
-                <h3 className="text-[13px] font-bold uppercase tracking-wider text-slate-200 mb-4">Node Metadata Details</h3>
+                <h3 className="text-[13px] font-semibold uppercase tracking-wider text-slate-200 mb-4">Node Metadata Details</h3>
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
                     <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Server Name</label>
@@ -191,7 +191,7 @@ export default function AddServer() {
               <GlassCard>
                 <div className="flex items-center gap-2 mb-3">
                   <Terminal size={18} className="text-blue-400" />
-                  <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Install or Run Agent</h3>
+                  <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider">Install or Run Agent</h3>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed mb-3">
                   Option A: Run the integrated Python Telemetry Agent for your server / simulator:

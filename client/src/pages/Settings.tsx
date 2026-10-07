@@ -30,7 +30,7 @@ export default function Settings() {
         <GlassCard>
           <div className="flex items-center gap-2.5 mb-4">
             <Shield size={18} className="text-blue-400" />
-            <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Detection Sensitivity</h3>
+            <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider">Detection Sensitivity</h3>
           </div>
           <div className="space-y-4">
             <div>
@@ -66,7 +66,7 @@ export default function Settings() {
         <GlassCard>
           <div className="flex items-center gap-2.5 mb-4">
             <Bell size={18} className="text-cyan-400" />
-            <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Notifications</h3>
+            <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider">Notifications</h3>
           </div>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -97,7 +97,7 @@ export default function Settings() {
         <GlassCard className="lg:col-span-2">
           <div className="flex items-center gap-2.5 mb-4">
             <Key size={18} className="text-amber-400" />
-            <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Access Keys (API)</h3>
+            <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider">Access Keys (API)</h3>
           </div>
           <div className="space-y-3">
             {apiKeyList.map(item => (
@@ -115,7 +115,7 @@ export default function Settings() {
         <GlassCard className="lg:col-span-2">
           <div className="flex items-center gap-2.5 mb-4">
             <Globe size={18} className="text-emerald-400" />
-            <h3 className="text-[13px] font-bold text-slate-200 uppercase tracking-wider">Organization settings</h3>
+            <h3 className="text-[13px] font-semibold text-slate-200 uppercase tracking-wider">Organization settings</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>

@@ -17,3 +17,6 @@ env/
 venv/
 .vscode/
 .idea/
+demo-server-python/__pycache__/
+demo-server-python/**/*.pyc
+demo-server-python/.env

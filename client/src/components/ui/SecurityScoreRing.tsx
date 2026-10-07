@@ -4,10 +4,11 @@ interface SecurityScoreRingProps {
   strokeWidth?: number;
 }
 
-export default function SecurityScoreRing({ score, size = 120, strokeWidth = 10 }: SecurityScoreRingProps) {
+export default function SecurityScoreRing({ score = 100, size = 120, strokeWidth = 10 }: SecurityScoreRingProps) {
+  const safeScore = typeof score === 'number' && Number.isFinite(score) && !isNaN(score) ? Math.min(100, Math.max(0, Math.round(score))) : 100;
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
-  const strokeDashoffset = circumference - (score / 100) * circumference;
+  const strokeDashoffset = circumference - (safeScore / 100) * circumference;
 
   const getColor = (s: number) => {
     if (s >= 80) return { stroke: 'url(#scoreGradGreen)', text: 'text-emerald-400' };
@@ -15,7 +16,7 @@ export default function SecurityScoreRing({ score, size = 120, strokeWidth = 10 
     return { stroke: 'url(#scoreGradRed)', text: 'text-red-400' };
   };
 
-  const { stroke, text } = getColor(score);
+  const { stroke, text } = getColor(safeScore);
 
   return (
     <div className="relative flex flex-col items-center justify-center" style={{ width: size, height: size }}>
@@ -59,7 +60,7 @@ export default function SecurityScoreRing({ score, size = 120, strokeWidth = 10 
       </svg>
       {/* Center text */}
       <div className="absolute flex flex-col items-center justify-center">
-        <span className={`text-3xl font-extrabold tracking-tight ${text}`}>{score}%</span>
+        <span className={`text-3xl font-extrabold tracking-tight ${text}`}>{safeScore}%</span>
         <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Score</span>
       </div>
     </div>

@@ -1,5 +1,7 @@
-const MAX_RETRIES = 20;
-const RETRY_DELAY_MS = 1500;
+import process from 'node:process';
+
+const MAX_RETRIES = 60;
+const RETRY_DELAY_MS = 1000;
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));

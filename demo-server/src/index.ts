@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import process from 'node:process';
 import { verifyApiKey } from './apiKeyCheck.js';
 import { USERS } from './users.js';
 import { generateEvent, generateAnomalyBurst } from './events.js';

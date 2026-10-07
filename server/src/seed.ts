@@ -18,33 +18,27 @@ export function seedDemoData(): void {
   if (!db.users) db.users = [];
 
   // Seed default admin users
-  const adminLocalEmail = 'admin@theadx.local';
-  if (!db.users.some((u) => u.email === adminLocalEmail)) {
-    const adminUser: User = {
-      id: uuidv4(),
-      email: adminLocalEmail,
-      name: 'System Administrator',
-      passwordHash: bcrypt.hashSync('admin123', 10),
-      role: 'admin',
-      createdAt: new Date().toISOString(),
-    };
-    db.users.push(adminUser);
-    persistDb();
-  }
+  const defaultAdmins = [
+    { email: 'admin@threatx.io', name: 'Security Admin' },
+    { email: 'admin@theadx.local', name: 'System Administrator' },
+  ];
 
-  const adminEmail = 'admin@threatx.io';
-  if (!db.users.some((u) => u.email === adminEmail)) {
-    const adminUser: User = {
-      id: uuidv4(),
-      email: adminEmail,
-      name: 'Security Admin',
-      passwordHash: bcrypt.hashSync('admin123', 10),
-      role: 'admin',
-      createdAt: new Date().toISOString(),
-    };
-    db.users.push(adminUser);
-    persistDb();
+  for (const admin of defaultAdmins) {
+    const existing = db.users.find((u) => u.email.toLowerCase() === admin.email.toLowerCase());
+    if (!existing) {
+      db.users.push({
+        id: uuidv4(),
+        email: admin.email,
+        name: admin.name,
+        passwordHash: bcrypt.hashSync('admin123', 10),
+        role: 'admin',
+        createdAt: new Date().toISOString(),
+      });
+    } else if (!existing.passwordHash) {
+      existing.passwordHash = bcrypt.hashSync('admin123', 10);
+    }
   }
+  persistDb();
 
   console.log('[Auth] Default Admin Account: admin@theadx.local / admin123 (WARNING: change in production)');
 
