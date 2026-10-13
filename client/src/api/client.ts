@@ -9,12 +9,32 @@ import type {
   AuthResponse,
 } from '../types';
 
+const configuredBackendUrl = (import.meta.env.VITE_BACKEND_URL || '').trim().replace(/\/$/, '');
+const resolvedApiBaseUrl = configuredBackendUrl && !configuredBackendUrl.endsWith(':3001')
+  ? `${configuredBackendUrl}/api`
+  : '/api';
+
 export const apiClient = axios.create({
-  baseURL: '/api',
+  baseURL: resolvedApiBaseUrl,
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
+export interface SecurityAlert {
+  id: string;
+  sourceIp: string;
+  username: string;
+  eventType: 'failed_login' | 'login_success' | 'suspicious_request' | 'http_error' | 'server_exception';
+  timestamp: string;
+  details: string;
+  path?: string;
+  statusCode?: number;
+  threatLevel: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+  explanation: string;
+  recommendedAction: string;
+  aiAssessed: boolean;
+}
 
 apiClient.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
@@ -72,6 +92,8 @@ export const api = {
     apiClient.get<ThreatEvent[]>('/events', { params }).then((res) => res.data),
   getEventStats: () =>
     apiClient.get<Record<string, number>>('/events/stats').then((res) => res.data),
+  getSecurityEvents: () =>
+    apiClient.get<SecurityAlert[]>('/security/events').then((res) => res.data),
   acknowledgeEvent: (id: string) =>
     apiClient.patch(`/events/${id}/acknowledge`).then((res) => res.data),
 
@@ -103,5 +125,9 @@ export const api = {
   blockDemoUser: (username: string) =>
     apiClient
       .post<{ success: boolean; targetResponse: any }>('/agent/block-user', { username })
+      .then((res) => res.data),
+  simulateThreat: (serverId: string, scenario: 'brute_force' | 'impossible_travel' | 'restricted_access' | 'mass_download') =>
+    apiClient
+      .post<{ simulated: boolean; message: string; processed: number; threats: ThreatEvent[] }>('/agent/simulate', { serverId, scenario })
       .then((res) => res.data),
 };

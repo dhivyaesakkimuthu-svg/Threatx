@@ -192,7 +192,7 @@
 
         <div class="card">
           <h3>User Login (Failed / Brute Force)</h3>
-          <p>Simulate five rapid failed login attempts against an account to test suspicious behavior detection.</p>
+          <p>Simulate six rapid failed password attempts against one account to test brute-force detection.</p>
           <button id="loginFailedBtn" class="warning">Trigger Brute Force</button>
         </div>
 
@@ -222,7 +222,7 @@
     </main>
 
     <script>
-      const demoServerUrl = 'http://localhost:5001';
+      const demoServerUrl = window.location.origin;
       const terminalOutput = document.getElementById('terminalOutput');
 
       function logLine(message) {
@@ -274,10 +274,10 @@
       }
 
       async function actionLoginFailed() {
-        const invalidUsers = ['alice', 'bob', 'charlie', 'diana', 'admin'];
+        const invalidUser = 'alice';
 
-        for (let i = 0; i < 5; i++) {
-          const user = invalidUsers[i % invalidUsers.length];
+        for (let i = 0; i < 6; i++) {
+          const user = invalidUser;
           const payload = {
             timestamp: new Date().toISOString(),
             user,

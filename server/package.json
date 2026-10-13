@@ -23,6 +23,7 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.11.0",
     "socket.io": "^4.8.4",
+    "theadx": "file:..",
     "uuid": "^14.0.1",
     "zod": "^4.6.5"
   },

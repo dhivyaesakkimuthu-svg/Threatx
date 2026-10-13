@@ -4,6 +4,7 @@ import { getDb, persistDb } from '../db/store.js';
 import { threatEngine } from '../engine/threatDetection.js';
 import { behaviorManager } from '../engine/behaviorProfile.js';
 import { requireAuth, requireRole } from '../middleware/auth.js';
+import { simulateThreatSchema, validate } from '../middleware/validate.js';
 import type { ActivityLog, Server, ThreatEvent } from '../types.js';
 
 const router = Router();
@@ -266,6 +267,75 @@ router.post('/block-user', requireAuth, requireRole('admin', 'analyst'), async (
       details: err instanceof Error ? err.message : String(err),
     });
   }
+});
+
+/**
+ * Inserts clearly labelled synthetic telemetry into the normal ingestion
+ * pipeline. This never contacts, scans, or changes the monitored host: it is
+ * only a detector/alerting drill against the selected server record.
+ */
+router.post('/simulate', requireAuth, requireRole('admin', 'analyst'), validate(simulateThreatSchema), (req, res) => {
+  const { serverId, scenario } = req.body;
+  const db = getDb();
+  const server = db.servers.find((item) => item.id === serverId);
+  if (!server) return res.status(404).json({ error: 'Monitored server not found' });
+
+  const username = `simulation.${scenario}`;
+  const userId = `simulation_${scenario}`;
+  const now = Date.now();
+  const events: Array<Omit<ActivityLog, 'id' | 'serverId'>> = [];
+  const login = (offsetMs: number, ipAddress: string, location?: ActivityLog['location']): Omit<ActivityLog, 'id' | 'serverId'> => ({
+    userId, username, eventType: 'login', ipAddress, device: 'ThreatX Simulation Harness',
+    userAgent: 'ThreatX-Safe-Simulator/1.0', location, success: true,
+    timestamp: new Date(now + offsetMs).toISOString(),
+  });
+
+  switch (scenario) {
+    case 'brute_force':
+      for (let attempt = 0; attempt < 4; attempt += 1) {
+        events.push({
+          userId, username, eventType: 'failed_login', ipAddress: '198.51.100.44',
+          device: 'ThreatX Simulation Harness', userAgent: 'ThreatX-Safe-Simulator/1.0', success: false,
+          timestamp: new Date(now + attempt * 1000).toISOString(),
+        });
+      }
+      break;
+    case 'impossible_travel':
+      events.push(login(-15 * 60_000, '198.51.100.10', { lat: 40.7128, lng: -74.006, city: 'New York', country: 'US' }));
+      events.push(login(0, '203.0.113.80', { lat: 1.3521, lng: 103.8198, city: 'Singapore', country: 'SG' }));
+      break;
+    case 'restricted_access':
+      events.push({
+        userId, username, eventType: 'file_access', ipAddress: '198.51.100.55',
+        device: 'ThreatX Simulation Harness', userAgent: 'ThreatX-Safe-Simulator/1.0',
+        filePath: '/admin/secrets/simulation-only.txt', success: true, timestamp: new Date(now).toISOString(),
+      });
+      break;
+    case 'mass_download':
+      for (let download = 0; download < 5; download += 1) {
+        events.push({
+          userId, username, eventType: 'file_download', ipAddress: '198.51.100.77',
+          device: 'ThreatX Simulation Harness', userAgent: 'ThreatX-Safe-Simulator/1.0',
+          filePath: `/finance/reports/simulation-${download + 1}.csv`, success: true,
+          timestamp: new Date(now + download * 1000).toISOString(),
+        });
+      }
+      break;
+  }
+
+  const threats: ThreatEvent[] = [];
+  for (const event of events) {
+    const log: ActivityLog = { id: uuidv4(), serverId: server.id, ...event };
+    db.activityLogs.push(log);
+    threats.push(...threatEngine.analyze(log, server));
+  }
+  persistDb();
+  res.status(201).json({
+    simulated: true,
+    message: `Safe ${scenario.replace(/_/g, ' ')} simulation processed.`,
+    processed: events.length,
+    threats,
+  });
 });
 
 export default router;

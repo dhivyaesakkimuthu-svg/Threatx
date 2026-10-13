@@ -59,7 +59,7 @@ ANOMALY_TYPES = [
 
 class Simulator:
     def __init__(self):
-        self.theadx_url = os.getenv("THEADX_URL", "http://localhost:3001")
+        self.theadx_url = os.getenv("THEADX_URL", "http://localhost:4000")
         self.api_key = os.getenv("DEMO_API_KEY", os.getenv("API_KEY", "tx_demo_key_for_testing_only"))
         self.interval = float(os.getenv("EVENT_INTERVAL", "7"))
         self.anomaly_rate = float(os.getenv("ANOMALY_RATE", "0.05"))

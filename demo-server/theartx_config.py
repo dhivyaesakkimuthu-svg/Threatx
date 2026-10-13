@@ -1,1 +1,3 @@
-THEARTX_API_KEY = "tx_227c2920cc9599872b69f6fcf5db4e7a877ff217a8476e0b"
+import os
+
+THEARTX_API_KEY = os.getenv("THEARTX_API_KEY", "")

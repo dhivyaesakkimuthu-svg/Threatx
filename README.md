@@ -26,23 +26,32 @@ Enterprise SaaS Security Operations Center (SOC) dashboard featuring real-time A
 ### 2. Install Dependencies
 
 ```bash
-# Root & JS dependencies
-npm install
-cd client && npm install && cd ..
-cd server && npm install && cd ..
-cd demo-server && npm install && cd ..
+npm run install:all
 ```
 
-### 3. Running the Platform
+### 3. Start the Demo Stack
 
 ```bash
-npm run dev
+npm run dev:all
 ```
 
-This single command starts:
-- **Frontend Dashboard:** [http://localhost:5173](http://localhost:5173)
-- **Backend API with Socket.IO:** [http://localhost:3001](http://localhost:3001)
-- **Node.js Telemetry Demo Server:** Automatically pushes simulated telemetry to port 3001
+This starts the Flask OmniCorp target at [http://localhost:3000](http://localhost:3000), the monitoring client at [http://localhost:5173](http://localhost:5173), and the backend with Socket.IO at [http://localhost:4000](http://localhost:4000). The launcher creates a fresh shared event-ingest token for the target and backend, uses the existing JSON store, and writes process logs under `.runtime/`.
+
+Stop only these launched processes with:
+
+```bash
+npm run stop:all
+```
+
+The corresponding environment examples are `server/.env.example`, `demo-server/.env.example`, and `client/.env.example`. Set `GEMINI_API_KEY` in `server/.env` to enable optional Gemini explanations; rule-based assessments continue to work when the key is absent or unavailable.
+
+Run the verified low/high/critical scenario from another terminal:
+
+```bash
+npm run simulate:attack
+```
+
+The client also has a **Simulate Attack** button on the Threat Monitor page. Sign in with `admin@theadx.local` / `admin123`, then open `/threats` to see the live events.
 
 ---
 
@@ -75,7 +84,7 @@ The platform is secured with JWT tokens attached to all API requests via Axios i
 
 ## ⚡ Socket.IO Real-Time Feeds
 
-- Real-time WebSocket connection on `http://localhost:3001`.
+- Real-time WebSocket connection on `http://localhost:4000`.
 - Emits `threat:new`, `alert:new`, and `incident:new` immediately upon detection.
 - Dashboard and Threat Monitor update in real time with a 30-second fallback background poll.
 

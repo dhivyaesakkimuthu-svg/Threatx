@@ -1,4 +1,33 @@
 {
+  "users": [
+    {
+      "id": "58f4fce4-43ec-45d7-8e04-d215f42db7ae",
+      "createdAt": "Wed Oct 07 2026 12:18:06 GMT+0530 (India Standard Time)",
+      "email": "admin@theadx.local",
+      "name": "System Administrator",
+      "passwordHash": "$2b$10$q.6IYOtiIs4nx6hoqKSHWOnjy/qKhpQ.VAZTnf4hCgIbp8kpo8JlC",
+      "role": "admin",
+      "updatedAt": "2026-10-13T03:15:30.069Z"
+    },
+    {
+      "id": "38eeb071-510b-48ff-8671-41067a512959",
+      "createdAt": "Wed Oct 07 2026 12:18:06 GMT+0530 (India Standard Time)",
+      "email": "admin@threatx.io",
+      "name": "Security Admin",
+      "passwordHash": "$2b$10$5RCVsQfx9HotDct4J08ni.XlkcxQMD1/3rfOvlbktA0cU6WxzM63u",
+      "role": "admin",
+      "updatedAt": "2026-10-13T03:15:30.069Z"
+    },
+    {
+      "id": "a05b2cf6-5c8b-4ca5-87fe-a83f01e082fe",
+      "createdAt": "Wed Oct 07 2026 12:18:06 GMT+0530 (India Standard Time)",
+      "email": "mdsuhail270907@gmail.com",
+      "name": "md",
+      "passwordHash": "$2b$10$DXN5ARsz7eR1S/4iO/VTneMbtJbJewrjPrjUJRTgIeUNJEbIteJUS",
+      "role": "analyst",
+      "updatedAt": "2026-10-13T03:15:30.069Z"
+    }
+  ],
   "servers": [
     {
       "id": "92415294-e5ba-49d2-916d-d0af289a8096",
@@ -10,8 +39,8 @@
       "lastSeen": "2026-10-01T16:41:12.088Z",
       "name": "OmniCorp Demo Target Server",
       "os": "Linux (Ubuntu 22.04 LTS)",
-      "status": "online",
-      "updatedAt": "2026-10-07T14:22:57.683Z"
+      "status": "offline",
+      "updatedAt": "2026-10-13T03:15:30.017Z"
     },
     {
       "id": "eaf4b81e-cb9e-4d21-87fe-48e7e7bd64a3",
@@ -23,8 +52,8 @@
       "lastSeen": "2026-10-07T07:18:24.263Z",
       "name": "Production Web Server",
       "os": "Ubuntu 22.04 LTS",
-      "status": "online",
-      "updatedAt": "2026-10-07T14:22:57.683Z"
+      "status": "offline",
+      "updatedAt": "2026-10-13T03:15:30.017Z"
     },
     {
       "id": "ab118d91-4244-442d-b10b-8af569e869e5",
@@ -36,8 +65,8 @@
       "lastSeen": "2026-10-01T16:41:12.092Z",
       "name": "Database Server",
       "os": "RHEL 9",
-      "status": "online",
-      "updatedAt": "2026-10-07T14:22:57.683Z"
+      "status": "offline",
+      "updatedAt": "2026-10-13T03:15:30.017Z"
     },
     {
       "id": "ad610ec4-74b5-453c-bdef-491639e95ad2",
@@ -49,8 +78,8 @@
       "lastSeen": "2026-10-01T16:41:12.092Z",
       "name": "Backup Server",
       "os": "Ubuntu 22.04 LTS",
-      "status": "online",
-      "updatedAt": "2026-10-07T14:22:57.683Z"
+      "status": "offline",
+      "updatedAt": "2026-10-13T03:15:30.017Z"
     },
     {
       "id": "489c3b1e-4dc3-4fa6-ad5b-845175bcfd0a",
@@ -62,8 +91,8 @@
       "lastSeen": "2026-10-01T16:41:12.092Z",
       "name": "Analytics Server",
       "os": "Ubuntu 22.04 LTS",
-      "status": "online",
-      "updatedAt": "2026-10-07T14:22:57.683Z"
+      "status": "offline",
+      "updatedAt": "2026-10-13T03:15:30.017Z"
     },
     {
       "id": "cf42a9f3-000b-4cd2-a94f-a82b6ae87ad9",
@@ -75,8 +104,8 @@
       "lastSeen": "2026-10-01T16:41:12.092Z",
       "name": "Dev Server",
       "os": "Debian 12",
-      "status": "online",
-      "updatedAt": "2026-10-07T14:22:57.683Z"
+      "status": "offline",
+      "updatedAt": "2026-10-13T03:15:30.017Z"
     }
   ],
   "activityLogs": [
@@ -8650,7 +8679,7 @@
         20,
         22
       ],
-      "updatedAt": "2026-10-07T14:22:57.800Z",
+      "updatedAt": "2026-10-13T03:15:32.624Z",
       "username": "alice.johnson"
     },
     {
@@ -8700,7 +8729,7 @@
         20,
         22
       ],
-      "updatedAt": "2026-10-07T14:22:57.800Z",
+      "updatedAt": "2026-10-13T03:15:32.624Z",
       "username": "bob.smith"
     },
     {
@@ -8743,7 +8772,7 @@
         7,
         22
       ],
-      "updatedAt": "2026-10-07T14:22:57.800Z",
+      "updatedAt": "2026-10-13T03:15:32.624Z",
       "username": "carol.williams"
     },
     {
@@ -8786,7 +8815,7 @@
         7,
         22
       ],
-      "updatedAt": "2026-10-07T14:22:57.800Z",
+      "updatedAt": "2026-10-13T03:15:32.624Z",
       "username": "dave.chen"
     },
     {
@@ -8828,7 +8857,7 @@
         7,
         22
       ],
-      "updatedAt": "2026-10-07T14:22:57.800Z",
+      "updatedAt": "2026-10-13T03:15:32.624Z",
       "username": "eve.garcia"
     },
     {
@@ -8854,7 +8883,7 @@
         23,
         12
       ],
-      "updatedAt": "2026-10-07T14:22:57.800Z",
+      "updatedAt": "2026-10-13T03:15:32.624Z",
       "username": "unknown"
     }
   ],
@@ -8879,7 +8908,7 @@
       "serverName": "Production Web Server",
       "threatType": "failed_login_attempts",
       "timestamp": "2026-10-07T06:44:56.729Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -8903,7 +8932,7 @@
       "serverName": "Production Web Server",
       "threatType": "failed_login_attempts",
       "timestamp": "2026-10-07T06:44:55.929Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -8927,7 +8956,7 @@
       "serverName": "Production Web Server",
       "threatType": "failed_login_attempts",
       "timestamp": "2026-10-07T06:44:55.129Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -8951,7 +8980,7 @@
       "serverName": "Production Web Server",
       "threatType": "failed_login_attempts",
       "timestamp": "2026-10-07T06:44:54.329Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -8975,7 +9004,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T06:44:49.826Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9000,7 +9029,7 @@
       "serverName": "Production Web Server",
       "threatType": "mass_download",
       "timestamp": "2026-10-07T06:44:49.326Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9024,7 +9053,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T06:44:49.326Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9048,7 +9077,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T06:44:48.826Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9072,7 +9101,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T06:44:48.326Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9096,7 +9125,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T06:44:47.826Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9120,7 +9149,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T06:44:47.326Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9145,7 +9174,7 @@
       "serverName": "Production Web Server",
       "threatType": "restricted_folder_access",
       "timestamp": "2026-10-07T06:44:47.326Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9169,7 +9198,7 @@
       "serverName": "Production Web Server",
       "threatType": "failed_login_attempts",
       "timestamp": "2026-10-07T06:43:53.673Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u2",
       "username": "bob.smith"
     },
@@ -9193,7 +9222,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T06:42:15.658Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -9218,7 +9247,7 @@
       "serverName": "Production Web Server",
       "threatType": "mass_download",
       "timestamp": "2026-10-07T06:42:15.158Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -9242,7 +9271,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T06:42:15.158Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -9266,7 +9295,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T06:42:14.658Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -9290,7 +9319,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T06:42:14.158Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -9314,7 +9343,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T06:42:13.658Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -9338,7 +9367,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T06:42:13.158Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -9363,7 +9392,7 @@
       "serverName": "Production Web Server",
       "threatType": "restricted_folder_access",
       "timestamp": "2026-10-07T06:42:13.158Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -9387,7 +9416,7 @@
       "serverName": "Production Web Server",
       "threatType": "failed_login_attempts",
       "timestamp": "2026-10-06T17:45:00.108Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u3",
       "username": "carol.williams"
     },
@@ -9411,7 +9440,7 @@
       "serverName": "Production Web Server",
       "threatType": "failed_login_attempts",
       "timestamp": "2026-10-06T17:43:00.940Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u1",
       "username": "alice.johnson"
     },
@@ -9435,7 +9464,7 @@
       "serverName": "Production Web Server",
       "threatType": "failed_login_attempts",
       "timestamp": "2026-10-06T17:37:52.550Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9459,7 +9488,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-06T17:29:27.993Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9484,7 +9513,7 @@
       "serverName": "Production Web Server",
       "threatType": "mass_download",
       "timestamp": "2026-10-06T17:29:27.493Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9508,7 +9537,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-06T17:29:27.493Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9532,7 +9561,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-06T17:29:26.993Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9556,7 +9585,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-06T17:29:26.493Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9580,7 +9609,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-06T17:29:25.993Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9604,7 +9633,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-06T17:29:25.493Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9629,7 +9658,7 @@
       "serverName": "Production Web Server",
       "threatType": "restricted_folder_access",
       "timestamp": "2026-10-06T17:29:25.493Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9654,7 +9683,7 @@
       "serverName": "Production Web Server",
       "threatType": "mass_download",
       "timestamp": "2026-10-01T16:52:41.052Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9679,7 +9708,7 @@
       "serverName": "Production Web Server",
       "threatType": "mass_download",
       "timestamp": "2026-10-01T16:52:20.037Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u2",
       "username": "bob.smith"
     },
@@ -9704,7 +9733,7 @@
       "serverName": "Production Web Server",
       "threatType": "restricted_folder_access",
       "timestamp": "2026-10-01T16:52:13.034Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u3",
       "username": "carol.williams"
     },
@@ -9727,7 +9756,7 @@
       "serverName": "Production Web Server",
       "threatType": "new_device",
       "timestamp": "2026-10-01T16:51:02.939Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -9751,7 +9780,7 @@
       "serverName": "Production Web Server",
       "threatType": "impossible_travel",
       "timestamp": "2026-10-01T16:50:53.691Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u1",
       "username": "alice.johnson"
     },
@@ -9775,7 +9804,7 @@
       "serverName": "Production Web Server",
       "threatType": "impossible_travel",
       "timestamp": "2026-10-01T16:45:12.343Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u1",
       "username": "alice.johnson"
     },
@@ -9798,7 +9827,7 @@
       "serverName": "Production Web Server",
       "threatType": "unknown_ip",
       "timestamp": "2026-10-01T16:45:12.343Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u1",
       "username": "alice.johnson"
     },
@@ -9822,7 +9851,7 @@
       "serverName": "Production Web Server",
       "threatType": "impossible_travel",
       "timestamp": "2026-10-01T16:43:41.195Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u2",
       "username": "bob.smith"
     },
@@ -9847,7 +9876,7 @@
       "serverName": "Production Web Server",
       "threatType": "restricted_folder_access",
       "timestamp": "2026-10-01T16:43:20.161Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u2",
       "username": "bob.smith"
     },
@@ -9872,7 +9901,7 @@
       "serverName": "Production Web Server",
       "threatType": "restricted_folder_access",
       "timestamp": "2026-10-01T16:41:56.044Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9896,7 +9925,7 @@
       "serverName": "Production Web Server",
       "threatType": "impossible_travel",
       "timestamp": "2026-10-01T16:41:11.722Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u1",
       "username": "alice.johnson"
     },
@@ -9919,7 +9948,7 @@
       "serverName": "Production Web Server",
       "threatType": "unknown_ip",
       "timestamp": "2026-10-01T16:41:12.203Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u5",
       "username": "eve.garcia"
     },
@@ -9942,7 +9971,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-01T16:21:12.203Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -9966,7 +9995,7 @@
       "serverName": "Production Web Server",
       "threatType": "restricted_folder_access",
       "timestamp": "2026-10-01T16:21:12.203Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -9989,7 +10018,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-01T16:19:32.203Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u1",
       "username": "alice.johnson"
     },
@@ -10012,7 +10041,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-01T16:17:52.203Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u1",
       "username": "alice.johnson"
     },
@@ -10035,7 +10064,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-01T16:16:12.203Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u1",
       "username": "alice.johnson"
     },
@@ -10058,7 +10087,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-01T16:14:32.203Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u1",
       "username": "alice.johnson"
     },
@@ -10081,7 +10110,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-01T16:12:52.203Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u1",
       "username": "alice.johnson"
     },
@@ -10104,7 +10133,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-01T16:11:12.203Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u1",
       "username": "alice.johnson"
     },
@@ -10128,7 +10157,7 @@
       "serverName": "Production Web Server",
       "threatType": "restricted_folder_access",
       "timestamp": "2026-10-01T16:11:12.203Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u1",
       "username": "alice.johnson"
     },
@@ -10151,7 +10180,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-01T15:41:12.203Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u3",
       "username": "carol.williams"
     },
@@ -10175,7 +10204,7 @@
       "serverName": "Production Web Server",
       "threatType": "restricted_folder_access",
       "timestamp": "2026-10-01T15:41:12.203Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u3",
       "username": "carol.williams"
     },
@@ -10199,7 +10228,7 @@
       "serverName": "Production Web Server",
       "threatType": "impossible_travel",
       "timestamp": "2026-10-01T14:53:12.203Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u2",
       "username": "bob.smith"
     },
@@ -10222,7 +10251,7 @@
       "serverName": "Production Web Server",
       "threatType": "new_device",
       "timestamp": "2026-10-01T14:53:12.203Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u2",
       "username": "bob.smith"
     },
@@ -10245,7 +10274,7 @@
       "serverName": "Production Web Server",
       "threatType": "unknown_ip",
       "timestamp": "2026-10-01T14:53:12.203Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u2",
       "username": "bob.smith"
     },
@@ -10269,7 +10298,7 @@
       "serverName": "Production Web Server",
       "threatType": "impossible_travel",
       "timestamp": "2026-10-01T14:41:12.202Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u1",
       "username": "alice.johnson"
     },
@@ -10292,7 +10321,7 @@
       "serverName": "Production Web Server",
       "threatType": "new_device",
       "timestamp": "2026-10-01T14:41:12.202Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u1",
       "username": "alice.johnson"
     },
@@ -10315,7 +10344,7 @@
       "serverName": "Production Web Server",
       "threatType": "unknown_ip",
       "timestamp": "2026-10-01T14:41:12.202Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u1",
       "username": "alice.johnson"
     },
@@ -10339,7 +10368,7 @@
       "serverName": "Production Web Server",
       "threatType": "failed_login_attempts",
       "timestamp": "2026-10-07T06:59:33.302Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u2",
       "username": "bob.smith"
     },
@@ -10363,7 +10392,7 @@
       "serverName": "Production Web Server",
       "threatType": "failed_login_attempts",
       "timestamp": "2026-10-07T06:59:32.502Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u2",
       "username": "bob.smith"
     },
@@ -10387,7 +10416,7 @@
       "serverName": "Production Web Server",
       "threatType": "failed_login_attempts",
       "timestamp": "2026-10-07T06:59:31.702Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u2",
       "username": "bob.smith"
     },
@@ -10411,7 +10440,7 @@
       "serverName": "Production Web Server",
       "threatType": "failed_login_attempts",
       "timestamp": "2026-10-07T06:59:30.902Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u2",
       "username": "bob.smith"
     },
@@ -10435,7 +10464,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T07:11:48.848Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -10459,7 +10488,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T07:11:48.348Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -10483,7 +10512,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T07:11:47.848Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -10507,7 +10536,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T07:11:47.348Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -10531,7 +10560,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T07:11:46.848Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -10556,7 +10585,7 @@
       "serverName": "Production Web Server",
       "threatType": "mass_download",
       "timestamp": "2026-10-07T07:11:46.348Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -10580,7 +10609,7 @@
       "serverName": "Production Web Server",
       "threatType": "unauthorized_file_access",
       "timestamp": "2026-10-07T07:11:46.348Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     },
@@ -10605,7 +10634,7 @@
       "serverName": "Production Web Server",
       "threatType": "restricted_folder_access",
       "timestamp": "2026-10-07T07:11:46.348Z",
-      "updatedAt": "2026-10-07T14:22:57.710Z",
+      "updatedAt": "2026-10-13T03:15:30.261Z",
       "userId": "u4",
       "username": "dave.chen"
     }
@@ -10632,7 +10661,7 @@
       "status": "open",
       "threatEventId": "41a2d4fa-c710-4731-a35b-6fd775071950",
       "title": "Incident: failed login attempts - eve.garcia",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "f166219b-ddf9-4ea4-a8f4-26bcbf00b9e2",
@@ -10655,7 +10684,7 @@
       "status": "open",
       "threatEventId": "b36340e4-0e99-40ce-b5b9-34d1432f7dee",
       "title": "Incident: failed login attempts - eve.garcia",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "4a7613a4-4251-44b6-879c-f009b93c6bed",
@@ -10678,7 +10707,7 @@
       "status": "open",
       "threatEventId": "6489cd39-5cb2-4bb0-9d1c-ad36632cb14d",
       "title": "Incident: failed login attempts - eve.garcia",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "5c32f8b9-a83a-402e-b2fa-7ba6aed52839",
@@ -10701,7 +10730,7 @@
       "status": "open",
       "threatEventId": "5c0f464b-677c-483a-8510-5ae6af7c1a17",
       "title": "Incident: failed login attempts - eve.garcia",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "61c8b37a-21d0-4069-9a7d-a3ca25bae162",
@@ -10724,7 +10753,7 @@
       "status": "open",
       "threatEventId": "d73bae32-9674-4538-b0fa-c2cd8e622701",
       "title": "Incident: mass download - eve.garcia",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "bbebd68b-9d70-4fc6-afd6-67bda562a080",
@@ -10747,7 +10776,7 @@
       "status": "open",
       "threatEventId": "4456fa7a-fc9f-4de3-973a-2ef2ee82022f",
       "title": "Incident: restricted folder access - eve.garcia",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "c77b1e1e-0a74-4cfd-b883-b0996a9d3fda",
@@ -10770,7 +10799,7 @@
       "status": "open",
       "threatEventId": "24d96c24-863f-4ae4-a6a7-98d993adbe3b",
       "title": "Incident: failed login attempts - bob.smith",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "db8366e5-f90e-43e9-b273-6809aa072292",
@@ -10793,7 +10822,7 @@
       "status": "open",
       "threatEventId": "a7802688-aa93-4942-868a-bcfb8f8befe6",
       "title": "Incident: mass download - dave.chen",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "e41366b7-d50a-4e65-b2b1-71304b32a46c",
@@ -10816,7 +10845,7 @@
       "status": "open",
       "threatEventId": "709ae403-65eb-485e-abc3-c7b260e67fca",
       "title": "Incident: failed login attempts - carol.williams",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "1a59f4ad-7b54-4242-a5bb-eab8a4459768",
@@ -10839,7 +10868,7 @@
       "status": "open",
       "threatEventId": "18c9386b-2fff-4599-8731-b5853d476f82",
       "title": "Incident: failed login attempts - alice.johnson",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "f7fd3f4f-bd9e-494a-815d-cc9335e3fff7",
@@ -10862,7 +10891,7 @@
       "status": "open",
       "threatEventId": "c72168e3-cefa-4b08-b6ee-ac86c29ffb0f",
       "title": "Incident: failed login attempts - eve.garcia",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "a07b201f-f5e2-4e54-9c72-5d234753cb03",
@@ -10885,7 +10914,7 @@
       "status": "open",
       "threatEventId": "728b6e32-c7b2-41ce-9ade-79825733dbf5",
       "title": "Incident: mass download - eve.garcia",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "23b9d397-84b0-4a6f-8c63-027ff8d5b2c2",
@@ -10908,7 +10937,7 @@
       "status": "open",
       "threatEventId": "172506ef-465f-4f3e-807d-b6afc16285b7",
       "title": "Incident: restricted folder access - eve.garcia",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "0973e899-1de4-41c5-9521-669a8b45a599",
@@ -10931,7 +10960,7 @@
       "status": "open",
       "threatEventId": "b8a30142-4f1c-4045-8e99-d267d9c79ef3",
       "title": "Incident: mass download - eve.garcia",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "f63bd68f-d212-479d-ab90-825516bbc0ca",
@@ -10954,7 +10983,7 @@
       "status": "open",
       "threatEventId": "c1f0a5fc-bdbb-4401-ac1f-7f37c8476e1a",
       "title": "Incident: mass download - bob.smith",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "d4b096c7-1c1d-4147-8a88-cdb530c6f104",
@@ -10977,7 +11006,7 @@
       "status": "open",
       "threatEventId": "9b006387-5060-4cef-b93c-94202112a874",
       "title": "Incident: restricted folder access - carol.williams",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "70d05196-1caf-4a86-838c-c985ae84b9bd",
@@ -11000,7 +11029,7 @@
       "status": "open",
       "threatEventId": "e988a479-0820-4f18-b205-5b68326e0690",
       "title": "Incident: impossible travel - alice.johnson",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "cb91cfe0-36cc-4a68-85ac-e0ac2d09b2a8",
@@ -11023,7 +11052,7 @@
       "status": "open",
       "threatEventId": "ad52106e-9791-42b0-b044-e9005518ee6b",
       "title": "Incident: impossible travel - alice.johnson",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "8863990f-07c1-4466-9000-0cc284be2584",
@@ -11046,7 +11075,7 @@
       "status": "open",
       "threatEventId": "28957ec5-3173-4a89-84d1-9a60afb8be18",
       "title": "Incident: impossible travel - bob.smith",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "3d46c020-a7f1-4f3f-af42-65f618bf9fc8",
@@ -11069,7 +11098,7 @@
       "status": "open",
       "threatEventId": "1b731688-1765-4625-b187-7f0ced87562d",
       "title": "Incident: impossible travel - alice.johnson",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "8c197b90-e177-420a-8708-db743b1f8581",
@@ -11092,7 +11121,7 @@
       "status": "open",
       "threatEventId": "536f0838-b2d4-41c5-b58f-b4f0734c0613",
       "title": "Incident: impossible travel - bob.smith",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "6b7b6f56-8b2e-4f63-ae49-8252d5fba998",
@@ -11115,7 +11144,7 @@
       "status": "open",
       "threatEventId": "d46d9a19-e6e6-43f5-b598-687028fd6d9e",
       "title": "Incident: impossible travel - alice.johnson",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "8eea7a2a-5988-4655-9d75-9960bd715843",
@@ -11138,7 +11167,7 @@
       "status": "open",
       "threatEventId": "0fd95968-d40c-46cb-89e1-071d47d2c16f",
       "title": "Incident: failed login attempts - bob.smith",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "26117bb3-0fed-4eb7-acfb-d01b524959b5",
@@ -11161,7 +11190,7 @@
       "status": "open",
       "threatEventId": "ba55d49e-8a32-4949-83af-09d9a93ca974",
       "title": "Incident: failed login attempts - bob.smith",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "473cd660-1f67-4024-892e-c5aaba16283b",
@@ -11184,7 +11213,7 @@
       "status": "open",
       "threatEventId": "85d69e7b-2984-4bdd-bdff-17dfef4d5abf",
       "title": "Incident: failed login attempts - bob.smith",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "42637016-42e0-4c41-8a5a-621a4fa974fb",
@@ -11207,7 +11236,7 @@
       "status": "open",
       "threatEventId": "f47f33a6-5285-46ea-b287-4301d6a406b8",
       "title": "Incident: failed login attempts - bob.smith",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "5b16689b-e7b3-417f-a8bf-3fe62f815727",
@@ -11230,7 +11259,7 @@
       "status": "open",
       "threatEventId": "9a6a9eec-e22d-44e3-bddd-b5f28e09c765",
       "title": "Incident: mass download - dave.chen",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     },
     {
       "id": "56288135-1001-4079-b0d4-c3b05be9c914",
@@ -11253,7 +11282,7 @@
       "status": "open",
       "threatEventId": "da5bfbce-4083-4301-85d7-a0a64ca42f8b",
       "title": "Incident: restricted folder access - dave.chen",
-      "updatedAt": "Wed Oct 07 2026 19:52:57 GMT+0530 (India Standard Time)"
+      "updatedAt": "Tue Oct 13 2026 08:45:30 GMT+0530 (India Standard Time)"
     }
   ],
   "alerts": [
@@ -11265,7 +11294,7 @@
       "riskLevel": "High",
       "threatEventId": "41a2d4fa-c710-4731-a35b-6fd775071950",
       "title": "High Risk: failed login attempts",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "a5336ecf-384b-468b-805b-01a0d3d40aaf",
@@ -11275,7 +11304,7 @@
       "riskLevel": "High",
       "threatEventId": "b36340e4-0e99-40ce-b5b9-34d1432f7dee",
       "title": "High Risk: failed login attempts",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "c2d6f2d7-168f-47ac-a671-1cf3ea466f2a",
@@ -11285,7 +11314,7 @@
       "riskLevel": "High",
       "threatEventId": "6489cd39-5cb2-4bb0-9d1c-ad36632cb14d",
       "title": "High Risk: failed login attempts",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "474668f1-53a3-4adf-946d-6548b720e62d",
@@ -11295,7 +11324,7 @@
       "riskLevel": "High",
       "threatEventId": "5c0f464b-677c-483a-8510-5ae6af7c1a17",
       "title": "High Risk: failed login attempts",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "de345937-eba7-4a4d-8510-24e044b62674",
@@ -11305,7 +11334,7 @@
       "riskLevel": "High",
       "threatEventId": "d73bae32-9674-4538-b0fa-c2cd8e622701",
       "title": "High Risk: mass download",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "c4e1ee94-3272-4011-9b9c-27422843279e",
@@ -11315,7 +11344,7 @@
       "riskLevel": "High",
       "threatEventId": "4456fa7a-fc9f-4de3-973a-2ef2ee82022f",
       "title": "High Risk: restricted folder access",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "e8606cb1-ead1-4618-9836-9086fca7a368",
@@ -11325,7 +11354,7 @@
       "riskLevel": "High",
       "threatEventId": "24d96c24-863f-4ae4-a6a7-98d993adbe3b",
       "title": "High Risk: failed login attempts",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "69a5b58c-a3d6-4f29-9792-aff2b3d281f6",
@@ -11335,7 +11364,7 @@
       "riskLevel": "High",
       "threatEventId": "a7802688-aa93-4942-868a-bcfb8f8befe6",
       "title": "High Risk: mass download",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "764c8f8d-ddf0-47ce-aff3-bae4185f27e0",
@@ -11345,7 +11374,7 @@
       "riskLevel": "High",
       "threatEventId": "709ae403-65eb-485e-abc3-c7b260e67fca",
       "title": "High Risk: failed login attempts",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "fc214d8a-0d70-4d14-b634-511393faeaa2",
@@ -11355,7 +11384,7 @@
       "riskLevel": "High",
       "threatEventId": "18c9386b-2fff-4599-8731-b5853d476f82",
       "title": "High Risk: failed login attempts",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "c1ae94d2-b1ae-420e-98ad-55091bfafe44",
@@ -11365,7 +11394,7 @@
       "riskLevel": "High",
       "threatEventId": "c72168e3-cefa-4b08-b6ee-ac86c29ffb0f",
       "title": "High Risk: failed login attempts",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "c646ffad-e13f-4cc4-b882-ed50a8f0196d",
@@ -11375,7 +11404,7 @@
       "riskLevel": "High",
       "threatEventId": "728b6e32-c7b2-41ce-9ade-79825733dbf5",
       "title": "High Risk: mass download",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "9126d13f-ef9d-416d-a60d-d09e51e66582",
@@ -11385,7 +11414,7 @@
       "riskLevel": "High",
       "threatEventId": "172506ef-465f-4f3e-807d-b6afc16285b7",
       "title": "High Risk: restricted folder access",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "0e3931e6-11d2-49f8-b6e2-f4de25d9d4b9",
@@ -11395,7 +11424,7 @@
       "riskLevel": "High",
       "threatEventId": "b8a30142-4f1c-4045-8e99-d267d9c79ef3",
       "title": "High Risk: mass download",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "c0430a27-6686-4034-8d82-1705189c56ea",
@@ -11405,7 +11434,7 @@
       "riskLevel": "High",
       "threatEventId": "c1f0a5fc-bdbb-4401-ac1f-7f37c8476e1a",
       "title": "High Risk: mass download",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "f046fcfa-bd6e-4a30-be06-014f80b39512",
@@ -11415,7 +11444,7 @@
       "riskLevel": "High",
       "threatEventId": "9b006387-5060-4cef-b93c-94202112a874",
       "title": "High Risk: restricted folder access",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "06773662-3369-4ac8-9a53-fd52d1232c57",
@@ -11425,7 +11454,7 @@
       "riskLevel": "High",
       "threatEventId": "e988a479-0820-4f18-b205-5b68326e0690",
       "title": "High Risk: impossible travel",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "1a4e5ae8-7459-454c-95ca-a2775a77d648",
@@ -11435,7 +11464,7 @@
       "riskLevel": "High",
       "threatEventId": "ad52106e-9791-42b0-b044-e9005518ee6b",
       "title": "High Risk: impossible travel",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "c7d7974b-d3e5-41e8-8972-578c2ec39707",
@@ -11445,7 +11474,7 @@
       "riskLevel": "High",
       "threatEventId": "28957ec5-3173-4a89-84d1-9a60afb8be18",
       "title": "High Risk: impossible travel",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "d75fdd48-bb3e-49b9-87ea-20d9c1a6df61",
@@ -11455,7 +11484,7 @@
       "riskLevel": "High",
       "threatEventId": "1b731688-1765-4625-b187-7f0ced87562d",
       "title": "High Risk: impossible travel",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "cfb6d79b-33dc-4d99-9ab7-615f6163bcb7",
@@ -11465,7 +11494,7 @@
       "riskLevel": "High",
       "threatEventId": "536f0838-b2d4-41c5-b58f-b4f0734c0613",
       "title": "High Risk: impossible travel",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "bd1b945c-1420-4356-8369-2b011fb2e002",
@@ -11475,7 +11504,7 @@
       "riskLevel": "High",
       "threatEventId": "d46d9a19-e6e6-43f5-b598-687028fd6d9e",
       "title": "High Risk: impossible travel",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "15677095-9d62-4e8f-9e43-4e0f77e6d26e",
@@ -11485,7 +11514,7 @@
       "riskLevel": "High",
       "threatEventId": "0fd95968-d40c-46cb-89e1-071d47d2c16f",
       "title": "High Risk: failed login attempts",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "e5415847-d706-4d76-8fed-74b1f0686b90",
@@ -11495,7 +11524,7 @@
       "riskLevel": "High",
       "threatEventId": "ba55d49e-8a32-4949-83af-09d9a93ca974",
       "title": "High Risk: failed login attempts",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "6509a397-e119-4996-97f3-5ba2f809aecc",
@@ -11505,7 +11534,7 @@
       "riskLevel": "High",
       "threatEventId": "85d69e7b-2984-4bdd-bdff-17dfef4d5abf",
       "title": "High Risk: failed login attempts",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "d90e61a1-eb22-470f-859a-5bd9390f9dbe",
@@ -11515,7 +11544,7 @@
       "riskLevel": "High",
       "threatEventId": "f47f33a6-5285-46ea-b287-4301d6a406b8",
       "title": "High Risk: failed login attempts",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "4c75f338-6278-4ad3-8807-511da76c96d7",
@@ -11525,7 +11554,7 @@
       "riskLevel": "High",
       "threatEventId": "9a6a9eec-e22d-44e3-bddd-b5f28e09c765",
       "title": "High Risk: mass download",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     },
     {
       "id": "d434a737-6c31-4869-8ef4-703d085767f4",
@@ -11535,36 +11564,7 @@
       "riskLevel": "High",
       "threatEventId": "da5bfbce-4083-4301-85d7-a0a64ca42f8b",
       "title": "High Risk: restricted folder access",
-      "updatedAt": "2026-10-07T14:22:57.787Z"
-    }
-  ],
-  "users": [
-    {
-      "id": "58f4fce4-43ec-45d7-8e04-d215f42db7ae",
-      "createdAt": "Wed Oct 07 2026 12:18:06 GMT+0530 (India Standard Time)",
-      "email": "admin@theadx.local",
-      "name": "System Administrator",
-      "passwordHash": "$2b$10$q.6IYOtiIs4nx6hoqKSHWOnjy/qKhpQ.VAZTnf4hCgIbp8kpo8JlC",
-      "role": "admin",
-      "updatedAt": "2026-10-07T14:22:57.704Z"
-    },
-    {
-      "id": "38eeb071-510b-48ff-8671-41067a512959",
-      "createdAt": "Wed Oct 07 2026 12:18:06 GMT+0530 (India Standard Time)",
-      "email": "admin@threatx.io",
-      "name": "Security Admin",
-      "passwordHash": "$2b$10$5RCVsQfx9HotDct4J08ni.XlkcxQMD1/3rfOvlbktA0cU6WxzM63u",
-      "role": "admin",
-      "updatedAt": "2026-10-07T14:22:57.704Z"
-    },
-    {
-      "id": "a05b2cf6-5c8b-4ca5-87fe-a83f01e082fe",
-      "createdAt": "Wed Oct 07 2026 12:18:06 GMT+0530 (India Standard Time)",
-      "email": "mdsuhail270907@gmail.com",
-      "name": "md",
-      "passwordHash": "$2b$10$DXN5ARsz7eR1S/4iO/VTneMbtJbJewrjPrjUJRTgIeUNJEbIteJUS",
-      "role": "analyst",
-      "updatedAt": "2026-10-07T14:22:57.704Z"
+      "updatedAt": "2026-10-13T03:15:31.893Z"
     }
   ]
 }

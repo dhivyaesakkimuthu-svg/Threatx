@@ -74,3 +74,7 @@ export const blockUserSchema = z.object({
   username: z.string().min(1, 'Username is required'),
 });
 
+export const simulateThreatSchema = z.object({
+  serverId: z.string().min(1, 'A monitored server must be selected'),
+  scenario: z.enum(['brute_force', 'impossible_travel', 'restricted_access', 'mass_download']),
+});

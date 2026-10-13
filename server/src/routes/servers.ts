@@ -13,6 +13,17 @@ function generateApiKey(): string {
 
 router.get('/', requireAuth, (_req, res) => {
   const db = getDb();
+  const now = Date.now();
+  // Agent heartbeats are the source of truth for live status.  Do not leave a
+  // node marked online after its telemetry has stopped.
+  let statusChanged = false;
+  for (const server of db.servers) {
+    if (server.status === 'online' && now - new Date(server.lastSeen).getTime() > 60_000) {
+      server.status = 'offline';
+      statusChanged = true;
+    }
+  }
+  if (statusChanged) persistDb();
   const servers = db.servers.map(({ apiKey: _, ...rest }) => rest);
   res.json(servers);
 });

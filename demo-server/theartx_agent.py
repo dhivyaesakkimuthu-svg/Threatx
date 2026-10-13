@@ -23,7 +23,7 @@ except ImportError:
     THEARTX_API_KEY = "tx_227c2920cc9599872b69f6fcf5db4e7a877ff217a8476e0b"
 
 LOCAL_TARGET_URL = "http://localhost:5001"
-DEFAULT_THEARTX_URL = "http://localhost:3001"
+DEFAULT_THEARTX_URL = "http://localhost:4000"
 REQUEST_TIMEOUT = 10
 
 
@@ -145,7 +145,7 @@ def send_log_batch(theartx_url: str, api_key: str, events: List[Dict[str, Any]])
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Monitor the local demo server and stream logs to Theartx.")
-    parser.add_argument("--theartx-url", default=DEFAULT_THEARTX_URL, help="Base URL for Theartx backend (default: http://localhost:3001)")
+    parser.add_argument("--theartx-url", default=DEFAULT_THEARTX_URL, help="Base URL for Theartx backend (default: http://localhost:4000)")
     parser.add_argument("--api-key", default=THEARTX_API_KEY, help="API key used for Theartx authentication")
     args = parser.parse_args()
 

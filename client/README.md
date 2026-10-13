@@ -9,7 +9,7 @@ npm install
 npm run dev      # serves on http://localhost:5173
 ```
 
-The Vite dev server proxies `/api/*` to the backend at `http://localhost:3001` (see `vite.config.ts`).
+The Vite dev server proxies `/api/*` to the backend at `http://localhost:4000` (see `vite.config.ts`).
 
 ## Build
 

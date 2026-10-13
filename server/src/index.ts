@@ -15,10 +15,11 @@ import incidentsRouter from './routes/incidents.js';
 import dashboardRouter from './routes/dashboard.js';
 import agentRouter from './routes/agent.js';
 import assistantRouter from './routes/assistant.js';
+import securityRouter from './routes/security.js';
 import { seedDemoData } from './seed.js';
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = Number(process.env.PORT || 4000);
 const httpServer = http.createServer(app);
 
 // Attach Socket.IO to HTTP server
@@ -28,7 +29,7 @@ export { io, getIO };
 app.use(helmet());
 app.use(
   cors({
-    origin: '*',
+    origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
     credentials: true,
   })
 );
@@ -67,6 +68,7 @@ app.use('/api/incidents', incidentsRouter);
 app.use('/api/dashboard', dashboardRouter);
 app.use('/api/agent', agentRouter);
 app.use('/api/assistant', assistantRouter);
+app.use('/api/security', securityRouter);
 
 async function startServer() {
   await connectMongo();

@@ -4,7 +4,7 @@ import { verifyApiKey } from './apiKeyCheck.js';
 import { USERS } from './users.js';
 import { generateEvent, generateAnomalyBurst } from './events.js';
 
-const THEADX_URL = process.env.THEADX_URL ?? 'http://localhost:3001';
+const THEADX_URL = process.env.THEADX_URL ?? 'http://localhost:4000';
 const API_KEY = process.env.DEMO_API_KEY ?? 'tx_demo_key_for_testing_only';
 const INTERVAL = Number(process.env.EVENT_INTERVAL_MS ?? 7000);
 const ANOMALY_RATE = Number(process.env.ANOMALY_RATE ?? 0.15);

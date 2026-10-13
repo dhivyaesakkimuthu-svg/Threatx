@@ -11,19 +11,27 @@ for monitoring server health and generating synthetic security telemetry.
 from __future__ import annotations
 
 import random
+import re
 import threading
 import time
 from collections import deque
 from datetime import datetime, timezone
 import os
-from flask import Flask, jsonify, request, send_file
+from urllib.parse import unquote
+import requests
+from dotenv import load_dotenv
+from flask import Flask, g, jsonify, request, send_file
+from werkzeug.exceptions import HTTPException
 
 from theartx_config import THEARTX_API_KEY
 
+load_dotenv()
 app = Flask(__name__)
 PORTAL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "omnicorp_portal.html")
 
-SERVER_PORT = 5001
+SERVER_PORT = int(os.getenv("PORT", "5001"))
+SECURITY_BACKEND_URL = os.getenv("SECURITY_BACKEND_URL", "http://localhost:4000").rstrip("/")
+SECURITY_INGEST_TOKEN = os.getenv("SECURITY_INGEST_TOKEN", "")
 USERNAMES = ["alice", "bob", "charlie", "diana", "eric", "frank", "grace"]
 SENSITIVE_FILES = [
     "/etc/passwd",
@@ -53,6 +61,44 @@ state: Dict[str, Any] = {
     "logs": deque(maxlen=500),
     "logs_queue": deque(maxlen=500),
 }
+not_found_by_ip: Dict[str, deque] = {}
+
+
+def send_security_event(event_type: str, username: str, details: str, **extra: Any) -> Any:
+    if not SECURITY_INGEST_TOKEN:
+        return None
+    payload = {
+        "sourceIp": extra.pop("sourceIp", None) or request.remote_addr or "unknown",
+        "username": username or "unknown",
+        "eventType": event_type,
+        "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "details": details[:1000],
+        **extra,
+    }
+    try:
+        response = requests.post(
+            f"{SECURITY_BACKEND_URL}/api/security/events",
+            json=payload,
+            headers={"Authorization": f"Bearer {SECURITY_INGEST_TOKEN}"},
+            timeout=1,
+        )
+        if not response.ok:
+            app.logger.warning("Security event delivery rejected (%s): %s", response.status_code, response.text[:500])
+            response.raise_for_status()
+        return response.json()
+    except requests.RequestException as error:
+        app.logger.warning("Security event delivery failed: %s", error)
+    return None
+
+
+def suspicious_request_flags() -> list[str]:
+    raw = unquote(f"{request.path} {request.query_string.decode(errors='ignore')} {request.get_data(cache=True, as_text=True)}").lower()
+    flags = []
+    if re.search(r"(?:'|%27)\s*(?:or|and)\s+\d+\s*=\s*\d+|union\s+select|select.+from|sleep\s*\(", raw):
+        flags.append("injection")
+    if "../" in raw or "..\\" in raw or "%2e%2e" in raw:
+        flags.append("path_traversal")
+    return flags
 
 
 def iso_timestamp() -> str:
@@ -76,10 +122,54 @@ def add_log(event: Dict[str, Any]) -> None:
 
 @app.after_request
 def add_cors_headers(response):
-    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Origin"] = os.getenv("CLIENT_ORIGIN", "http://localhost:5173")
     response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
     response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+    assessment = getattr(g, "security_assessment", None)
+    if assessment and assessment.get("threatLevel"):
+        response.headers["X-Threat-Level"] = assessment["threatLevel"]
+    if response.status_code >= 400:
+        source_ip = request.remote_addr or "unknown"
+        flags = []
+        if response.status_code == 404:
+            attempts = not_found_by_ip.setdefault(source_ip, deque())
+            now = time.time()
+            attempts.append(now)
+            while attempts and now - attempts[0] > 120:
+                attempts.popleft()
+            if len(attempts) >= 5:
+                flags.append("route_scan")
+        g.security_assessment = send_security_event(
+            "http_error",
+            request.args.get("username", "unknown"),
+            f"HTTP {response.status_code} on {request.path}",
+            path=request.path,
+            statusCode=response.status_code,
+            flags=flags,
+        )
     return response
+
+
+@app.before_request
+def inspect_request():
+    flags = suspicious_request_flags()
+    if flags:
+        g.security_assessment = send_security_event(
+            "suspicious_request",
+            request.args.get("username", "unknown"),
+            "Suspicious request pattern: " + ", ".join(flags),
+            path=request.path,
+            flags=flags,
+        )
+
+
+@app.errorhandler(Exception)
+def handle_server_exception(error):
+    if isinstance(error, HTTPException):
+        return error
+    app.logger.exception("Unhandled demo-server exception")
+    send_security_event("server_exception", "unknown", f"Unhandled {type(error).__name__}: {error}", path=request.path)
+    return jsonify({"error": "Internal server error"}), 500
 
 
 def seed_state() -> None:
@@ -289,6 +379,16 @@ def simulate_login() -> Any:
         "status": "success" if success else "failed",
     }
     state["logs_queue"].append(payload)
+    login_flags = []
+    if success and (datetime.now().hour < 6 or datetime.now().hour > 22):
+        login_flags.append("odd_hour")
+    assessment = send_security_event(
+        "login_success" if success else "failed_login",
+        username,
+        payload["details"],
+        sourceIp=payload["ip_address"],
+        flags=login_flags,
+    )
     add_log(
         {
             "timestamp": payload["timestamp"],
@@ -299,7 +399,45 @@ def simulate_login() -> Any:
             "details": payload["details"],
         }
     )
-    return jsonify({"status": "logged", "event": payload})
+    return jsonify({"status": "logged", "event": payload, "assessment": assessment})
+
+
+@app.route("/api/simulate/attack", methods=["POST"])
+def simulate_attack() -> Any:
+    """Send the requested LOW, HIGH, and CRITICAL scenarios through the real ingest path."""
+    if not SECURITY_INGEST_TOKEN:
+        return jsonify({"error": "SECURITY_INGEST_TOKEN is not configured."}), 503
+
+    username = f"attack-test-{int(time.time() * 1000)}"
+    assessments = []
+    source_ip = "198.51.100.14"
+    assessment = send_security_event("failed_login", username, "Single failed password attempt.", sourceIp=source_ip)
+    assessments.append(assessment or {})
+
+    for attempt in range(6):
+        assessment = send_security_event(
+            "failed_login",
+            username,
+            f"Rapid failed password attempt {attempt + 1} of 6.",
+            sourceIp=source_ip,
+        )
+        assessments.append(assessment or {})
+
+    assessment = send_security_event(
+        "suspicious_request",
+        username,
+        "Test SQL injection pattern detected in request.",
+        sourceIp=source_ip,
+        path="/api/search?q=union+select",
+        flags=["injection"],
+    )
+    assessments.append(assessment or {})
+    levels = [
+        assessments[0].get("threatLevel"),
+        assessments[6].get("threatLevel"),
+        assessments[7].get("threatLevel"),
+    ]
+    return jsonify({"success": all(assessments), "levels": levels, "events": assessments})
 
 
 seed_state()

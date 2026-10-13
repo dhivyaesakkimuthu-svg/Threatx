@@ -33,7 +33,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 PORT = int(os.getenv("PORT", "5001"))
-THEADX_URL = os.getenv("THEADX_URL", "http://localhost:3001")
+THEADX_URL = os.getenv("THEADX_URL", "http://localhost:4000")
 DEMO_API_KEY = os.getenv("DEMO_API_KEY", os.getenv("API_KEY", "tx_demo_key_for_testing_only"))
 
 

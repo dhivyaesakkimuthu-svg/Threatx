@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { RefreshCw, MapPin, Monitor, User, Clock, ShieldAlert, ShieldX, Key, Search } from 'lucide-react';
+import { RefreshCw, MapPin, Monitor, User, Clock, ShieldAlert, ShieldX, Key, Search, Play } from 'lucide-react';
 import Header from '../components/layout/Header';
 import GlassCard from '../components/ui/GlassCard';
 import RiskBadge from '../components/ui/RiskBadge';
 import ThreatTypeIcon from '../components/ui/ThreatTypeIcon';
 import LiveBadge from '../components/ui/LiveBadge';
-import { api } from '../api/client';
+import { api, type SecurityAlert } from '../api/client';
 import { getSocket } from '../api/socket';
 import type { ThreatEvent, RiskLevel } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -28,6 +28,56 @@ export default function ThreatMonitor() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [securityEvents, setSecurityEvents] = useState<SecurityAlert[]>([]);
+  const [simulationRunning, setSimulationRunning] = useState(false);
+  const [simulationMessage, setSimulationMessage] = useState('');
+
+  useEffect(() => {
+    let cancelled = false;
+    api.getSecurityEvents().then((data) => {
+      if (!cancelled) setSecurityEvents(data);
+    }).catch((err) => console.warn('[ThreatMonitor] security events unavailable:', err));
+
+    const socket = getSocket();
+    const handleSecurityAlert = (alert: SecurityAlert) => {
+      if (!cancelled) setSecurityEvents((current) => [alert, ...current.filter((item) => item.id !== alert.id)].slice(0, 200));
+    };
+    socket.on('security:alert', handleSecurityAlert);
+    return () => {
+      cancelled = true;
+      socket.off('security:alert', handleSecurityAlert);
+    };
+  }, []);
+
+  const runAttackSimulation = async () => {
+    setSimulationRunning(true);
+    setSimulationMessage('Sending scenarios to the target server...');
+    try {
+      const target = import.meta.env.VITE_DEMO_URL || 'http://localhost:3000';
+      const response = await fetch(`${target}/api/simulate/attack`, { method: 'POST' });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || `HTTP ${response.status}`);
+      setSimulationMessage(`Simulation sent: ${result.levels.join(' / ')}. Events should appear live below.`);
+    } catch (err) {
+      setSimulationMessage(err instanceof Error ? err.message : 'Simulation failed');
+    } finally {
+      setSimulationRunning(false);
+    }
+  };
+
+  const failedLoginCount = securityEvents.filter((event) => event.eventType === 'failed_login').length;
+  const activeAlertCount = securityEvents.filter((event) => event.threatLevel !== 'LOW').length;
+  const threatOrder: SecurityAlert['threatLevel'][] = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
+  const currentThreatLevel = securityEvents.reduce<SecurityAlert['threatLevel']>(
+    (highest, event) => threatOrder.indexOf(event.threatLevel) > threatOrder.indexOf(highest) ? event.threatLevel : highest,
+    'LOW'
+  );
+  const levelClasses: Record<SecurityAlert['threatLevel'], string> = {
+    LOW: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300',
+    MEDIUM: 'border-yellow-500/30 bg-yellow-500/10 text-yellow-300',
+    HIGH: 'border-orange-500/30 bg-orange-500/10 text-orange-300',
+    CRITICAL: 'border-red-500/30 bg-red-500/10 text-red-300',
+  };
 
   const fetchEvents = async () => {
     setLoading(true);
@@ -150,6 +200,51 @@ export default function ThreatMonitor() {
   return (
     <div className="space-y-6">
       <Header title="Real-time Threat Monitor" subtitle="Live security events stream processed by threat engine" />
+
+      <GlassCard className="border border-blue-500/10">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <p className="text-[11px] uppercase text-slate-400">Current Threat Level</p>
+            <span className={`mt-2 inline-flex rounded-md border px-3 py-1 text-sm font-bold ${levelClasses[currentThreatLevel]}`}>{currentThreatLevel}</span>
+          </div>
+          <div className="flex flex-wrap gap-6 text-sm">
+            <span><strong className="text-white">{securityEvents.length}</strong> <span className="text-slate-400">total events</span></span>
+            <span><strong className="text-white">{failedLoginCount}</strong> <span className="text-slate-400">failed logins</span></span>
+            <span><strong className="text-white">{activeAlertCount}</strong> <span className="text-slate-400">active alerts</span></span>
+          </div>
+          <div>
+            <button onClick={runAttackSimulation} disabled={simulationRunning} className="inline-flex items-center gap-2 rounded-md bg-cyan-600 px-3 py-2 text-xs font-bold text-white hover:bg-cyan-500 disabled:opacity-50">
+              <Play size={14} /> {simulationRunning ? 'Simulating...' : 'Simulate Attack'}
+            </button>
+            {simulationMessage && <p className="mt-1 max-w-sm text-xs text-slate-400">{simulationMessage}</p>}
+          </div>
+        </div>
+      </GlassCard>
+
+      <section className="space-y-2" aria-label="Live security alerts">
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm font-bold text-slate-100">Live Security Alerts</h2>
+          <LiveBadge active={true} label="LIVE" />
+        </div>
+        {securityEvents.length === 0 ? (
+          <GlassCard className="py-6 text-center text-sm text-slate-400">Waiting for security events from the demo server.</GlassCard>
+        ) : securityEvents.slice(0, 100).map((event) => (
+          <GlassCard key={event.id} className="border border-blue-500/10 py-3">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center gap-3 text-xs">
+                <time className="text-slate-400">{new Date(event.timestamp).toLocaleTimeString()}</time>
+                <span className="font-mono text-slate-200">{event.sourceIp}</span>
+                <span className="text-slate-300">{event.username}</span>
+                <span className="text-slate-400">{event.eventType.replaceAll('_', ' ')}</span>
+                {event.path && <span className="font-mono text-slate-500">{event.path}</span>}
+              </div>
+              <span className={`rounded-md border px-2 py-1 text-[10px] font-bold ${levelClasses[event.threatLevel]}`}>{event.threatLevel}</span>
+            </div>
+            <p className="mt-2 text-xs text-slate-300">{event.explanation}</p>
+            <p className="mt-1 text-xs text-slate-500">Recommended: {event.recommendedAction}{event.aiAssessed ? ' · AI assessed' : ' · Rule based'}</p>
+          </GlassCard>
+        ))}
+      </section>
 
       {/* Live high risk event ticker */}
       {highRiskTickerEvents.length > 0 && (
